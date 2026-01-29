@@ -1,0 +1,11 @@
+date,heure,titre,theatre_nom,theatre_adresse,url,genre,style
+2026-02-15,20:00,Le Malade Imaginaire,Théâtre Royal du Parc,"Rue de la Loi 3, 1000 Bruxelles",https://theatreduparc.be,comedie,classique
+2026-02-15,20:30,Hamlet,Théâtre National Wallonie-Bruxelles,"Boulevard E. Jacqmain 111-115, 1000 Bruxelles",https://theatrenational.be,drame,classique
+2026-02-15,,Une pièce à confirmer,Théâtre de Poche,"Chemin du Gymnase 1a, 1000 Bruxelles",,comedie,contemporain
+2026-02-15,19:00,Les Misérables,Théâtre Royal du Parc,"Rue de la Loi 3, 1000 Bruxelles",https://theatreduparc.be/miserables,drame,classique
+2026-02-15,21:00,Comédie Moderne,Théâtre de la Toison d'Or,"Galerie de la Toison d'Or 396, 1050 Ixelles",https://ttotheatre.be,comedie,contemporain
+2026-02-16,20:00,Le Bourgeois Gentilhomme,Théâtre Royal du Parc,"Rue de la Loi 3, 1000 Bruxelles",https://theatreduparc.be,comedie,classique
+2026-02-16,20:30,En attendant Godot,Théâtre des Martyrs,"Place des Martyrs 22, 1000 Bruxelles",https://theatre-martyrs.be,drame,contemporain
+2026-02-17,19:30,Cyrano de Bergerac,Théâtre Le Public,"Rue Braemt 64-70, 1210 Saint-Josse",https://theatrelepublic.be,drame,classique
+2026-02-17,20:00,Un chapeau de paille d'Italie,Théâtre Royal des Galeries,"Galerie du Roi 32, 1000 Bruxelles",https://trg.be,comedie,classique
+2026-02-17,20:30,Pièce contemporaine inédite,KVS - Koninklijke Vlaamse Schouwburg,"Quai aux Pierres de Taille 7, 1000 Bruxelles",https://kvs.be,autre,contemporain
