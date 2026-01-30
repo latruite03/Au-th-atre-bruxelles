@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
         hostname: 'emasbg4opze.exactdn.com',
         pathname: '/wp-content/uploads/**',
       },
+      // Espace Magh (WordPress)
+      {
+        protocol: 'https',
+        hostname: 'www.espacemagh.be',
+        pathname: '/wp-content/uploads/**',
+      },
     ],
   },
 };
