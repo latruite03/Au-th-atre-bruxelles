@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Théâtre Bruxelles - Spectacles ce soir",
+  title: "Au théâtre ce soir - Bruxelles",
   description: "Trouvez toutes les représentations théâtrales à Bruxelles",
 };
 

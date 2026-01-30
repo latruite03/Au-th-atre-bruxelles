@@ -6,7 +6,7 @@ export default function HomePage() {
       <header className="border-b border-black">
         <div className="max-w-4xl mx-auto px-4 py-8 text-center">
           <h1 className="text-5xl font-normal tracking-tight text-black" style={{ fontFamily: 'var(--font-heading)' }}>
-            Théâtre Bruxelles
+            Au théâtre ce soir
           </h1>
           <p className="mt-2 text-sm text-gray-600 tracking-wide uppercase">
             Région Bruxelles-Capitale
