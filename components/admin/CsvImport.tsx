@@ -10,6 +10,9 @@ interface ParsedData {
   errors: string[]
 }
 
+// URL de base pour les images dans Supabase Storage
+const SUPABASE_STORAGE_URL = 'https://orcuuknomvpzduiyrfpw.supabase.co/storage/v1/object/public/images/'
+
 function normalizeGenre(value: string | undefined | null): CsvRow['genre'] {
   if (!value) return null
   const v = value.toLowerCase().trim()
@@ -90,6 +93,11 @@ export function CsvImport() {
             )
           }
 
+          // Construire l'URL de l'image si image_filename est fourni
+          const imageUrl = r.image_filename
+            ? SUPABASE_STORAGE_URL + r.image_filename.trim()
+            : null
+
           validRows.push({
             date: r.date,
             heure: r.heure || null,
@@ -100,7 +108,7 @@ export function CsvImport() {
             genre: normalizedGenre,
             style: normalizedStyle,
             description: r.description || null,
-            image_url: null,
+            image_url: imageUrl,
           })
         })
 
@@ -155,8 +163,8 @@ export function CsvImport() {
           className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100"
         />
         <p className="mt-1 text-xs text-gray-500">
-          Colonnes attendues: date, heure, titre, theatre_nom, theatre_adresse,
-          url, genre, style, description
+          Colonnes: date, heure, titre, theatre_nom, theatre_adresse,
+          url, genre, style, description, image_filename
         </p>
       </div>
 
