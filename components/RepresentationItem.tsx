@@ -15,12 +15,13 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-4 min-w-0 flex-1">
           {representation.image_url && (
-            <div className="relative w-20 h-28 flex-shrink-0 border border-gray-200 bg-gray-50 overflow-hidden">
+            <div className="relative w-40 h-28 flex-shrink-0 border border-gray-200 bg-gray-50 overflow-hidden">
               <Image
                 src={representation.image_url}
                 alt={representation.titre}
                 fill
-                sizes="80px"
+                sizes="160px"
+                quality={90}
                 className="object-cover"
               />
             </div>
