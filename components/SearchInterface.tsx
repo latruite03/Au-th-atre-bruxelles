@@ -38,35 +38,31 @@ export function SearchInterface() {
   }, [fetchData])
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Choisissez une date
-            </label>
-            <DatePicker
-              selectedDate={selectedDate}
-              onDateChange={setSelectedDate}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Filtrer par
-            </label>
-            <FiltersComponent filters={filters} onFiltersChange={setFilters} />
-          </div>
-        </div>
+    <div className="space-y-8">
+      {/* Section Date - Grande et centrée */}
+      <div className="text-center">
+        <h2 className="text-2xl font-medium text-black mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
+          Choisissez une date
+        </h2>
+        <DatePicker
+          selectedDate={selectedDate}
+          onDateChange={setSelectedDate}
+        />
+      </div>
+
+      {/* Filtres - Plus petits, en dessous */}
+      <div className="border-t border-gray-200 pt-6">
+        <FiltersComponent filters={filters} onFiltersChange={setFilters} />
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+        <div className="border border-black p-4 text-black text-sm">
           {error}
         </div>
       )}
 
-      <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="border-t border-gray-200 pt-8">
+        <h2 className="text-xl font-medium text-black mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
           Spectacles du {formatDate(toDateString(selectedDate))}
         </h2>
         <RepresentationList theatres={results} loading={loading} />
