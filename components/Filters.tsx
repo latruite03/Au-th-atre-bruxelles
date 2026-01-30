@@ -9,12 +9,9 @@ interface FiltersProps {
 
 export function FiltersComponent({ filters, onFiltersChange }: FiltersProps) {
   return (
-    <div className="flex flex-wrap gap-4">
-      <div className="flex-1 min-w-[150px]">
-        <label
-          htmlFor="genre"
-          className="block text-sm font-medium text-gray-700 mb-1"
-        >
+    <div className="flex flex-wrap justify-center gap-6">
+      <div className="flex items-center gap-2">
+        <label htmlFor="genre" className="text-xs text-gray-500 uppercase tracking-wider">
           Genre
         </label>
         <select
@@ -26,20 +23,17 @@ export function FiltersComponent({ filters, onFiltersChange }: FiltersProps) {
               genre: e.target.value || null,
             })
           }
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+          className="px-3 py-1.5 text-sm bg-white border border-gray-300 focus:outline-none focus:border-black"
         >
-          <option value="">Tous les genres</option>
+          <option value="">Tous</option>
           <option value="comedie">Comédie</option>
           <option value="drame">Drame</option>
           <option value="autre">Autre</option>
         </select>
       </div>
 
-      <div className="flex-1 min-w-[150px]">
-        <label
-          htmlFor="style"
-          className="block text-sm font-medium text-gray-700 mb-1"
-        >
+      <div className="flex items-center gap-2">
+        <label htmlFor="style" className="text-xs text-gray-500 uppercase tracking-wider">
           Style
         </label>
         <select
@@ -51,9 +45,9 @@ export function FiltersComponent({ filters, onFiltersChange }: FiltersProps) {
               style: e.target.value || null,
             })
           }
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+          className="px-3 py-1.5 text-sm bg-white border border-gray-300 focus:outline-none focus:border-black"
         >
-          <option value="">Tous les styles</option>
+          <option value="">Tous</option>
           <option value="classique">Classique</option>
           <option value="contemporain">Contemporain</option>
         </select>

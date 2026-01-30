@@ -20,14 +20,15 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4 flex flex-col items-center">
       <input
         type="date"
         value={dateString}
         onChange={handleChange}
-        className="w-full px-4 py-3 text-lg bg-white border border-gray-300 rounded-lg shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        className="px-6 py-4 text-xl bg-white border-2 border-black focus:outline-none focus:border-gray-600 text-center"
+        style={{ fontFamily: 'var(--font-heading)' }}
       />
-      <p className="text-sm text-gray-600">
+      <p className="text-lg text-black tracking-wide" style={{ fontFamily: 'var(--font-heading)' }}>
         {format(selectedDate, 'EEEE d MMMM yyyy', { locale: fr })}
       </p>
     </div>
