@@ -44,6 +44,12 @@ const nextConfig: NextConfig = {
         hostname: 'culture.ixelles.be',
         pathname: '/wp-content/uploads/**',
       },
+      // CreaNova (Jimdo CDN)
+      {
+        protocol: 'https',
+        hostname: 'image.jimcdn.com',
+        pathname: '/**',
+      },
     ],
   },
 };
