@@ -32,6 +32,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.espacemagh.be',
         pathname: '/wp-content/uploads/**',
       },
+      // Les Riches-Claires (WordPress)
+      {
+        protocol: 'https',
+        hostname: 'lesrichesclaires.be',
+        pathname: '/wp-content/uploads/**',
+      },
     ],
   },
 };
