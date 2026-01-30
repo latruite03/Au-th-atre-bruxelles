@@ -10,6 +10,33 @@ interface ParsedData {
   errors: string[]
 }
 
+function normalizeGenre(value: string | undefined | null): CsvRow['genre'] {
+  if (!value) return null
+  const v = value.toLowerCase().trim()
+
+  // Accept already-normalized values
+  if (v === 'comedie' || v === 'drame' || v === 'autre') return v
+
+  // Common variants
+  if (v.includes('com')) return 'comedie' // comédie, comedy
+  if (v.includes('dram') || v.includes('trag')) return 'drame'
+  if (v.includes('jeune public') || v.includes('experimental') || v.includes('expérimental') || v.includes('inclassable')) return 'autre'
+
+  return null
+}
+
+function normalizeStyle(value: string | undefined | null): CsvRow['style'] {
+  if (!value) return null
+  const v = value.toLowerCase().trim()
+
+  if (v === 'classique' || v === 'contemporain') return v
+
+  if (v.includes('class')) return 'classique'
+  if (v.includes('contemp') || v.includes('moderne') || v.includes('creation') || v.includes('création')) return 'contemporain'
+
+  return null
+}
+
 export function CsvImport() {
   const [parsedData, setParsedData] = useState<ParsedData | null>(null)
   const [importing, setImporting] = useState(false)
@@ -49,6 +76,20 @@ export function CsvImport() {
             return
           }
 
+          const normalizedGenre = normalizeGenre(r.genre)
+          const normalizedStyle = normalizeStyle(r.style)
+
+          if (r.genre && !normalizedGenre) {
+            errors.push(
+              `Ligne ${index + 2}: genre invalide "${r.genre}" → laissé vide`
+            )
+          }
+          if (r.style && !normalizedStyle) {
+            errors.push(
+              `Ligne ${index + 2}: style invalide "${r.style}" → laissé vide`
+            )
+          }
+
           validRows.push({
             date: r.date,
             heure: r.heure || null,
@@ -56,8 +97,8 @@ export function CsvImport() {
             theatre_nom: r.theatre_nom,
             theatre_adresse: r.theatre_adresse || null,
             url: r.url || null,
-            genre: (r.genre as CsvRow['genre']) || null,
-            style: (r.style as CsvRow['style']) || null,
+            genre: normalizedGenre,
+            style: normalizedStyle,
             description: r.description || null,
             image_url: null,
           })
