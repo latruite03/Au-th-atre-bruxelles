@@ -58,6 +58,8 @@ export function CsvImport() {
             url: r.url || null,
             genre: (r.genre as CsvRow['genre']) || null,
             style: (r.style as CsvRow['style']) || null,
+            description: r.description || null,
+            image_url: null,
           })
         })
 
@@ -113,7 +115,7 @@ export function CsvImport() {
         />
         <p className="mt-1 text-xs text-gray-500">
           Colonnes attendues: date, heure, titre, theatre_nom, theatre_adresse,
-          url, genre, style
+          url, genre, style, description
         </p>
       </div>
 

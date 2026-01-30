@@ -14,6 +14,9 @@ export function ManualForm() {
     url: null,
     genre: null,
     style: null,
+    description: null,
+    // Optional in the type but not used yet in the UI
+    image_url: null,
   })
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<{
@@ -40,6 +43,8 @@ export function ManualForm() {
           url: null,
           genre: null,
           style: null,
+          description: null,
+          image_url: null,
         })
       } else {
         setMessage({ type: 'error', text: result.error || 'Erreur inconnue' })
@@ -171,6 +176,33 @@ export function ManualForm() {
           placeholder="https://..."
           className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
         />
+      </div>
+
+      <div>
+        <label
+          htmlFor="description"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          Description (mini-pitch)
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          value={formData.description || ''}
+          onChange={(e) =>
+            setFormData((prev) => ({
+              ...prev,
+              description: e.target.value === '' ? null : e.target.value,
+            }))
+          }
+          maxLength={300}
+          rows={4}
+          placeholder="2–3 phrases (max 300 caractères)"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+        />
+        <p className="mt-1 text-xs text-gray-500">
+          Max 300 caractères. Laisse vide si tu ne sais pas.
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">

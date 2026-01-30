@@ -15,6 +15,7 @@ CREATE TABLE representations (
   url TEXT,
   genre TEXT CHECK (genre IN ('comedie', 'drame', 'autre')),
   style TEXT CHECK (style IN ('classique', 'contemporain')),
+  description TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
