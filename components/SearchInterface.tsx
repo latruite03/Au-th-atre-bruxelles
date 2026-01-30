@@ -41,9 +41,6 @@ export function SearchInterface() {
     <div className="space-y-8">
       {/* Section Date - Grande et centrée */}
       <div className="text-center">
-        <h2 className="text-2xl font-medium text-black mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
-          Choisissez une date
-        </h2>
         <DatePicker
           selectedDate={selectedDate}
           onDateChange={setSelectedDate}

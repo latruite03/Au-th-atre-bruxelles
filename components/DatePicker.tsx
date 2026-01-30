@@ -21,13 +21,22 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
 
   return (
     <div className="space-y-4 flex flex-col items-center">
-      <input
-        type="date"
-        value={dateString}
-        onChange={handleChange}
-        className="px-6 py-4 text-xl bg-white border-2 border-black focus:outline-none focus:border-gray-600 text-center"
-        style={{ fontFamily: 'var(--font-heading)' }}
-      />
+      <div className="flex items-center gap-4">
+        <span
+          className="text-2xl font-medium text-black"
+          style={{ fontFamily: 'var(--font-heading)' }}
+        >
+          Choisissez une date
+        </span>
+        <input
+          type="date"
+          value={dateString}
+          onChange={handleChange}
+          className="px-6 py-4 text-xl bg-white border-2 border-black focus:outline-none focus:border-gray-600 text-center"
+          style={{ fontFamily: 'var(--font-heading)' }}
+        />
+      </div>
+
       <p className="text-lg text-black tracking-wide" style={{ fontFamily: 'var(--font-heading)' }}>
         {format(selectedDate, 'EEEE d MMMM yyyy', { locale: fr })}
       </p>
