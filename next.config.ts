@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
         hostname: 'theatreduparc.be',
         pathname: '/app/uploads/**',
       },
+      // Balsamine (WordPress CDN)
+      {
+        protocol: 'https',
+        hostname: 'emasbg4opze.exactdn.com',
+        pathname: '/wp-content/uploads/**',
+      },
     ],
   },
 };
