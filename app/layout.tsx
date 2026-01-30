@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Théâtre Bruxelles - Spectacles ce soir",
-  description: "Trouvez toutes les représentations théâtrales à Bruxelles",
+  title: "Au théâtre ce soir",
+  description: "Calendrier des représentations — Région Bruxelles-Capitale",
 };
 
 export default function RootLayout({
