@@ -10,6 +10,12 @@ export interface Representation {
   style: 'classique' | 'contemporain' | null
   image_url: string | null
   description: string | null // mini-pitch de 3-4 lignes
+
+  // Pipeline fields (optional, may be null depending on ingestion path)
+  source?: string | null
+  source_url?: string | null
+  fingerprint?: string | null
+
   created_at?: string
 }
 

@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { CsvImport } from '@/components/admin/CsvImport'
 import { ManualForm } from '@/components/admin/ManualForm'
+import { TodoImages } from '@/components/admin/TodoImages'
+import { TodoDescriptions } from '@/components/admin/TodoDescriptions'
 
 export default function AdminPage() {
   const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'import' | 'manual'>('import')
+  const [activeTab, setActiveTab] = useState<'import' | 'manual' | 'todo'>('import')
   const router = useRouter()
 
   useEffect(() => {
@@ -89,11 +91,30 @@ export default function AdminPage() {
               >
                 Saisie manuelle
               </button>
+              <button
+                onClick={() => setActiveTab('todo')}
+                className={`px-6 py-3 text-sm font-medium border-b-2 -mb-px ${
+                  activeTab === 'todo'
+                    ? 'border-amber-600 text-amber-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                À compléter
+              </button>
             </nav>
           </div>
 
           <div className="p-6">
-            {activeTab === 'import' ? <CsvImport /> : <ManualForm />}
+            {activeTab === 'import' && <CsvImport />}
+            {activeTab === 'manual' && <ManualForm />}
+            {activeTab === 'todo' && (
+              <div className="space-y-8">
+                <TodoImages />
+                <div className="border-t border-gray-200 pt-6">
+                  <TodoDescriptions />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
