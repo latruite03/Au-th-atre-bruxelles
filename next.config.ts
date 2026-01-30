@@ -38,6 +38,12 @@ const nextConfig: NextConfig = {
         hostname: 'lesrichesclaires.be',
         pathname: '/wp-content/uploads/**',
       },
+      // Ixelles / Mercelis (WordPress)
+      {
+        protocol: 'https',
+        hostname: 'culture.ixelles.be',
+        pathname: '/wp-content/uploads/**',
+      },
     ],
   },
 };
