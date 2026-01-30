@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { Representation } from '@/lib/types'
 import { formatHeure, getGenreLabel, getStyleLabel } from '@/lib/utils'
 
@@ -12,7 +13,20 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
   return (
     <div className="py-4 border-b border-gray-200 last:border-0">
       <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0">
+        <div className="flex items-start gap-4 min-w-0 flex-1">
+          {representation.image_url && (
+            <div className="relative w-20 h-28 flex-shrink-0 border border-gray-200 bg-gray-50 overflow-hidden">
+              <Image
+                src={representation.image_url}
+                alt={representation.titre}
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
+            </div>
+          )}
+
+          <div className="min-w-0 flex-1">
           <h4 className="text-base font-medium text-black leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
             {representation.titre}
           </h4>
@@ -41,6 +55,8 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
               </span>
             )}
           </div>
+        </div>
+
         </div>
 
         {representation.url && (
