@@ -97,6 +97,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.toone.be',
         pathname: '/images/spectacles/**',
       },
+      // Théâtre de Poche
+      {
+        protocol: 'https',
+        hostname: 'poche.be',
+        pathname: '/img/posters/**',
+      },
     ],
   },
 };
