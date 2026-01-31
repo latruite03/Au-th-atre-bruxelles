@@ -62,6 +62,17 @@ const nextConfig: NextConfig = {
         hostname: 'www.theatrenational.be',
         pathname: '/fr/image/**',
       },
+      // Zinnema (Duda CDN)
+      {
+        protocol: 'https',
+        hostname: 'irp.cdn-website.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lirp.cdn-website.com',
+        pathname: '/**',
+      },
     ],
   },
 };
