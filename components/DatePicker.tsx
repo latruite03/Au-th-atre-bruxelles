@@ -31,6 +31,7 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
         <input
           type="date"
           value={dateString}
+          min={format(new Date(), 'yyyy-MM-dd')}
           onChange={handleChange}
           className="px-6 py-4 text-xl bg-white border-2 border-black focus:outline-none focus:border-gray-600 text-center"
           style={{ fontFamily: 'var(--font-heading)' }}
