@@ -37,9 +37,7 @@ export function DatePicker({ selectedDate, onDateChange }: DatePickerProps) {
         />
       </div>
 
-      <p className="text-lg text-black tracking-wide" style={{ fontFamily: 'var(--font-heading)' }}>
-        {format(selectedDate, 'EEEE d MMMM yyyy', { locale: fr })}
-      </p>
+      {/* removed duplicate long date label (already shown in section title below) */}
     </div>
   )
 }
