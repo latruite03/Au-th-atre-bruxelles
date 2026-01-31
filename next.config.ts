@@ -85,6 +85,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.trg.be',
         pathname: '/web/image/**',
       },
+      // Théâtre des Martyrs (WordPress)
+      {
+        protocol: 'https',
+        hostname: 'theatre-martyrs.be',
+        pathname: '/wp-content/uploads/**',
+      },
     ],
   },
 };
