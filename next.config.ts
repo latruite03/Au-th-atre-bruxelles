@@ -79,6 +79,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.kvs.be',
         pathname: '/media/cache/**',
       },
+      // Théâtre Royal des Galeries (Odoo)
+      {
+        protocol: 'https',
+        hostname: 'www.trg.be',
+        pathname: '/web/image/**',
+      },
     ],
   },
 };
