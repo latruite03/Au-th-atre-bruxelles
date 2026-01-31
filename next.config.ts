@@ -56,6 +56,12 @@ const nextConfig: NextConfig = {
         hostname: 'auditoriumjbrel.ceria.brussels',
         pathname: '/sites/default/files/**',
       },
+      // Théâtre National
+      {
+        protocol: 'https',
+        hostname: 'www.theatrenational.be',
+        pathname: '/fr/image/**',
+      },
     ],
   },
 };
