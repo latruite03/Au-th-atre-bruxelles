@@ -29,6 +29,18 @@ export function getGenreLabel(genre: string | null): string {
   }
 }
 
+export function isJeunePublic(title?: string | null, description?: string | null): boolean {
+  const blob = `${title || ''} ${description || ''}`.toLocaleLowerCase('fr-BE')
+  return (
+    blob.includes('jeune public') ||
+    blob.includes('familial') ||
+    blob.includes('enfant') ||
+    blob.includes('enfants') ||
+    blob.includes('à partir de') ||
+    blob.includes('a partir de')
+  )
+}
+
 export function getStyleLabel(style: string | null): string {
   switch (style) {
     case 'classique':
