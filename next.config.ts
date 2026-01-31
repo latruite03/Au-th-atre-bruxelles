@@ -50,6 +50,12 @@ const nextConfig: NextConfig = {
         hostname: 'image.jimcdn.com',
         pathname: '/**',
       },
+      // Auditorium Jacques Brel (CERIA)
+      {
+        protocol: 'https',
+        hostname: 'auditoriumjbrel.ceria.brussels',
+        pathname: '/sites/default/files/**',
+      },
     ],
   },
 };
