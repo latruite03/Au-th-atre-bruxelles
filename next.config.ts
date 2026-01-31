@@ -103,6 +103,12 @@ const nextConfig: NextConfig = {
         hostname: 'poche.be',
         pathname: '/img/posters/**',
       },
+      // Les Tanneurs
+      {
+        protocol: 'https',
+        hostname: 'lestanneurs.be',
+        pathname: '/wp-content/uploads/**',
+      },
     ],
   },
 };
