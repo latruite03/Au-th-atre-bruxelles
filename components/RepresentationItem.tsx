@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import type { Representation } from '@/lib/types'
-import { formatHeure, getGenreLabel, getStyleLabel } from '@/lib/utils'
+import { formatHeure, getGenreLabel, getStyleLabel, normalizeTitle } from '@/lib/utils'
 
 interface RepresentationItemProps {
   representation: Representation
@@ -18,7 +18,7 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
             <div className="relative w-40 h-28 flex-shrink-0 border border-gray-200 bg-gray-50 overflow-hidden">
               <Image
                 src={representation.image_url}
-                alt={representation.titre}
+                alt={normalizeTitle(representation.titre)}
                 fill
                 sizes="160px"
                 quality={90}
@@ -29,7 +29,7 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
 
           <div className="min-w-0 flex-1">
           <h4 className="text-base font-medium text-black leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
-            {representation.titre}
+            {normalizeTitle(representation.titre)}
           </h4>
           <p className={`text-sm mt-1 ${representation.heure ? 'text-black' : 'text-gray-400 italic'}`}>
             {formatHeure(representation.heure)}
