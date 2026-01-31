@@ -73,6 +73,12 @@ const nextConfig: NextConfig = {
         hostname: 'lirp.cdn-website.com',
         pathname: '/**',
       },
+      // KVS
+      {
+        protocol: 'https',
+        hostname: 'www.kvs.be',
+        pathname: '/media/cache/**',
+      },
     ],
   },
 };
