@@ -66,7 +66,7 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
 
         </div>
 
-        {representation.url && (
+        {representation.url && !representation.is_complet && (
           <a
             href={representation.url}
             target="_blank"
@@ -75,6 +75,12 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
           >
             Réserver
           </a>
+        )}
+
+        {representation.is_complet && (
+          <span className="flex-shrink-0 px-4 py-2 text-sm text-white bg-red-600">
+            Complet
+          </span>
         )}
       </div>
     </div>

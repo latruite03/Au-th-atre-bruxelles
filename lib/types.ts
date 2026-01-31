@@ -8,6 +8,7 @@ export interface Representation {
   url: string | null
   genre: 'comedie' | 'drame' | 'autre' | null
   style: 'classique' | 'contemporain' | null
+  is_complet?: boolean | null
   image_url: string | null
   description: string | null // mini-pitch de 3-4 lignes
 
