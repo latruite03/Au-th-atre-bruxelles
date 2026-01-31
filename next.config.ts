@@ -91,6 +91,12 @@ const nextConfig: NextConfig = {
         hostname: 'theatre-martyrs.be',
         pathname: '/wp-content/uploads/**',
       },
+      // Toone
+      {
+        protocol: 'https',
+        hostname: 'www.toone.be',
+        pathname: '/images/spectacles/**',
+      },
     ],
   },
 };
