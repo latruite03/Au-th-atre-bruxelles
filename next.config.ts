@@ -148,6 +148,18 @@ const nextConfig: NextConfig = {
         hostname: 'atelier210.be',
         pathname: '/site/assets/files/**',
       },
+      // Le Rideau
+      {
+        protocol: 'https',
+        hostname: 'lerideau.brussels',
+        pathname: '/img/asset/**',
+      },
+      // Théâtre Varia
+      {
+        protocol: 'https',
+        hostname: 'varia.be',
+        pathname: '/sites/default/files/**',
+      },
     ],
   },
 };
