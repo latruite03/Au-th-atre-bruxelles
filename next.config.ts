@@ -121,6 +121,33 @@ const nextConfig: NextConfig = {
         hostname: 'media.out.be',
         pathname: '/media/**',
       },
+      // BRONKS
+      {
+        protocol: 'https',
+        hostname: 'www.bronks.be',
+        pathname: '/media/cache/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.bronks.be',
+        pathname: '/media/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'bronks.be',
+        pathname: '/media/cache/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'bronks.be',
+        pathname: '/media/**',
+      },
+      // Atelier 210
+      {
+        protocol: 'https',
+        hostname: 'atelier210.be',
+        pathname: '/site/assets/files/**',
+      },
     ],
   },
 };
