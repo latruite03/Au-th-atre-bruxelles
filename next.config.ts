@@ -160,6 +160,17 @@ const nextConfig: NextConfig = {
         hostname: 'varia.be',
         pathname: '/sites/default/files/**',
       },
+      // Théâtre de la Toison d'Or (WordPress)
+      {
+        protocol: 'https',
+        hostname: 'www.ttotheatre.com',
+        pathname: '/wp-content/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ttotheatre.com',
+        pathname: '/wp-content/uploads/**',
+      },
     ],
   },
 };
