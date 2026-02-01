@@ -182,6 +182,34 @@ const nextConfig: NextConfig = {
         hostname: 'ttotheatre.com',
         pathname: '/wp-content/uploads/**',
       },
+      // BRASS (WordPress)
+      {
+        protocol: 'https',
+        hostname: 'www.lebrass.be',
+        pathname: '/wp-content/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lebrass.be',
+        pathname: '/wp-content/uploads/**',
+      },
+      // Kaaitheater (Drupal)
+      {
+        protocol: 'https',
+        hostname: 'kaaitheater.be',
+        pathname: '/sites/default/files/**',
+      },
+      // Théâtre 140 (WordPress)
+      {
+        protocol: 'https',
+        hostname: 'www.le140.be',
+        pathname: '/wp-content/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'le140.be',
+        pathname: '/wp-content/uploads/**',
+      },
     ],
   },
 };
