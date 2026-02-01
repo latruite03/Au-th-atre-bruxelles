@@ -160,6 +160,17 @@ const nextConfig: NextConfig = {
         hostname: 'varia.be',
         pathname: '/sites/default/files/**',
       },
+      // Théâtre Océan Nord (WordPress)
+      {
+        protocol: 'https',
+        hostname: 'www.oceannord.org',
+        pathname: '/wp-content/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'oceannord.org',
+        pathname: '/wp-content/uploads/**',
+      },
       // Théâtre de la Toison d'Or (WordPress)
       {
         protocol: 'https',
