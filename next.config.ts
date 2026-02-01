@@ -115,6 +115,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.cirque-royal-bruxelles.be',
         pathname: '/uploads/**',
       },
+      // OUT.be (posters)
+      {
+        protocol: 'https',
+        hostname: 'media.out.be',
+        pathname: '/media/**',
+      },
     ],
   },
 };
