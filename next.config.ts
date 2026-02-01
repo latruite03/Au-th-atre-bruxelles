@@ -109,6 +109,12 @@ const nextConfig: NextConfig = {
         hostname: 'lestanneurs.be',
         pathname: '/wp-content/uploads/**',
       },
+      // Cirque Royal
+      {
+        protocol: 'https',
+        hostname: 'www.cirque-royal-bruxelles.be',
+        pathname: '/uploads/**',
+      },
     ],
   },
 };
