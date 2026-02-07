@@ -1,9 +1,8 @@
 import { createClient } from '@/lib/supabase/client'
-import type { Representation, TheatreGroup, Filters, CsvRow } from './types'
+import type { Representation, TheatreGroup, CsvRow } from './types'
 
 export async function getRepresentationsByDate(
-  date: string, // format YYYY-MM-DD
-  filters: Filters
+  date: string // format YYYY-MM-DD
 ): Promise<TheatreGroup[]> {
   const supabase = createClient()
 
@@ -14,12 +13,6 @@ export async function getRepresentationsByDate(
     .order('theatre_nom', { ascending: true })
     .order('heure', { ascending: true, nullsFirst: false })
 
-  if (filters.genre) {
-    query = query.eq('genre', filters.genre)
-  }
-  if (filters.style) {
-    query = query.eq('style', filters.style)
-  }
 
   const { data, error } = await query
 

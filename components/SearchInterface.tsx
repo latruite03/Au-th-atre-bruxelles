@@ -6,11 +6,11 @@ import { FiltersComponent } from './Filters'
 import { RepresentationList } from './RepresentationList'
 import { getRepresentationsByDate } from '@/lib/queries'
 import { toDateString, formatDate } from '@/lib/utils'
-import type { TheatreGroup, Filters } from '@/lib/types'
+import type { TheatreGroup } from '@/lib/types'
 
 export function SearchInterface() {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
-  const [filters, setFilters] = useState<Filters>({ genre: null, style: null })
+  const [selectedTheatre, setSelectedTheatre] = useState<string | null>(null)
   const [results, setResults] = useState<TheatreGroup[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -21,7 +21,7 @@ export function SearchInterface() {
 
     try {
       const dateString = toDateString(selectedDate)
-      const data = await getRepresentationsByDate(dateString, filters)
+      const data = await getRepresentationsByDate(dateString)
       setResults(data)
     } catch (err) {
       setError(
@@ -31,7 +31,7 @@ export function SearchInterface() {
     } finally {
       setLoading(false)
     }
-  }, [selectedDate, filters])
+  }, [selectedDate])
 
   useEffect(() => {
     fetchData()
@@ -47,9 +47,13 @@ export function SearchInterface() {
         />
       </div>
 
-      {/* Filtres - Plus petits, en dessous */}
+      {/* Filtre Théâtre - discret, sous la date */}
       <div className="border-t border-gray-200 pt-6">
-        <FiltersComponent filters={filters} onFiltersChange={setFilters} />
+        <FiltersComponent
+          theatres={results.map((t) => t.theatre_nom)}
+          selectedTheatre={selectedTheatre}
+          onTheatreChange={setSelectedTheatre}
+        />
       </div>
 
       {error && (
@@ -62,7 +66,14 @@ export function SearchInterface() {
         <h2 className="text-xl font-medium text-black mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
           Spectacles du {formatDate(toDateString(selectedDate))}
         </h2>
-        <RepresentationList theatres={results} loading={loading} />
+        <RepresentationList
+          theatres={
+            selectedTheatre
+              ? results.filter((t) => t.theatre_nom === selectedTheatre)
+              : results
+          }
+          loading={loading}
+        />
       </div>
     </div>
   )

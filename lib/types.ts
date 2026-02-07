@@ -27,8 +27,7 @@ export interface TheatreGroup {
 }
 
 export interface Filters {
-  genre: string | null
-  style: string | null
+  theatre: string | null
 }
 
 export type CsvRow = Omit<Representation, 'id' | 'created_at'>

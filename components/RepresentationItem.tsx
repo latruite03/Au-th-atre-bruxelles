@@ -1,15 +1,12 @@
 import Image from 'next/image'
 import type { Representation } from '@/lib/types'
-import { formatHeure, getGenreLabel, getStyleLabel, isJeunePublic, normalizeTitle } from '@/lib/utils'
+import { formatHeure, normalizeTitle } from '@/lib/utils'
 
 interface RepresentationItemProps {
   representation: Representation
 }
 
 export function RepresentationItem({ representation }: RepresentationItemProps) {
-  const genreLabel = getGenreLabel(representation.genre)
-  const styleLabel = getStyleLabel(representation.style)
-  const jeunePublic = isJeunePublic(representation.titre, representation.description)
 
   return (
     <div className="py-4 border-b border-gray-200 last:border-0">
@@ -42,26 +39,6 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
             </p>
           )}
 
-          <div className="flex flex-wrap gap-2 mt-2">
-            {genreLabel && (
-              <span className="text-xs text-gray-500 uppercase tracking-wider">
-                {genreLabel}
-              </span>
-            )}
-            {jeunePublic && (
-              <span className="text-xs text-gray-500 uppercase tracking-wider">
-                Jeune public
-              </span>
-            )}
-            {(genreLabel || jeunePublic) && styleLabel && (
-              <span className="text-xs text-gray-300">•</span>
-            )}
-            {styleLabel && (
-              <span className="text-xs text-gray-500 uppercase tracking-wider">
-                {styleLabel}
-              </span>
-            )}
-          </div>
         </div>
 
         </div>
