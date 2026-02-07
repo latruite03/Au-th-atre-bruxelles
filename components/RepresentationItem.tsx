@@ -26,7 +26,7 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
           )}
 
           <div className="min-w-0 flex-1">
-          <h4 className="text-base font-medium text-black leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
+          <h4 className="text-lg font-semibold text-black leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
             {normalizeTitle(representation.titre)}
           </h4>
           <p className={`text-sm mt-1 ${representation.heure ? 'text-black' : 'text-gray-400 italic'}`}>
