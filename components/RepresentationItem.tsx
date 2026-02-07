@@ -18,7 +18,7 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 min-w-0 flex-1 w-full">
           {showImage && (
-            <div className="relative w-full sm:w-40 h-40 sm:h-28 flex-shrink-0 border border-gray-200 bg-gray-50 overflow-hidden">
+            <div className="relative w-full sm:w-40 h-52 sm:h-28 flex-shrink-0 border border-gray-200 bg-gray-50 overflow-hidden">
               <Image
                 src={representation.image_url!}
                 alt={normalizeTitle(representation.titre)}
