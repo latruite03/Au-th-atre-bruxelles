@@ -43,21 +43,17 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
 
         </div>
 
-        {representation.url && !representation.is_complet && (
+        {representation.url && (
           <a
             href={representation.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 px-4 py-2 text-sm text-white bg-black hover:bg-gray-800 transition-colors"
+            className={`flex-shrink-0 px-4 py-2 text-sm text-white transition-colors ${
+              representation.is_complet ? 'bg-red-600 hover:bg-red-700' : 'bg-black hover:bg-gray-800'
+            }`}
           >
-            Réserver
+            {representation.is_complet ? 'Complet' : 'Réserver'}
           </a>
-        )}
-
-        {representation.is_complet && (
-          <span className="flex-shrink-0 px-4 py-2 text-sm text-white bg-red-600">
-            Complet
-          </span>
         )}
       </div>
     </div>
