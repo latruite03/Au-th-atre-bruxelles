@@ -29,16 +29,38 @@ export function getGenreLabel(genre: string | null): string {
   }
 }
 
+const CLASSIC_AUTHORS = [
+  'tchekhov',
+  'chekhov',
+  'moliere',
+  'molière',
+  'racine',
+  'corneille',
+  'shakespeare',
+  'sophocle',
+  'euripide',
+  'eschyle',
+  'goldoni',
+  'ibsen',
+  'strindberg',
+]
+
 export function isJeunePublic(title?: string | null, description?: string | null): boolean {
   const blob = `${title || ''} ${description || ''}`.toLocaleLowerCase('fr-BE')
-  return (
-    blob.includes('jeune public') ||
+  const hasExplicit = blob.includes('jeune public') || blob.includes('jeunepublic')
+  const hasGeneric =
     blob.includes('familial') ||
     blob.includes('enfant') ||
     blob.includes('enfants') ||
     blob.includes('à partir de') ||
     blob.includes('a partir de')
-  )
+
+  const isClassic = CLASSIC_AUTHORS.some((a) => blob.includes(a))
+
+  // Guardrail: classics should not be labeled "Jeune public" unless explicitly marked
+  if (isClassic && !hasExplicit) return false
+
+  return hasExplicit || hasGeneric
 }
 
 export function getStyleLabel(style: string | null): string {
