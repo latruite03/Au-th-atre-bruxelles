@@ -1,26 +1,32 @@
+"use client"
+
+import { useState } from 'react'
 import Image from 'next/image'
 import type { Representation } from '@/lib/types'
-import { formatHeure, normalizeTitle } from '@/lib/utils'
+import { decodeHtmlEntities, formatHeure, normalizeTitle } from '@/lib/utils'
 
 interface RepresentationItemProps {
   representation: Representation
 }
 
 export function RepresentationItem({ representation }: RepresentationItemProps) {
+  const [imageError, setImageError] = useState(false)
+  const showImage = Boolean(representation.image_url) && !imageError
 
   return (
     <div className="py-4 border-b border-gray-200 last:border-0">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 min-w-0 flex-1 w-full">
-          {representation.image_url && (
+          {showImage && (
             <div className="relative w-full sm:w-40 h-40 sm:h-28 flex-shrink-0 border border-gray-200 bg-gray-50 overflow-hidden">
               <Image
-                src={representation.image_url}
+                src={representation.image_url!}
                 alt={normalizeTitle(representation.titre)}
                 fill
                 sizes="(max-width: 640px) 100vw, 160px"
                 quality={90}
                 className="object-cover"
+                onError={() => setImageError(true)}
               />
             </div>
           )}
@@ -35,7 +41,7 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
 
             {representation.description && (
               <p className="mt-2 text-sm text-gray-600 line-clamp-2">
-                {representation.description}
+                {decodeHtmlEntities(representation.description)}
               </p>
             )}
           </div>

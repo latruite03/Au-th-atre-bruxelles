@@ -74,10 +74,20 @@ export function getStyleLabel(style: string | null): string {
   }
 }
 
+export function decodeHtmlEntities(input: string): string {
+  if (!input) return ''
+  return input
+    .replace(/&#8212;/g, '—')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+}
+
 // Normalise les titres : tout en minuscules sauf la première lettre.
 // Exemple: "L’EFFET MIROIR" -> "L’effet miroir"
 export function normalizeTitle(title: string): string {
-  const raw = (title || '').trim()
+  const raw = decodeHtmlEntities((title || '').trim())
   if (!raw) return ''
 
   const lower = raw.toLocaleLowerCase('fr-BE')
