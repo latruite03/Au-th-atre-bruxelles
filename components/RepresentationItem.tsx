@@ -17,7 +17,7 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
     <div className="py-4 border-b border-gray-200 last:border-0">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
         <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 min-w-0 flex-1 w-full">
-          {showImage && (
+          {showImage ? (
             <div className="relative w-full sm:w-40 h-52 sm:h-28 flex-shrink-0 border border-gray-200 bg-gray-50 overflow-hidden">
               <Image
                 src={representation.image_url!}
@@ -29,9 +29,13 @@ export function RepresentationItem({ representation }: RepresentationItemProps) 
                 onError={() => setImageError(true)}
               />
             </div>
+          ) : (
+            <div className="w-full sm:w-40 h-32 sm:h-28 flex-shrink-0 border border-gray-200 bg-gray-50 flex items-center justify-center text-xs text-gray-400">
+              Image indisponible
+            </div>
           )}
 
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 min-h-[72px] sm:min-h-0">
             <h4 className="text-base sm:text-lg font-semibold text-black leading-tight" style={{ fontFamily: 'var(--font-heading)' }}>
               {normalizeTitle(representation.titre)}
             </h4>
