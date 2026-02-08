@@ -1,75 +1,111 @@
 /**
- * Liste des 64 theatres cibles pour l'agenda bruxellois.
- * Les noms doivent correspondre exactement aux valeurs `theatre_nom` dans la base.
- * Mise a jour : ajouter / corriger les noms au fur et a mesure que les connecteurs
- * sont crees dans le pipeline.
+ * Liste des 63 theatres cibles pour l'agenda bruxellois.
+ * Source : lieux_theatre_bruxelles_2026.csv
+ *
+ * Les noms ci-dessous correspondent aux noms « officiels » de la liste.
+ * Le matching avec la base se fait en mode fuzzy (includes, case-insensitive)
+ * pour absorber les petites differences avec les theatre_nom du pipeline
+ * (ex. "Théâtre de Poche" <-> "Théâtre de Poche Bruxelles").
  */
 export const THEATRES_CIBLE: string[] = [
-  // --- Theatres deja connectes via le pipeline (36) ---
-  'Archipel 19',
-  'Atelier 210',
-  'Auditorium Jacques Brel',
-  'Balsamine',
-  'Beursschouwburg',
-  'BRASS',
-  'BRONKS',
-  'CC Auderghem',
-  'Cirque Royal',
-  'CreaNova',
-  'Espace Magh',
-  'Halles de Schaerbeek',
-  'Improviste',
-  'Kaaitheater',
-  'KVS',
-  'Le 140',
-  'Le Public',
-  'Le Rideau de Bruxelles',
-  'Marni',
-  'Theatre des Martyrs',
-  'Mercelis',
-  'Montagne Magique',
-  'Novum',
-  'Ocean Nord',
-  'Poche',
-  'Theatre des Riches-Claires',
-  'Theatre les Tanneurs',
-  'Theatre Royal du Parc',
-  'Theatre National Wallonie-Bruxelles',
-  'Theatre de la Toison d\'Or',
-  'Toone',
-  'Theatre Royal des Galeries',
-  'Varia',
-  'W:Halll',
+  // --- Anderlecht (1070) ---
+  'Auditorium Jacques Brel (CERIA)',
+  'Au B\'Izou',
+  'Escale du Nord',
   'Zinnema',
 
-  // --- Theatres a connecter (29 supplementaires pour atteindre ~64) ---
-  'Wolubilis',
-  'Espace Senghor',
-  'Centre Culturel d\'Uccle',
-  'La Bellone',
-  'La Samaritaine',
-  'La Soupape',
-  'La Venerie',
-  'Les Brigittines',
-  'Maison de la Culture de Tournai',
-  'Palais des Beaux-Arts (BOZAR)',
-  'Studio Vaartkapoen',
-  'Koninklijke Vlaamse Schouwburg',
-  'Theatre de Poche',
-  'Theatre de la Balsamine',
-  'Theatre de la Place des Martyrs',
-  'Theatre de la Vie',
-  'Theatre du Meridien',
-  'Theatre Flamand',
-  'Theatre Jean Vilar',
-  'Theatre Marni',
-  'Maison des Cultures et de la Cohesion Sociale de Molenbeek',
-  'CC Jacques Franck',
-  'Theatre de Namur',
-  'La Monnaie',
-  'AB (Ancienne Belgique)',
+  // --- Auderghem (1160) ---
+  'Centre culturel d\'Auderghem (CCA)',
+
+  // --- Berchem-Sainte-Agathe (1082) ---
+  'Archipel 19 – Le Fourquet',
+
+  // --- Bruxelles-Ville (1000) ---
+  'Théâtre National Wallonie-Bruxelles',
+  'KVS (Koninklijke Vlaamse Schouwburg)',
+  'Théâtre Royal du Parc',
+  'Théâtre Royal des Galeries',
+  'Théâtre des Martyrs',
+  'Théâtre Royal de Toone',
+  'Théâtre de Poche',
+  'Théâtre Les Tanneurs',
   'Les Riches-Claires',
-  'Magic Land Theatre',
-  'Palace',
-  'Forest National',
+  'Beursschouwburg',
+  'Kaaitheater',
+  'Cirque Royal',
+  'BRONKS',
+  'La Montagne Magique',
+  'Le Jardin de ma Sœur',
+
+  // --- Etterbeek (1040) ---
+  'Atelier 210',
+  'Espace Senghor',
+  'Théâtre Saint-Michel',
+
+  // --- Evere (1140) ---
+  'L\'Entrela\'',
+
+  // --- Forest (1190) ---
+  'Au Dé à Coudre',
+  'BRASS',
+  'Théâtre L\'Improviste',
+
+  // --- Ganshoren (1083) ---
+  'La Villa',
+
+  // --- Ixelles (1050) ---
+  'Le Boson',
+  'La Clarencière',
+  'Théâtre Marni',
+  'Le Rideau',
+  'Théâtre de la Toison d\'Or',
+  'Théâtre Mercelis',
+  'Théâtre Varia',
+
+  // --- Jette (1090) ---
+  'Centre culturel de Jette (L\'Armillaire)',
+  'PLOEF!',
+
+  // --- Koekelberg (1081) ---
+  'Archipel 19 – Maison Stepman',
+  'Koek\'s Théâtre',
+
+  // --- Molenbeek-Saint-Jean (1080) ---
+  'Le Café de la Rue',
+  'L\'Épicerie (Ras El Hanout)',
+  'Maison des Cultures et de la Cohésion Sociale',
+
+  // --- Saint-Gilles (1060) ---
+  'Cellule 133a',
+  'Centre culturel Jacques Franck',
+  'Maison Poème',
+
+  // --- Saint-Josse-ten-Noode (1210) ---
+  'Atelier Théâtre de la Vie',
+  'Théâtre Le Public',
+
+  // --- Schaerbeek (1030) ---
+  'Centre Culturel de Schaerbeek',
+  'Halles de Schaerbeek',
+  'GC De Kriekelaar',
+  'Magic Land Théâtre',
+  'L\'Os à Moelle',
+  'Théâtre 140',
+  'Théâtre de la Balsamine',
+  'Théâtre Océan Nord',
+
+  // --- Uccle (1180) ---
+  'Centre Culturel d\'Uccle',
+  'Côté Village',
+
+  // --- Watermael-Boitsfort (1170) ---
+  'La Vénerie',
+
+  // --- Woluwe-Saint-Lambert (1200) ---
+  'Wolubilis',
+
+  // --- Woluwe-Saint-Pierre (1150) ---
+  'W:Halll',
+  'Comédie Claude Volter',
+  'Théâtre de Joli-Bois',
 ]
