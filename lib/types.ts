@@ -12,6 +12,11 @@ export interface Representation {
   image_url: string | null
   description: string | null // mini-pitch de 3-4 lignes
 
+  // Visibility / audit
+  is_theatre?: boolean | null
+  hidden_reason?: string | null
+  hidden_at?: string | null
+
   // Pipeline fields (optional, may be null depending on ingestion path)
   source?: string | null
   source_url?: string | null

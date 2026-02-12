@@ -10,6 +10,8 @@ export async function getRepresentationsByDate(
     .from('representations')
     .select('*')
     .eq('date', date)
+    // Hide non-theatre entries from the public site
+    .eq('is_theatre', true)
     .order('theatre_nom', { ascending: true })
     .order('heure', { ascending: true, nullsFirst: false })
 

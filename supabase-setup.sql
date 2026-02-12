@@ -16,6 +16,10 @@ CREATE TABLE representations (
   genre TEXT CHECK (genre IN ('comedie', 'drame', 'autre')),
   style TEXT CHECK (style IN ('classique', 'contemporain')),
   description TEXT,
+  -- Audit/visibility: keep non-theatre rows but hide them from the public site
+  is_theatre BOOLEAN NOT NULL DEFAULT TRUE,
+  hidden_reason TEXT,
+  hidden_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
