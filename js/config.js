@@ -7,7 +7,7 @@
    ============================================================ */
 
 const SUPABASE_URL = 'https://orcuuknomvpzduiyrfpw.supabase.co'
-const SUPABASE_ANON_KEY = 'VOTRE_CLE_ANON_SUPABASE'
+const SUPABASE_ANON_KEY = 'sb_publishable_NkKpX5JgIFFqWk9D3R8VlQ_wgeJ8x_l'
 
 // Client Supabase global (utilise par toutes les pages)
 // Le script supabase-js doit etre charge avant ce fichier
