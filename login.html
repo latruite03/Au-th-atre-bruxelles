@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — Au th\u00e9\u00e2tre ce soir</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <main class="login-page">
+    <div class="login-card">
+      <div class="login-card-inner">
+        <h1 class="login-title">Administration</h1>
+
+        <form id="login-form" class="login-form">
+          <div class="form-group">
+            <label for="login-email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              autocomplete="email"
+              required
+              class="form-input"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="login-password" class="form-label">Mot de passe</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              autocomplete="current-password"
+              required
+              class="form-input"
+            >
+          </div>
+
+          <div id="login-error" class="form-message form-message--error hidden"></div>
+
+          <button type="submit" id="login-submit" class="btn btn--primary btn--full">
+            Se connecter
+          </button>
+        </form>
+      </div>
+
+      <p class="login-back">
+        <a href="index.html">Retour au site</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Supabase JS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- App scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/login.js"></script>
+
+</body>
+</html>

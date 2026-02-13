@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — Au th\u00e9\u00e2tre ce soir</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading screen (shown while checking auth) -->
+  <main id="admin-loading" class="login-page">
+    <div class="spinner-wrap"><div class="spinner spinner--amber"></div></div>
+  </main>
+
+  <!-- Admin page (hidden until auth confirmed) -->
+  <div id="admin-app" class="admin-page hidden">
+
+    <header class="admin-header">
+      <div class="container-lg admin-header-inner">
+        <div>
+          <h1 class="admin-header-title">Administration</h1>
+          <p class="admin-header-sub">Gestion des repr\u00e9sentations</p>
+        </div>
+        <div class="admin-header-actions">
+          <a href="index.html">Voir le site</a>
+          <button id="btn-logout" class="btn-logout">D\u00e9connexion</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-lg admin-panel">
+      <div class="admin-card">
+
+        <!-- Tabs -->
+        <nav class="admin-tabs" id="admin-tabs">
+          <button class="admin-tab admin-tab--active" data-tab="status">Situation</button>
+          <button class="admin-tab" data-tab="problems">Probl\u00e8mes</button>
+          <button class="admin-tab" data-tab="stats">Statistiques</button>
+          <button class="admin-tab" data-tab="import">Import CSV</button>
+          <button class="admin-tab" data-tab="manual">Saisie manuelle</button>
+          <button class="admin-tab" data-tab="todo">A compl\u00e9ter</button>
+        </nav>
+
+        <!-- Tab content -->
+        <div class="admin-content" id="admin-content">
+          <!-- Populated by admin.js -->
+          <div class="spinner-wrap"><div class="spinner spinner--amber"></div></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Supabase JS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- Chart.js (CDN) for statistics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <!-- PapaParse (CDN) for CSV import -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5/papaparse.min.js"></script>
+  <!-- App scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>
