@@ -182,24 +182,20 @@
       var sourceStatuses = results[2]
       var totalCount = results[3]
 
+      // Match by normalized exact name only (avoid fuzzy includes that creates false positives/negatives)
+      var dbNorm = new Set(dbTheatres.map(function (t) { return normTheatreName(t) }))
+
       var matchedTargets = THEATRES_CIBLE.filter(function (target) {
-        return dbTheatres.some(function (db) {
-          return db.toLowerCase() === target.toLowerCase() ||
-            db.toLowerCase().includes(target.toLowerCase()) ||
-            target.toLowerCase().includes(db.toLowerCase())
-        })
+        return dbNorm.has(normTheatreName(target))
       })
 
       var missingTargets = THEATRES_CIBLE.filter(function (t) {
         return matchedTargets.indexOf(t) === -1
       })
 
+      var targetNorm = new Set(THEATRES_CIBLE.map(function (t) { return normTheatreName(t) }))
       var extraTheatres = dbTheatres.filter(function (db) {
-        return !THEATRES_CIBLE.some(function (target) {
-          return db.toLowerCase() === target.toLowerCase() ||
-            db.toLowerCase().includes(target.toLowerCase()) ||
-            target.toLowerCase().includes(db.toLowerCase())
-        })
+        return !targetNorm.has(normTheatreName(db))
       })
 
       var now = Date.now()
@@ -1166,12 +1162,44 @@
   //  SUPABASE QUERIES
   // ---------------------------------------------------------------
 
+  function normTheatreName(s) {
+    return String(s || '')
+      .toLowerCase()
+      // unify apostrophes
+      .replace(/[’‘`´]/g, "'")
+      // remove diacritics
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      // remove punctuation / spaces
+      .replace(/[^a-z0-9]+/g, '')
+      .trim()
+  }
+
   async function getDistinctTheatres() {
-    var res = await supabaseClient.from('representations').select('theatre_nom')
+    // IMPORTANT:
+    // Coverage should be computed on what the public site would show:
+    // - upcoming only (>= today)
+    // - is_theatre=true
+    // - not hidden
+    var today = toDateString(new Date())
+
+    var res = await supabaseClient
+      .from('representations')
+      .select('theatre_nom')
+      .gte('date', today)
+      .eq('is_theatre', true)
+      .is('hidden_at', null)
+
     if (res.error) throw new Error(res.error.message)
-    var set = new Set()
-    ;(res.data || []).forEach(function (row) { set.add(row.theatre_nom) })
-    return Array.from(set).sort(function (a, b) { return a.localeCompare(b, 'fr') })
+
+    var set = new Map() // norm -> canonical (first seen)
+    ;(res.data || []).forEach(function (row) {
+      if (!row || !row.theatre_nom) return
+      var k = normTheatreName(row.theatre_nom)
+      if (!k) return
+      if (!set.has(k)) set.set(k, row.theatre_nom)
+    })
+
+    return Array.from(set.values()).sort(function (a, b) { return a.localeCompare(b, 'fr') })
   }
 
   async function getLatestRepresentations(limit) {
