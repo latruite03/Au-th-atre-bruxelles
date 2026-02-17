@@ -106,6 +106,7 @@
       case 'import': renderImportTab(); break
       case 'manual': renderManualTab(); break
       case 'todo': renderTodoTab(); break
+      case 'classement': renderClassementTab(); break
     }
   }
 
@@ -954,6 +955,160 @@
     }
   }
 
+  // ===============================================================
+  //  TAB: CLASSEMENT
+  // ===============================================================
+
+  async function renderClassementTab() {
+    try {
+      var results = await Promise.all([
+        fetchRanking(),
+        getDistinctTheatres(),
+      ])
+
+      var rankingRows = results[0]
+      var dbTheatres = results[1]
+
+      // Build ranked set for quick lookup
+      var rankMap = new Map()
+      rankingRows.forEach(function (r) { rankMap.set(r.theatre_nom, r.rang) })
+
+      // Build the merged ordered list
+      var ranked = rankingRows.slice().sort(function (a, b) { return a.rang - b.rang })
+      var orderedList = ranked.map(function (r) { return r.theatre_nom })
+
+      // Add THEATRES_CIBLE not yet ranked
+      THEATRES_CIBLE.forEach(function (name) {
+        if (!rankMap.has(name) && orderedList.indexOf(name) === -1) {
+          orderedList.push(name)
+        }
+      })
+
+      // Add DB theatres not in THEATRES_CIBLE and not ranked
+      dbTheatres.forEach(function (name) {
+        if (!rankMap.has(name) && orderedList.indexOf(name) === -1) {
+          orderedList.push(name)
+        }
+      })
+
+      // --- Build HTML ---
+      var html = ''
+
+      // Header
+      html += '<div class="section-header">'
+      html += '<div><h2 class="section-title">Classement des th\u00e9\u00e2tres</h2>'
+      html += '<p class="section-subtitle">Rang 1 = affich\u00e9 en premier sur le site. Utilisez les fl\u00e8ches pour r\u00e9ordonner, puis enregistrez.</p></div>'
+      html += '<div style="display:flex;gap:0.5rem">'
+      html += '<button class="btn" id="btn-init-classement">R\u00e9initialiser</button>'
+      html += '<button class="btn btn--primary" id="btn-save-classement">Enregistrer</button>'
+      html += '</div></div>'
+
+      // Count
+      html += '<div style="font-size:0.75rem;color:var(--color-gray-500);margin-bottom:0.75rem">'
+      html += orderedList.length + ' th\u00e9\u00e2tre(s) au total'
+      html += '</div>'
+
+      // List
+      html += '<div class="classement-list" id="classement-list">'
+      html += buildClassementRows(orderedList)
+      html += '</div>'
+
+      contentEl.innerHTML = html
+
+      // --- Event: arrow clicks (delegation) ---
+      var listEl = document.getElementById('classement-list')
+      listEl.addEventListener('click', function (e) {
+        var btn = e.target.closest('.classement-arrow')
+        if (!btn || btn.disabled) return
+
+        var row = btn.closest('.classement-row')
+        var idx = parseInt(row.dataset.index, 10)
+        var dir = btn.dataset.dir
+
+        if (dir === 'up' && idx > 0) {
+          var tmp = orderedList[idx]
+          orderedList[idx] = orderedList[idx - 1]
+          orderedList[idx - 1] = tmp
+        } else if (dir === 'down' && idx < orderedList.length - 1) {
+          var tmp = orderedList[idx]
+          orderedList[idx] = orderedList[idx + 1]
+          orderedList[idx + 1] = tmp
+        }
+
+        listEl.innerHTML = buildClassementRows(orderedList)
+      })
+
+      // --- Event: save ---
+      document.getElementById('btn-save-classement').addEventListener('click', async function () {
+        var btn = this
+        btn.disabled = true
+        btn.textContent = 'Enregistrement\u2026'
+
+        try {
+          var rows = orderedList.map(function (name, i) {
+            return { theatre_nom: name, rang: i + 1, updated_at: new Date().toISOString() }
+          })
+
+          // Upsert in batches of 50
+          for (var i = 0; i < rows.length; i += 50) {
+            var batch = rows.slice(i, i + 50)
+            var res = await supabaseClient
+              .from('theatre_rang')
+              .upsert(batch, { onConflict: 'theatre_nom' })
+            if (res.error) throw new Error(res.error.message)
+          }
+
+          btn.textContent = 'Enregistr\u00e9 \u2713'
+          setTimeout(function () {
+            btn.disabled = false
+            btn.textContent = 'Enregistrer'
+          }, 1500)
+        } catch (err) {
+          alert('Erreur: ' + err.message)
+          btn.disabled = false
+          btn.textContent = 'Enregistrer'
+        }
+      })
+
+      // --- Event: reset ---
+      document.getElementById('btn-init-classement').addEventListener('click', function () {
+        if (!confirm('R\u00e9initialiser le classement dans l\u2019ordre alphab\u00e9tique ? Les modifications non enregistr\u00e9es seront perdues.')) return
+
+        orderedList.length = 0
+        var sorted = THEATRES_CIBLE.slice().sort(function (a, b) { return a.localeCompare(b, 'fr') })
+        sorted.forEach(function (n) { orderedList.push(n) })
+
+        // Add DB theatres not in THEATRES_CIBLE
+        dbTheatres.forEach(function (name) {
+          if (orderedList.indexOf(name) === -1) {
+            orderedList.push(name)
+          }
+        })
+
+        listEl.innerHTML = buildClassementRows(orderedList)
+      })
+
+    } catch (err) {
+      contentEl.innerHTML = showError(err.message)
+    }
+  }
+
+  function buildClassementRows(orderedList) {
+    var html = ''
+    for (var i = 0; i < orderedList.length; i++) {
+      var name = orderedList[i]
+      var rank = i + 1
+      html += '<div class="classement-row" data-index="' + i + '">'
+      html += '<span class="classement-rank">' + rank + '</span>'
+      html += '<span class="classement-name">' + escapeHtml(name) + '</span>'
+      html += '<div class="classement-actions">'
+      html += '<button class="classement-arrow" data-dir="up"' + (i === 0 ? ' disabled' : '') + '>&#9650;</button>'
+      html += '<button class="classement-arrow" data-dir="down"' + (i === orderedList.length - 1 ? ' disabled' : '') + '>&#9660;</button>'
+      html += '</div></div>'
+    }
+    return html
+  }
+
   function groupShowKeys(items) {
     var map = new Map()
     items.forEach(function (r) {
@@ -1100,6 +1255,15 @@
       .order('titre', { ascending: true })
       .order('date', { ascending: true })
       .limit(2000)
+    if (res.error) throw new Error(res.error.message)
+    return res.data || []
+  }
+
+  async function fetchRanking() {
+    var res = await supabaseClient
+      .from('theatre_rang')
+      .select('theatre_nom, rang')
+      .order('rang', { ascending: true })
     if (res.error) throw new Error(res.error.message)
     return res.data || []
   }
