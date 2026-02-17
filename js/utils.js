@@ -41,7 +41,10 @@ function toDateString(date) {
 function decodeHtmlEntities(input) {
   if (!input) return ''
   return input
-    .replace(/&#8212;/g, '\u2014')
+    // numeric entities (common punctuation)
+    .replace(/&#8211;/g, '\u2013') // en dash
+    .replace(/&#8212;/g, '\u2014') // em dash
+    // common entities
     .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#39;|&apos;/g, "'")
