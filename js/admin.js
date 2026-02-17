@@ -961,13 +961,9 @@
 
   async function renderClassementTab() {
     try {
-      var results = await Promise.all([
-        fetchRanking(),
-        getDistinctTheatres(),
-      ])
-
-      var rankingRows = results[0]
-      var dbTheatres = results[1]
+      // Only fetch the lightweight theatre_rang table (max ~65 rows)
+      // No need to scan the full representations table here
+      var rankingRows = await fetchRanking()
 
       // Build ranked set for quick lookup
       var rankMap = new Map()
@@ -979,13 +975,6 @@
 
       // Add THEATRES_CIBLE not yet ranked
       THEATRES_CIBLE.forEach(function (name) {
-        if (!rankMap.has(name) && orderedList.indexOf(name) === -1) {
-          orderedList.push(name)
-        }
-      })
-
-      // Add DB theatres not in THEATRES_CIBLE and not ranked
-      dbTheatres.forEach(function (name) {
         if (!rankMap.has(name) && orderedList.indexOf(name) === -1) {
           orderedList.push(name)
         }
@@ -1077,13 +1066,6 @@
         orderedList.length = 0
         var sorted = THEATRES_CIBLE.slice().sort(function (a, b) { return a.localeCompare(b, 'fr') })
         sorted.forEach(function (n) { orderedList.push(n) })
-
-        // Add DB theatres not in THEATRES_CIBLE
-        dbTheatres.forEach(function (name) {
-          if (orderedList.indexOf(name) === -1) {
-            orderedList.push(name)
-          }
-        })
 
         listEl.innerHTML = buildClassementRows(orderedList)
       })
@@ -1260,12 +1242,20 @@
   }
 
   async function fetchRanking() {
-    var res = await supabaseClient
-      .from('theatre_rang')
-      .select('theatre_nom, rang')
-      .order('rang', { ascending: true })
-    if (res.error) throw new Error(res.error.message)
-    return res.data || []
+    try {
+      var res = await supabaseClient
+        .from('theatre_rang')
+        .select('theatre_nom, rang')
+        .order('rang', { ascending: true })
+      if (res.error) {
+        console.warn('theatre_rang:', res.error.message)
+        return []
+      }
+      return res.data || []
+    } catch (e) {
+      console.warn('theatre_rang fetch failed:', e.message)
+      return []
+    }
   }
 
   async function fetchMissingDescriptions() {
