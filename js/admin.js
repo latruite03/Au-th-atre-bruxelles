@@ -1184,7 +1184,7 @@
 
     var res = await supabaseClient
       .from('representations')
-      .select('theatre_nom')
+      .select('theatre_nom,heure')
       .gte('date', today)
       .eq('is_theatre', true)
       .is('hidden_at', null)
@@ -1194,6 +1194,8 @@
     var set = new Map() // norm -> canonical (first seen)
     ;(res.data || []).forEach(function (row) {
       if (!row || !row.theatre_nom) return
+      // Match the public site policy: ignore performances strictly before 13:00 (school time)
+      if (row.heure && String(row.heure) < '13:00:00') return
       var k = normTheatreName(row.theatre_nom)
       if (!k) return
       if (!set.has(k)) set.set(k, row.theatre_nom)

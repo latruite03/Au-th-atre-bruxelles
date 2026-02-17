@@ -102,10 +102,18 @@
 
   // --- Group by theatre ---
 
+  function isTooEarlyTime(heure) {
+    // Global editorial rule: exclude performances strictly before 13:00 (school time).
+    // Keep 13:00 and later.
+    if (!heure) return false
+    return String(heure) < '13:00:00'
+  }
+
   function groupByTheatre(representations) {
     var groups = new Map()
     for (var i = 0; i < representations.length; i++) {
       var rep = representations[i]
+      if (isTooEarlyTime(rep.heure)) continue
       if (!groups.has(rep.theatre_nom)) {
         groups.set(rep.theatre_nom, {
           theatre_nom: rep.theatre_nom,
