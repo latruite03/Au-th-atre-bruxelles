@@ -116,10 +116,17 @@
       groups.get(rep.theatre_nom).representations.push(rep)
     }
     return Array.from(groups.values()).sort(function (a, b) {
+      // Always keep Théâtre National at the end (editorial rule)
+      var na = normTheatreName(a.theatre_nom)
+      var nb = normTheatreName(b.theatre_nom)
+      var NAT = normTheatreName('Théâtre National Wallonie-Bruxelles')
+      if (na === NAT && nb !== NAT) return 1
+      if (nb === NAT && na !== NAT) return -1
+
       var rankA = theatreRanking.get(a.theatre_nom)
-      if (rankA == null) rankA = theatreRankingNorm.get(normTheatreName(a.theatre_nom))
+      if (rankA == null) rankA = theatreRankingNorm.get(na)
       var rankB = theatreRanking.get(b.theatre_nom)
-      if (rankB == null) rankB = theatreRankingNorm.get(normTheatreName(b.theatre_nom))
+      if (rankB == null) rankB = theatreRankingNorm.get(nb)
       // Ranked theatres first (lower rank = first), unranked at the end alphabetically
       if (rankA != null && rankB != null) return rankA - rankB
       if (rankA != null) return -1
@@ -134,10 +141,17 @@
     var names = groups.map(function (g) { return g.theatre_nom })
     // Show filter options in editorial order when available (fallback alphabetical)
     names.sort(function (a, b) {
+      // Always keep Théâtre National at the end (editorial rule)
+      var na = normTheatreName(a)
+      var nb = normTheatreName(b)
+      var NAT = normTheatreName('Théâtre National Wallonie-Bruxelles')
+      if (na === NAT && nb !== NAT) return 1
+      if (nb === NAT && na !== NAT) return -1
+
       var ra = theatreRanking.get(a)
-      if (ra == null) ra = theatreRankingNorm.get(normTheatreName(a))
+      if (ra == null) ra = theatreRankingNorm.get(na)
       var rb = theatreRanking.get(b)
-      if (rb == null) rb = theatreRankingNorm.get(normTheatreName(b))
+      if (rb == null) rb = theatreRankingNorm.get(nb)
       if (ra != null && rb != null) return ra - rb
       if (ra != null) return -1
       if (rb != null) return 1
