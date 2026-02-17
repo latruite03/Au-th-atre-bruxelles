@@ -9,6 +9,7 @@
   var selectedDate = new Date()
   var allGroups = []
   var selectedTheatre = null
+  var theatreRanking = new Map() // theatre_nom -> rang (lower = first)
 
   // --- DOM refs ---
   var dateInput = document.getElementById('date-input')
@@ -22,7 +23,10 @@
   dateInput.addEventListener('change', onDateChange)
   theatreSelect.addEventListener('change', onTheatreChange)
 
-  fetchRepresentations(toDateString(selectedDate))
+  // Load editorial ranking then fetch representations
+  loadRanking().then(function () {
+    fetchRepresentations(toDateString(selectedDate))
+  })
 
   // --- Event handlers ---
 
@@ -38,6 +42,24 @@
   function onTheatreChange() {
     selectedTheatre = theatreSelect.value || null
     renderResults()
+  }
+
+  // --- Load editorial ranking ---
+
+  async function loadRanking() {
+    try {
+      var res = await supabaseClient
+        .from('theatre_rang')
+        .select('theatre_nom, rang')
+        .order('rang', { ascending: true })
+      if (!res.error && res.data) {
+        res.data.forEach(function (r) {
+          theatreRanking.set(r.theatre_nom, r.rang)
+        })
+      }
+    } catch (e) {
+      // Silently fall back to alphabetical if ranking unavailable
+    }
   }
 
   // --- Data fetching ---
@@ -82,7 +104,15 @@
       }
       groups.get(rep.theatre_nom).representations.push(rep)
     }
-    return Array.from(groups.values())
+    return Array.from(groups.values()).sort(function (a, b) {
+      var rankA = theatreRanking.get(a.theatre_nom)
+      var rankB = theatreRanking.get(b.theatre_nom)
+      // Ranked theatres first (lower rank = first), unranked at the end alphabetically
+      if (rankA != null && rankB != null) return rankA - rankB
+      if (rankA != null) return -1
+      if (rankB != null) return 1
+      return a.theatre_nom.localeCompare(b.theatre_nom, 'fr')
+    })
   }
 
   // --- Populate filter ---
