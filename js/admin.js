@@ -9,34 +9,73 @@
   // Theatres cible (63 theatres bruxellois)
   // ---------------------------------------------------------------
   var THEATRES_CIBLE = [
-    'Auditorium Jacques Brel (CERIA)','Au B\'Izou','Escale du Nord','Zinnema',
-    'Centre culturel d\'Auderghem (CCA)',
-    'Archipel 19 \u2013 Le Fourquet',
-    'Th\u00e9\u00e2tre National Wallonie-Bruxelles','KVS (Koninklijke Vlaamse Schouwburg)',
-    'Th\u00e9\u00e2tre Royal du Parc','Th\u00e9\u00e2tre Royal des Galeries',
-    'Th\u00e9\u00e2tre des Martyrs','Th\u00e9\u00e2tre Royal de Toone',
-    'Th\u00e9\u00e2tre de Poche','Th\u00e9\u00e2tre Les Tanneurs',
-    'Les Riches-Claires','Beursschouwburg','Kaaitheater','Cirque Royal',
-    'BRONKS','La Montagne Magique','Le Jardin de ma S\u0153ur',
-    'Atelier 210','Espace Senghor','Th\u00e9\u00e2tre Saint-Michel',
+    // --- Petites salles indépendantes, cafés-théâtres, lieux intimistes ---
+    'Au D\u00e9 \u00e0 Coudre',
+    'Au B\'Izou',
+    'Cellule 133a',
+    'L\'\u00c9picerie (Ras El Hanout)',
+    'Le Caf\u00e9 de la Rue',
+    'Koek\'s Th\u00e9\u00e2tre',
+    'Le Boson',
+    'La Clarenci\u00e8re',
+    'Maison Po\u00e8me',
+    'L\'Os \u00e0 Moelle',
     'L\'Entrela\'',
-    'Au D\u00e9 \u00e0 Coudre','BRASS','Th\u00e9\u00e2tre L\'Improviste',
+    'PLOEF!',
+    'Le Jardin de ma S\u0153ur',
     'La Villa',
-    'Le Boson','La Clarenci\u00e8re','Th\u00e9\u00e2tre Marni','Le Rideau',
-    'Th\u00e9\u00e2tre de la Toison d\'Or','Th\u00e9\u00e2tre Mercelis','Th\u00e9\u00e2tre Varia',
-    'Centre culturel de Jette (L\'Armillaire)','PLOEF!',
-    'Archipel 19 \u2013 Maison Stepman','Koek\'s Th\u00e9\u00e2tre',
-    'Le Caf\u00e9 de la Rue','L\'\u00c9picerie (Ras El Hanout)',
+    'Atelier Th\u00e9\u00e2tre de la Vie',
+    'Th\u00e9\u00e2tre L\'Improviste',
+    'C\u00f4t\u00e9 Village',
+    'Th\u00e9\u00e2tre de Joli-Bois',
+    'Th\u00e9\u00e2tre Royal de Toone',
+    'Magic Land Th\u00e9\u00e2tre',
+    // --- Centres culturels communaux, salles moyennes-petites ---
+    'Archipel 19 \u2013 Maison Stepman',
+    'Archipel 19 \u2013 Le Fourquet',
+    'Escale du Nord',
+    'BRASS',
+    'Auditorium Jacques Brel (CERIA)',
     'Maison des Cultures et de la Coh\u00e9sion Sociale',
-    'Cellule 133a','Centre culturel Jacques Franck','Maison Po\u00e8me',
-    'Atelier Th\u00e9\u00e2tre de la Vie','Th\u00e9\u00e2tre Le Public',
-    'Centre Culturel de Schaerbeek','Halles de Schaerbeek',
-    'GC De Kriekelaar','Magic Land Th\u00e9\u00e2tre','L\'Os \u00e0 Moelle',
-    'Th\u00e9\u00e2tre 140','Th\u00e9\u00e2tre de la Balsamine','Th\u00e9\u00e2tre Oc\u00e9an Nord',
-    'Centre Culturel d\'Uccle','C\u00f4t\u00e9 Village',
-    'La V\u00e9nerie',
+    'Centre culturel de Jette (L\'Armillaire)',
+    'Centre culturel Jacques Franck',
+    'Centre culturel d\'Auderghem (CCA)',
+    'Centre Culturel d\'Uccle',
+    'Espace Senghor',
+    'Zinnema',
+    'Centre Culturel de Schaerbeek',
+    'GC De Kriekelaar',
     'Wolubilis',
-    'W:Halll','Com\u00e9die Claude Volter','Th\u00e9\u00e2tre de Joli-Bois',
+    // --- Théâtres établis de taille moyenne ---
+    'Th\u00e9\u00e2tre de Poche',
+    'Th\u00e9\u00e2tre Oc\u00e9an Nord',
+    'Th\u00e9\u00e2tre Marni',
+    'Com\u00e9die Claude Volter',
+    'Th\u00e9\u00e2tre Mercelis',
+    'Le Rideau',
+    'Th\u00e9\u00e2tre de la Balsamine',
+    'Th\u00e9\u00e2tre 140',
+    'Th\u00e9\u00e2tre Varia',
+    'Atelier 210',
+    'Th\u00e9\u00e2tre Saint-Michel',
+    'W:Halll',
+    'La V\u00e9nerie',
+    'Les Riches-Claires',
+    'BRONKS',
+    // --- Grandes institutions, théâtres subventionnés ---
+    'La Montagne Magique',
+    'Th\u00e9\u00e2tre Le Public',
+    'Th\u00e9\u00e2tre Les Tanneurs',
+    'Beursschouwburg',
+    'Th\u00e9\u00e2tre de la Toison d\'Or',
+    'Halles de Schaerbeek',
+    'Kaaitheater',
+    'Th\u00e9\u00e2tre des Martyrs',
+    'Cirque Royal',
+    'Th\u00e9\u00e2tre Royal du Parc',
+    'Th\u00e9\u00e2tre Royal des Galeries',
+    'KVS (Koninklijke Vlaamse Schouwburg)',
+    'Th\u00e9\u00e2tre National Wallonie-Bruxelles',
   ]
 
   // ---------------------------------------------------------------
@@ -1061,11 +1100,10 @@
 
       // --- Event: reset ---
       document.getElementById('btn-init-classement').addEventListener('click', function () {
-        if (!confirm('R\u00e9initialiser le classement dans l\u2019ordre alphab\u00e9tique ? Les modifications non enregistr\u00e9es seront perdues.')) return
+        if (!confirm('R\u00e9initialiser le classement \u00e9ditorial par d\u00e9faut ? Les modifications non enregistr\u00e9es seront perdues.')) return
 
         orderedList.length = 0
-        var sorted = THEATRES_CIBLE.slice().sort(function (a, b) { return a.localeCompare(b, 'fr') })
-        sorted.forEach(function (n) { orderedList.push(n) })
+        THEATRES_CIBLE.forEach(function (n) { orderedList.push(n) })
 
         listEl.innerHTML = buildClassementRows(orderedList)
       })
