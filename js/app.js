@@ -85,6 +85,8 @@
         .select('*')
         .eq('date', dateStr)
         .eq('is_theatre', true)
+        // Exclude school-time performances at the query level too (defense in depth)
+        .or('heure.is.null,heure.gte.13:00:00')
         .order('theatre_nom', { ascending: true })
         .order('heure', { ascending: true, nullsFirst: false })
 
