@@ -40,14 +40,22 @@ function toDateString(date) {
  */
 function decodeHtmlEntities(input) {
   if (!input) return ''
-  return input
+
+  // Robust HTML entity decoding (covers &eacute;, &agrave;, etc.)
+  // Safe because we only decode entities then escapeHtml() before injecting.
+  try {
+    var txt = document.createElement('textarea')
+    txt.innerHTML = String(input)
+    input = txt.value
+  } catch (e) {
+    // ignore (non-browser context)
+  }
+
+  return String(input)
     // numeric entities (common punctuation)
     .replace(/&#8211;/g, '\u2013') // en dash
     .replace(/&#8212;/g, '\u2014') // em dash
-    // common entities
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;|&apos;/g, "'")
+    // common leftovers
     .replace(/&nbsp;/g, ' ')
 }
 
