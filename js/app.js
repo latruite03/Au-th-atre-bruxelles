@@ -10,6 +10,7 @@
   var allGroups = []
   var selectedTheatre = null
   var theatreRanking = new Map() // theatre_nom -> rang (lower = first)
+  var theatreRankingNorm = new Map() // normalized theatre_nom -> rang
 
   // --- DOM refs ---
   var dateInput = document.getElementById('date-input')
@@ -46,6 +47,15 @@
 
   // --- Load editorial ranking ---
 
+  function normTheatreName(s) {
+    return String(s || '')
+      .toLowerCase()
+      .replace(/[’‘`´]/g, "'")
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '')
+      .trim()
+  }
+
   async function loadRanking() {
     try {
       var res = await supabaseClient
@@ -55,6 +65,7 @@
       if (!res.error && res.data) {
         res.data.forEach(function (r) {
           theatreRanking.set(r.theatre_nom, r.rang)
+          theatreRankingNorm.set(normTheatreName(r.theatre_nom), r.rang)
         })
       }
     } catch (e) {
@@ -106,7 +117,9 @@
     }
     return Array.from(groups.values()).sort(function (a, b) {
       var rankA = theatreRanking.get(a.theatre_nom)
+      if (rankA == null) rankA = theatreRankingNorm.get(normTheatreName(a.theatre_nom))
       var rankB = theatreRanking.get(b.theatre_nom)
+      if (rankB == null) rankB = theatreRankingNorm.get(normTheatreName(b.theatre_nom))
       // Ranked theatres first (lower rank = first), unranked at the end alphabetically
       if (rankA != null && rankB != null) return rankA - rankB
       if (rankA != null) return -1
@@ -119,7 +132,17 @@
 
   function populateTheatreFilter(groups) {
     var names = groups.map(function (g) { return g.theatre_nom })
-    names.sort(function (a, b) { return a.localeCompare(b, 'fr') })
+    // Show filter options in editorial order when available (fallback alphabetical)
+    names.sort(function (a, b) {
+      var ra = theatreRanking.get(a)
+      if (ra == null) ra = theatreRankingNorm.get(normTheatreName(a))
+      var rb = theatreRanking.get(b)
+      if (rb == null) rb = theatreRankingNorm.get(normTheatreName(b))
+      if (ra != null && rb != null) return ra - rb
+      if (ra != null) return -1
+      if (rb != null) return 1
+      return a.localeCompare(b, 'fr')
+    })
 
     // Remove old options (keep first "Tous")
     while (theatreSelect.options.length > 1) {
