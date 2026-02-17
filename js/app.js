@@ -8,7 +8,7 @@
   // --- State ---
   var selectedDate = new Date()
   var allGroups = []
-  var selectedTheatre = null
+  var selectedCommune = null
   var theatreRanking = new Map() // theatre_nom -> rang (lower = first)
   var theatreRankingNorm = new Map() // normalized theatre_nom -> rang
 
@@ -22,7 +22,7 @@
   dateInput.value = toDateString(selectedDate)
   dateInput.min = toDateString(new Date())
   dateInput.addEventListener('change', onDateChange)
-  theatreSelect.addEventListener('change', onTheatreChange)
+  theatreSelect.addEventListener('change', onCommuneChange)
 
   // Load editorial ranking then fetch representations
   loadRanking().then(function () {
@@ -35,13 +35,13 @@
     var val = dateInput.value
     if (!val) return
     selectedDate = new Date(val + 'T00:00:00')
-    selectedTheatre = null
+    selectedCommune = null
     theatreSelect.value = ''
     fetchRepresentations(val)
   }
 
-  function onTheatreChange() {
-    selectedTheatre = theatreSelect.value || null
+  function onCommuneChange() {
+    selectedCommune = theatreSelect.value || null
     renderResults()
   }
 
@@ -94,12 +94,52 @@
       if (result.error) throw new Error(result.error.message)
 
       allGroups = groupByTheatre(result.data || [])
-      populateTheatreFilter(allGroups)
+      populateCommuneFilter(allGroups)
       renderResults()
     } catch (err) {
       resultsContainer.innerHTML =
         '<div class="error-box">' + escapeHtml(err.message) + '</div>'
     }
+  }
+
+  // --- Commune parsing (Option A: from theatre_adresse) ---
+
+  function parseCommuneLabel(adresse) {
+    var a = String(adresse || '').trim()
+    if (!a) return 'Inconnue'
+
+    // Common patterns: ", 1070 Anderlecht" or "1070 Anderlecht" or "1000 Bruxelles"
+    var m = a.match(/\b(\d{4})\s+([^,]+)\s*$/)
+    if (m) {
+      var cp = m[1]
+      var commune = (m[2] || '').trim()
+      // normalize some common variants
+      if (/bruxelles/i.test(commune)) commune = 'Bruxelles'
+      if (/ixelles/i.test(commune)) commune = 'Ixelles'
+      if (/etterbeek/i.test(commune)) commune = 'Etterbeek'
+      if (/schaerbeek/i.test(commune)) commune = 'Schaerbeek'
+      if (/saint[-\s]?gilles/i.test(commune)) commune = 'Saint-Gilles'
+      if (/molenbeek/i.test(commune)) commune = 'Molenbeek-Saint-Jean'
+      if (/anderlecht/i.test(commune)) commune = 'Anderlecht'
+      if (/woluwe[-\s]?saint[-\s]?lambert/i.test(commune)) commune = 'Woluwe-Saint-Lambert'
+      if (/woluwe[-\s]?saint[-\s]?pierre/i.test(commune)) commune = 'Woluwe-Saint-Pierre'
+      if (/watermael/i.test(commune)) commune = 'Watermael-Boitsfort'
+      if (/uccle/i.test(commune)) commune = 'Uccle'
+
+      return commune + ' (' + cp + ')'
+    }
+
+    // If we can't parse, fallback to last chunk
+    var parts = a.split(',').map(function (p) { return p.trim() }).filter(Boolean)
+    return parts[parts.length - 1] || 'Inconnue'
+  }
+
+  function normCommuneKey(label) {
+    return String(label || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '')
+      .trim()
   }
 
   // --- Group by theatre ---
@@ -120,6 +160,8 @@
         groups.set(rep.theatre_nom, {
           theatre_nom: rep.theatre_nom,
           theatre_adresse: rep.theatre_adresse,
+          commune_label: parseCommuneLabel(rep.theatre_adresse),
+          commune_key: normCommuneKey(parseCommuneLabel(rep.theatre_adresse)),
           representations: [],
         })
       }
@@ -147,36 +189,27 @@
 
   // --- Populate filter ---
 
-  function populateTheatreFilter(groups) {
-    var names = groups.map(function (g) { return g.theatre_nom })
-    // Show filter options in editorial order when available (fallback alphabetical)
-    names.sort(function (a, b) {
-      // Always keep Théâtre National at the end (editorial rule)
-      var na = normTheatreName(a)
-      var nb = normTheatreName(b)
-      var NAT = normTheatreName('Théâtre National Wallonie-Bruxelles')
-      if (na === NAT && nb !== NAT) return 1
-      if (nb === NAT && na !== NAT) return -1
-
-      var ra = theatreRanking.get(a)
-      if (ra == null) ra = theatreRankingNorm.get(na)
-      var rb = theatreRanking.get(b)
-      if (rb == null) rb = theatreRankingNorm.get(nb)
-      if (ra != null && rb != null) return ra - rb
-      if (ra != null) return -1
-      if (rb != null) return 1
-      return a.localeCompare(b, 'fr')
+  function populateCommuneFilter(groups) {
+    var map = new Map() // key -> label
+    groups.forEach(function (g) {
+      if (!g) return
+      var k = g.commune_key || normCommuneKey(g.commune_label)
+      var label = g.commune_label || 'Inconnue'
+      if (k && !map.has(k)) map.set(k, label)
     })
 
-    // Remove old options (keep first "Tous")
+    var options = Array.from(map.entries()).map(function (kv) { return { key: kv[0], label: kv[1] } })
+    options.sort(function (a, b) { return a.label.localeCompare(b.label, 'fr') })
+
+    // Remove old options (keep first "Toutes")
     while (theatreSelect.options.length > 1) {
       theatreSelect.remove(1)
     }
 
-    for (var i = 0; i < names.length; i++) {
+    for (var i = 0; i < options.length; i++) {
       var opt = document.createElement('option')
-      opt.value = names[i]
-      opt.textContent = names[i]
+      opt.value = options[i].key
+      opt.textContent = options[i].label
       theatreSelect.appendChild(opt)
     }
   }
@@ -189,8 +222,8 @@
   }
 
   function renderResults() {
-    var groups = selectedTheatre
-      ? allGroups.filter(function (g) { return g.theatre_nom === selectedTheatre })
+    var groups = selectedCommune
+      ? allGroups.filter(function (g) { return g.commune_key === selectedCommune })
       : allGroups
 
     if (groups.length === 0) {
