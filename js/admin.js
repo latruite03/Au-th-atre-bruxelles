@@ -8,6 +8,82 @@
   // ---------------------------------------------------------------
   // Theatres cible (63 theatres bruxellois)
   // ---------------------------------------------------------------
+  // Season window used for admin stats (public-facing dataset)
+  var MIN_DATE = '2026-01-01'
+  var MAX_DATE = '2026-06-30'
+
+  // IMPORTANT: "Couverture (connecteurs)" is a manual checklist: theatres we already have
+  // a connector for (even if it currently returns 0 upcoming reps).
+  // Update this list when you add a new connector.
+  var THEATRES_CONNECTEURS = [
+    // Petites salles / lieux intimistes
+    'Au Dé à Coudre',
+    "Au B'Izou",
+    'Cellule 133a',
+    "L'Épicerie (Ras El Hanout)",
+    "Le Café de la Rue",
+    "Koek's Théâtre",
+    'Le Boson',
+    'La Clarencière',
+    'Maison Poème',
+    "L'Os à Moelle",
+    "L'Entrela'",
+    'PLOEF!',
+    'Le Jardin de ma Sœur',
+    'La Villa',
+    'Atelier Théâtre de la Vie',
+    "Théâtre L'Improviste",
+    'Côté Village',
+    'Théâtre de Joli-Bois',
+    'Théâtre Royal de Toone',
+    'Magic Land Théâtre',
+
+    // Centres culturels
+    'Archipel 19 – Maison Stepman',
+    'Archipel 19 – Le Fourquet',
+    'Escale du Nord',
+    'BRASS',
+    'Auditorium Jacques Brel (CERIA)',
+    'Centre culturel Jacques Franck',
+    "Centre culturel d'Auderghem (CCA)",
+    "Centre Culturel d'Uccle",
+    'Espace Senghor',
+    'Zinnema',
+    'GC De Kriekelaar',
+    'Wolubilis',
+
+    // Théâtres moyens/grands
+    'Théâtre de Poche',
+    'Théâtre Océan Nord',
+    'Théâtre Marni',
+    'Comédie Claude Volter',
+    'Théâtre Mercelis',
+    'Le Rideau',
+    'Théâtre de la Balsamine',
+    'Théâtre 140',
+    'Théâtre Varia',
+    'Atelier 210',
+    'W:Halll',
+    'La Vénerie',
+    'Les Riches-Claires',
+    'BRONKS',
+
+    // Institutions
+    'La Montagne Magique',
+    'Théâtre Le Public',
+    'Théâtre Les Tanneurs',
+    'Beursschouwburg',
+    "Théâtre de la Toison d'Or",
+    'Halles de Schaerbeek',
+    'Kaaitheater',
+    'Théâtre des Martyrs',
+    'Cirque Royal',
+    'Théâtre Royal du Parc',
+    'Théâtre Royal des Galeries',
+    'KVS (Koninklijke Vlaamse Schouwburg)',
+    'Théâtre National Wallonie-Bruxelles',
+  ]
+
   var THEATRES_CIBLE = [
     // --- Petites salles indépendantes, cafés-théâtres, lieux intimistes ---
     'Au D\u00e9 \u00e0 Coudre',
@@ -171,10 +247,10 @@
   async function renderStatusTab() {
     try {
       var results = await Promise.all([
-        getDistinctTheatres(),
+        getDistinctTheatresVisibleSeason(),
         getLatestRepresentations(15),
         getSourceStatuses(),
-        getTotalCount(),
+        getTotalCountVisibleSeason(),
       ])
 
       var dbTheatres = results[0]
@@ -182,6 +258,12 @@
       var sourceStatuses = results[2]
       var totalCount = results[3]
 
+      // Coverage 1: connecteurs (manual checklist)
+      var connectorsNorm = new Set(THEATRES_CONNECTEURS.map(function (t) { return normTheatreName(t) }))
+      var connectorsCovered = THEATRES_CIBLE.filter(function (t) { return connectorsNorm.has(normTheatreName(t)) })
+      var connectorsMissing = THEATRES_CIBLE.filter(function (t) { return !connectorsNorm.has(normTheatreName(t)) })
+
+      // Coverage 2: visible season (what we actually show)
       // Match by normalized exact name only (avoid fuzzy includes that creates false positives/negatives)
       var dbNorm = new Set(dbTheatres.map(function (t) { return normTheatreName(t) }))
 
@@ -205,6 +287,7 @@
       })
 
       var coveragePct = Math.round((matchedTargets.length / THEATRES_CIBLE.length) * 100)
+      var connectorsPct = Math.round((connectorsCovered.length / THEATRES_CIBLE.length) * 100)
 
       var html = ''
 
@@ -217,42 +300,60 @@
 
       // KPIs
       html += '<div class="kpi-grid">'
-      html += kpiCard('Repr\u00e9sentations', totalCount.toLocaleString('fr-BE'))
-      html += kpiCard('Th\u00e9\u00e2tres en DB', dbTheatres.length)
-      html += kpiCard('Couverture cible', matchedTargets.length + '/' + THEATRES_CIBLE.length, coveragePct + '%')
-      html += kpiCard('Connecteurs', sourceStatuses.length,
-        staleConnectors.length > 0 ? staleConnectors.length + ' \u00e0 rafra\u00eechir' : 'tous \u00e0 jour',
-        staleConnectors.length > 0 ? 'kpi-sub--amber' : 'kpi-sub--green')
+      html += kpiCard('Repr\u00e9sentations (visibles saison)', totalCount.toLocaleString('fr-BE'))
+      html += kpiCard('Th\u00e9\u00e2tres (visibles saison)', dbTheatres.length)
+      html += kpiCard('Couverture connecteurs', connectorsCovered.length + '/' + THEATRES_CIBLE.length, connectorsPct + '%')
+      html += kpiCard('Couverture visible (saison)', matchedTargets.length + '/' + THEATRES_CIBLE.length, coveragePct + '%')
       html += '</div>'
 
-      // Progress bar
+      // Progress bar (visible season)
       html += '<div class="progress-bar-wrap">'
-      html += '<div class="progress-bar-header"><span class="progress-bar-label">Progression vers les ' + THEATRES_CIBLE.length + ' th\u00e9\u00e2tres</span>'
+      html += '<div class="progress-bar-header"><span class="progress-bar-label">Couverture visible (saison ' + MIN_DATE + ' → ' + MAX_DATE + ')</span>'
       html += '<span class="progress-bar-pct">' + coveragePct + '%</span></div>'
       html += '<div class="progress-bar"><div class="progress-bar-fill" style="width:' + coveragePct + '%"></div></div>'
       html += '</div>'
 
       // Toggle buttons
       html += '<div class="toggle-bar">'
-      html += '<button class="btn-toggle" id="btn-show-missing">' + missingTargets.length + ' manquant(s)</button>'
-      html += '<button class="btn-toggle" id="btn-show-present">' + matchedTargets.length + ' pr\u00e9sent(s)</button>'
+      html += '<button class="btn-toggle" id="btn-show-missing">' + connectorsMissing.length + ' connecteur(s) manquant(s)</button>'
+      html += '<button class="btn-toggle" id="btn-show-present">' + connectorsCovered.length + ' connecteur(s) ok</button>'
+      html += '<button class="btn-toggle" id="btn-show-visible-missing">' + missingTargets.length + ' manquant(s) (visible saison)</button>'
+      html += '<button class="btn-toggle" id="btn-show-visible-present">' + matchedTargets.length + ' pr\u00e9sent(s) (visible saison)</button>'
       if (extraTheatres.length > 0) {
         html += '<span class="toggle-extra">+ ' + extraTheatres.length + ' th\u00e9\u00e2tre(s) hors liste cible en DB</span>'
       }
       html += '</div>'
 
-      // Missing panel
+      // Connectors missing panel
       html += '<div id="panel-missing" class="theatre-list-panel theatre-list-panel--red hidden">'
-      html += '<h3 class="theatre-list-panel-title" style="color:var(--color-red-800)">Th\u00e9\u00e2tres manquants (' + missingTargets.length + ')</h3>'
+      html += '<h3 class="theatre-list-panel-title" style="color:var(--color-red-800)">Connecteurs manquants (' + connectorsMissing.length + ')</h3>'
+      html += '<div class="theatre-list-grid">'
+      connectorsMissing.forEach(function (t) {
+        html += '<div class="theatre-list-item" style="color:var(--color-red-700)">' + escapeHtml(t) + '</div>'
+      })
+      html += '</div></div>'
+
+      // Connectors present panel
+      html += '<div id="panel-present" class="theatre-list-panel theatre-list-panel--green hidden">'
+      html += '<h3 class="theatre-list-panel-title" style="color:var(--color-green-800)">Connecteurs ok (' + connectorsCovered.length + ')</h3>'
+      html += '<div class="theatre-list-grid">'
+      connectorsCovered.forEach(function (t) {
+        html += '<div class="theatre-list-item" style="color:var(--color-green-700)">' + escapeHtml(t) + '</div>'
+      })
+      html += '</div></div>'
+
+      // Visible season missing panel
+      html += '<div id="panel-visible-missing" class="theatre-list-panel theatre-list-panel--red hidden">'
+      html += '<h3 class="theatre-list-panel-title" style="color:var(--color-red-800)">Manquants (visible saison ' + MIN_DATE + ' → ' + MAX_DATE + ') (' + missingTargets.length + ')</h3>'
       html += '<div class="theatre-list-grid">'
       missingTargets.forEach(function (t) {
         html += '<div class="theatre-list-item" style="color:var(--color-red-700)">' + escapeHtml(t) + '</div>'
       })
       html += '</div></div>'
 
-      // Present panel
-      html += '<div id="panel-present" class="theatre-list-panel theatre-list-panel--green hidden">'
-      html += '<h3 class="theatre-list-panel-title" style="color:var(--color-green-800)">Th\u00e9\u00e2tres pr\u00e9sents (' + matchedTargets.length + ')</h3>'
+      // Visible season present panel
+      html += '<div id="panel-visible-present" class="theatre-list-panel theatre-list-panel--green hidden">'
+      html += '<h3 class="theatre-list-panel-title" style="color:var(--color-green-800)">Pr\u00e9sents (visible saison ' + MIN_DATE + ' → ' + MAX_DATE + ') (' + matchedTargets.length + ')</h3>'
       html += '<div class="theatre-list-grid">'
       matchedTargets.forEach(function (t) {
         html += '<div class="theatre-list-item" style="color:var(--color-green-700)">' + escapeHtml(t) + '</div>'
@@ -306,6 +407,19 @@
       })
       document.getElementById('btn-show-present').addEventListener('click', function () {
         var panel = document.getElementById('panel-present')
+        var btn = this
+        panel.classList.toggle('hidden')
+        btn.classList.toggle('btn-toggle--green')
+      })
+
+      document.getElementById('btn-show-visible-missing').addEventListener('click', function () {
+        var panel = document.getElementById('panel-visible-missing')
+        var btn = this
+        panel.classList.toggle('hidden')
+        btn.classList.toggle('btn-toggle--red')
+      })
+      document.getElementById('btn-show-visible-present').addEventListener('click', function () {
+        var panel = document.getElementById('panel-visible-present')
         var btn = this
         panel.classList.toggle('hidden')
         btn.classList.toggle('btn-toggle--green')
@@ -1174,18 +1288,20 @@
       .trim()
   }
 
-  async function getDistinctTheatres() {
+  async function getDistinctTheatresVisibleSeason() {
     // IMPORTANT:
-    // Coverage should be computed on what the public site would show:
-    // - upcoming only (>= today)
+    // Admin stats should be computed on what the public site would show,
+    // but on the season window (Jan 1 → Jun 30):
+    // - MIN_DATE..MAX_DATE
     // - is_theatre=true
-    // - not hidden
-    var today = toDateString(new Date())
+    // - hidden_at IS NULL
+    // - ignore performances strictly before 13:00 (school time)
 
     var res = await supabaseClient
       .from('representations')
-      .select('theatre_nom,heure')
-      .gte('date', today)
+      .select('theatre_nom,heure,date')
+      .gte('date', MIN_DATE)
+      .lte('date', MAX_DATE)
       .eq('is_theatre', true)
       .is('hidden_at', null)
 
@@ -1226,8 +1342,16 @@
     return Array.from(map.values()).sort(function (a, b) { return a.source.localeCompare(b.source, 'fr') })
   }
 
-  async function getTotalCount() {
-    var res = await supabaseClient.from('representations').select('*', { count: 'exact', head: true })
+  async function getTotalCountVisibleSeason() {
+    var res = await supabaseClient
+      .from('representations')
+      .select('*', { count: 'exact', head: true })
+      .gte('date', MIN_DATE)
+      .lte('date', MAX_DATE)
+      .eq('is_theatre', true)
+      .is('hidden_at', null)
+      .or('heure.is.null,heure.gte.13:00:00')
+
     if (res.error) throw new Error(res.error.message)
     return res.count || 0
   }
