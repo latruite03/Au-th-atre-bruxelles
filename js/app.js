@@ -163,9 +163,13 @@
       var rep = representations[i]
       if (isTooEarlyTime(rep.heure)) continue
 
+      var heureKey = String(rep.heure || '').trim()
+      // Supabase may return 'HH:MM:SS' while other sources produce 'HH:MM'
+      if (/^\d\d:\d\d/.test(heureKey)) heureKey = heureKey.slice(0, 5)
+
       var k = [
         rep.date,
-        rep.heure || '',
+        heureKey,
         String(rep.theatre_nom || '').trim().toLowerCase(),
         String(rep.titre || '').trim().toLowerCase(),
       ].join('|')
