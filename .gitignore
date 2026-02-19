@@ -2,6 +2,15 @@
 .DS_Store
 Thumbs.db
 
+# Node / build
+node_modules/
+.next/
+dist/
+coverage/
+*.tsbuildinfo
+.env.local
+next-env.d.ts
+
 # Editor
 *.swp
 *.swo
