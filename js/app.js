@@ -167,11 +167,20 @@
       // Supabase may return 'HH:MM:SS' while other sources produce 'HH:MM'
       if (/^\d\d:\d\d/.test(heureKey)) heureKey = heureKey.slice(0, 5)
 
+      var theatreKey = String(rep.theatre_nom || '')
+        .trim()
+        .toLowerCase()
+
+      var titleKey = decodeHtmlEntities(String(rep.titre || ''))
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase()
+
       var k = [
         rep.date,
         heureKey,
-        String(rep.theatre_nom || '').trim().toLowerCase(),
-        String(rep.titre || '').trim().toLowerCase(),
+        theatreKey,
+        titleKey,
       ].join('|')
 
       if (seen.has(k)) continue
