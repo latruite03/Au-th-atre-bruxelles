@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lieux — Au théâtre ce soir</title>
+  <meta name="description" content="Tous les théâtres et cafés-théâtres à Bruxelles.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4F46E5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="top-bar"><div class="container"><div class="top-bar-inner"><a href="/" class="top-bar-logo">Au théâtre ce soir</a><ul class="top-bar-nav"><li><a href="/">Agenda</a></li><li><a href="cette-semaine.html">Cette semaine</a></li><li><a href="lieux.html" class="active">Lieux</a></li><li><a href="#">Blog</a></li><li><a href="a-propos.html">À propos</a></li></ul><button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button></div></div></nav>
+  <div id="mobile-menu" class="mobile-menu"><button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button><a href="/">Agenda</a><a href="cette-semaine.html">Cette semaine</a><a href="lieux.html">Lieux</a><a href="#">Blog</a><a href="a-propos.html">À propos</a></div>
+
+  <main>
+    <div class="container" style="padding-top: 3rem; padding-bottom: 4rem;">
+      <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Lieux</h1>
+      <p style="color: var(--text-2); margin-bottom: 2.5rem;">Tous les théâtres et scènes référencés à Bruxelles.</p>
+
+      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+        <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+            <div>
+              <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Le Fou Rire</h3>
+              <p style="font-size: 0.8125rem; color: var(--text-3);">Rue des Alexiens 55, 1000 Bruxelles</p>
+              <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Scène indépendante</span>
+            </div>
+            <div style="text-align: right;"><p style="font-size: 1.5rem; font-weight: 700; color: var(--text);">3</p><p style="font-size: 0.75rem; color: var(--text-3);">spectacles</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+        <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+            <div>
+              <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre de la Toison d'Or</h3>
+              <p style="font-size: 0.8125rem; color: var(--text-3);">Galerie de la Toison d'Or 396, 1050 Ixelles</p>
+              <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Scène indépendante</span>
+            </div>
+            <div style="text-align: right;"><p style="font-size: 1.5rem; font-weight: 700; color: var(--text);">5</p><p style="font-size: 0.75rem; color: var(--text-3);">spectacles</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+        <div style="padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
+            <div>
+              <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre National Wallonie-Bruxelles</h3>
+              <p style="font-size: 0.8125rem; color: var(--text-3);">Boulevard Emile Jacqmain 111-115, 1000 Bruxelles</p>
+            </div>
+            <div style="text-align: right;"><p style="font-size: 1.5rem; font-weight: 700; color: var(--text);">8</p><p style="font-size: 0.75rem; color: var(--text-3);">spectacles</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-section"><h4>Au théâtre ce soir</h4><p>L'agenda théâtre à Bruxelles — les petites scènes d'abord.</p></div><div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div><div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li></ul></div></div><div class="footer-bottom"><p>Un projet de l'ASBL — Bruxelles · Sans publicité</p></div></div></footer>
+  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab active">Lieux</a><a href="#" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab">Plus</a></nav>
+</body>
+</html>

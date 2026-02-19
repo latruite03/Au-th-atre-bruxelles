@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos — Au théâtre ce soir</title>
+  <meta name="description" content="Pourquoi ce projet ? Un agenda en ligne des spectacles de théâtre à Bruxelles.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4F46E5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="top-bar">
+    <div class="container">
+      <div class="top-bar-inner">
+        <a href="/" class="top-bar-logo">Au théâtre ce soir</a>
+        <ul class="top-bar-nav">
+          <li><a href="/">Agenda</a></li>
+          <li><a href="cette-semaine.html">Cette semaine</a></li>
+          <li><a href="lieux.html">Lieux</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="a-propos.html" class="active">À propos</a></li>
+        </ul>
+        <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+    <a href="/">Agenda</a><a href="cette-semaine.html">Cette semaine</a><a href="lieux.html">Lieux</a><a href="#">Blog</a><a href="a-propos.html">À propos</a>
+  </div>
+
+  <main>
+    <div class="container" style="padding-top: 3rem; padding-bottom: 4rem;">
+      <h1 style="font-size: 2rem; margin-bottom: 0.75rem;">Pourquoi ce projet ?</h1>
+      <p style="font-family: var(--font-accent); font-size: 1.5rem; color: var(--accent); margin-bottom: 2.5rem;">Les petites scènes d'abord !</p>
+
+      <section style="background: var(--bg-warm); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">Un constat simple</h2>
+        <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 1rem;">À Bruxelles, il y a des dizaines de salles de théâtre, de cafés-théâtres, de scènes de quartier. Mais quand on cherche "théâtre Bruxelles ce soir" sur Internet, on tombe toujours sur les mêmes grandes institutions.</p>
+        <p style="color: var(--text-2); line-height: 1.8;">Les petites scènes — celles où l'on s'assoit à deux mètres des comédiens, où le patron vous sert un verre avant le spectacle — ces scènes-là sont invisibles en ligne.</p>
+      </section>
+
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">Notre réponse</h2>
+        <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 1rem;"><strong style="color: var(--text);">Au théâtre ce soir</strong> est un agenda en ligne qui référence les spectacles de théâtre en Région Bruxelles-Capitale. Gratuit. Sans publicité. Mis à jour chaque semaine.</p>
+        <p style="color: var(--text-2); line-height: 1.8;">Notre particularité : <strong style="color: var(--accent);">les petites scènes passent en premier.</strong></p>
+      </section>
+
+      <section style="background: var(--bg-warm); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; border-left: 4px solid var(--accent);">
+        <h2 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">Pas de publicité</h2>
+        <p style="color: var(--text-2); line-height: 1.8;">Ce site ne contient aucune publicité et n'en contiendra pas. Le théâtre de proximité mérite un espace qui lui est consacré, pas un espace qui le monétise.</p>
+      </section>
+
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">Un projet associatif</h2>
+        <p style="color: var(--text-2); line-height: 1.8;">"Au théâtre ce soir" est un projet associatif dédié à la culture et au folklore bruxellois. Le site est développé et maintenu bénévolement.</p>
+      </section>
+
+      <section style="background: var(--bg-warm); border-radius: 12px; padding: 2rem;">
+        <h2 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">Un lieu manque ? Une erreur ?</h2>
+        <p style="color: var(--text-2); line-height: 1.8;">Si votre salle n'est pas encore référencée, si une information est incorrecte, ou si vous avez des suggestions : écrivez-nous.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section"><h4>Au théâtre ce soir</h4><p>L'agenda théâtre à Bruxelles — les petites scènes d'abord.</p><p class="footer-tagline">Un projet associatif, sans publicité.</p></div>
+        <div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div>
+        <div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="#">Soutenir</a></li><li><a href="#">Mentions légales</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>Un projet de l'ASBL — Bruxelles · Sans publicité</p></div>
+    </div>
+  </footer>
+  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab">Lieux</a><a href="#" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab active">Plus</a></nav>
+</body>
+</html>
