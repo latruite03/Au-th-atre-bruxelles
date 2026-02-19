@@ -14,6 +14,8 @@
 
   // --- DOM refs ---
   var dateInput = document.getElementById('date-input')
+  var prevDayBtn = document.getElementById('prev-day')
+  var nextDayBtn = document.getElementById('next-day')
   var theatreSelect = document.getElementById('theatre-select')
   var resultsTitle = document.getElementById('results-title')
   var resultsContainer = document.getElementById('results-container')
@@ -22,7 +24,11 @@
   dateInput.value = toDateString(selectedDate)
   dateInput.min = toDateString(new Date())
   dateInput.addEventListener('change', onDateChange)
+  if (prevDayBtn) prevDayBtn.addEventListener('click', goPrevDay)
+  if (nextDayBtn) nextDayBtn.addEventListener('click', goNextDay)
   theatreSelect.addEventListener('change', onCommuneChange)
+
+  updateDayNavButtons()
 
   // Load editorial ranking then fetch representations
   loadRanking().then(function () {
@@ -37,7 +43,48 @@
     selectedDate = new Date(val + 'T00:00:00')
     selectedCommune = null
     theatreSelect.value = ''
+    updateDayNavButtons()
     fetchRepresentations(val)
+  }
+
+  function clampToMinDate(d) {
+    var min = new Date(dateInput.min + 'T00:00:00')
+    if (String(min) !== 'Invalid Date' && d < min) return min
+    return d
+  }
+
+  function goPrevDay() {
+    var d = new Date(selectedDate.getTime() - 24 * 3600 * 1000)
+    d = clampToMinDate(d)
+    selectedDate = d
+    var iso = toDateString(selectedDate)
+    dateInput.value = iso
+    selectedCommune = null
+    theatreSelect.value = ''
+    updateDayNavButtons()
+    fetchRepresentations(iso)
+  }
+
+  function goNextDay() {
+    selectedDate = new Date(selectedDate.getTime() + 24 * 3600 * 1000)
+    var iso = toDateString(selectedDate)
+    dateInput.value = iso
+    selectedCommune = null
+    theatreSelect.value = ''
+    updateDayNavButtons()
+    fetchRepresentations(iso)
+  }
+
+  function updateDayNavButtons() {
+    if (!prevDayBtn && !nextDayBtn) return
+    var min = new Date(dateInput.min + 'T00:00:00')
+    if (prevDayBtn) {
+      // disable when we are already on min date
+      prevDayBtn.disabled = String(min) !== 'Invalid Date' && toDateString(selectedDate) <= toDateString(min)
+    }
+    if (nextDayBtn) {
+      nextDayBtn.disabled = false
+    }
   }
 
   function onCommuneChange() {
