@@ -85,6 +85,8 @@
         .select('*')
         .eq('date', dateStr)
         .eq('is_theatre', true)
+        // Do not show masked rows (hidden_at set)
+        .is('hidden_at', null)
         // Exclude school-time performances at the query level too (defense in depth)
         .or('heure.is.null,heure.gte.13:00:00')
         .order('theatre_nom', { ascending: true })
@@ -153,9 +155,24 @@
 
   function groupByTheatre(representations) {
     var groups = new Map()
+
+    // Dedupe obvious duplicates (same date + time + theatre + title)
+    var seen = new Set()
+
     for (var i = 0; i < representations.length; i++) {
       var rep = representations[i]
       if (isTooEarlyTime(rep.heure)) continue
+
+      var k = [
+        rep.date,
+        rep.heure || '',
+        String(rep.theatre_nom || '').trim().toLowerCase(),
+        String(rep.titre || '').trim().toLowerCase(),
+      ].join('|')
+
+      if (seen.has(k)) continue
+      seen.add(k)
+
       if (!groups.has(rep.theatre_nom)) {
         groups.set(rep.theatre_nom, {
           theatre_nom: rep.theatre_nom,
