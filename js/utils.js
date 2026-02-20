@@ -64,8 +64,16 @@ function decodeHtmlEntities(input) {
  * Ex: "L'EFFET MIROIR" → "L'effet miroir"
  */
 function normalizeTitle(title) {
+  // Editorial choice: keep original casing (it often carries meaning for names),
+  // but still decode entities + trim.
+  // Only downcase if the title is FULL CAPS (common in some sources).
   const raw = decodeHtmlEntities((title || '').trim())
   if (!raw) return ''
+
+  const hasLetters = /[\p{L}]/u.test(raw)
+  const isAllCaps = hasLetters && raw === raw.toLocaleUpperCase('fr-BE')
+  if (!isAllCaps) return raw
+
   const lower = raw.toLocaleLowerCase('fr-BE')
   const chars = Array.from(lower)
   const idx = chars.findIndex(function (c) { return /[\p{L}\p{N}]/u.test(c) })
