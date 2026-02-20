@@ -25,14 +25,17 @@
         <div style="padding: 1.5rem; border-left: 4px solid var(--accent);">
           <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Théâtre de la Vie</h1>
           <p style="color: var(--text-3); margin: 0;">Rue Traversière 45, 1210 Saint‑Josse‑ten‑Noode</p>
-          <p style="margin-top: 1rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 70ch;">
-            Il y a des salles qui ressemblent à des institutions, et d’autres qui ressemblent à des ateliers de création ouverts.
-            Ici, on vient pour des écritures d’aujourd’hui, des formes contemporaines, et ce goût du théâtre quand il assume de provoquer une petite crise —
-            juste assez pour qu’on ressorte plus vivant qu’en entrant.
+          <p style="margin-top: 1rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 72ch;">
+            Au cœur de Saint‑Josse, le Théâtre de la Vie fait partie de ces salles qui comptent sans chercher à impressionner.
+            Depuis plus de deux décennies, il défend la jeune création et les écritures d’aujourd’hui — un théâtre de texte, mais pas au sens scolaire :
+            plutôt au sens où les mots y restent dangereux, drôles, et parfois nécessaires.
           </p>
-          <p style="margin-top: 0.9rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 70ch;">
-            Le Théâtre de la Vie a cette énergie bruxelloise qu’on adore : un lieu à taille humaine, sans grandiloquence, où la proximité fait tout.
-            Un endroit parfait pour découvrir une création avant qu’elle devienne évidente ailleurs.
+          <p style="margin-top: 0.9rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 72ch;">
+            Le bâtiment lui‑même raconte Bruxelles : ancien dépôt industriel (fin XIXe), aujourd’hui réaffecté en lieu de scène.
+            On y vient pour la proximité, pour cette sensation d’être tout près du plateau, et pour découvrir des projets avant qu’ils deviennent “évidents” ailleurs.
+          </p>
+          <p style="margin-top: 0.9rem; margin-bottom: 0; color: var(--text-3); line-height: 1.55; max-width: 72ch; font-size: 0.95rem;">
+            Repères&nbsp;: rue Traversière 45 (Saint‑Josse) · réaffectation d’un bâtiment de 1895 · inscrit à l’inventaire légal du patrimoine bruxellois (19 août 2024).
           </p>
 
           <div style="margin-top: 1.1rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
@@ -44,7 +47,7 @@
 
       <section style="margin-top: 2rem;">
         <h2 style="font-size: 1.4rem; margin-bottom: 0.75rem;">Prochains spectacles</h2>
-        <p style="color: var(--text-3); margin-top: 0; margin-bottom: 1.25rem;">Sélection automatique depuis la base, à partir d’aujourd’hui.</p>
+        <p style="color: var(--text-3); margin-top: 0; margin-bottom: 1.25rem;">Les dates à venir au Théâtre de la Vie.</p>
 
         <div id="upcoming-wrap" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
           <div id="upcoming" style="padding: 1.25rem;">
@@ -81,6 +84,87 @@
       return [r.date, heure, normalizeKey(r.theatre_nom), normalizeKey(r.titre)].join('|')
     }
 
+    function showKey(r){
+      // Group show occurrences by (normalized title + time). Keep the earliest url we see.
+      var heure = (r.heure ? String(r.heure).slice(0,5) : '')
+      return [normalizeKey(r.titre), heure].join('|')
+    }
+
+    function formatDateShort(iso){
+      // "2026-03-17" -> "17 mars"
+      try {
+        var d = new Date(iso + 'T00:00:00')
+        return d.toLocaleDateString('fr-BE', { day: 'numeric', month: 'long' })
+      } catch { return iso }
+    }
+
+    function formatMonthYear(iso){
+      try {
+        var d = new Date(iso + 'T00:00:00')
+        return d.toLocaleDateString('fr-BE', { month: 'long', year: 'numeric' })
+      } catch { return '' }
+    }
+
+    function compressDates(dates){
+      // dates: array of ISO date strings sorted ascending
+      // returns array of { kind: 'single'|'range', start, end }
+      if (!dates.length) return []
+      var out = []
+      var start = dates[0]
+      var prev = dates[0]
+
+      function nextDay(iso){
+        var d = new Date(iso + 'T00:00:00')
+        d = new Date(d.getTime() + 24*3600*1000)
+        return toDateString(d)
+      }
+
+      for (var i=1;i<dates.length;i++){
+        var cur = dates[i]
+        if (cur === nextDay(prev)) {
+          prev = cur
+          continue
+        }
+        // close segment
+        if (start === prev) out.push({ kind:'single', start:start, end:start })
+        else out.push({ kind:'range', start:start, end:prev })
+        start = cur
+        prev = cur
+      }
+      if (start === prev) out.push({ kind:'single', start:start, end:start })
+      else out.push({ kind:'range', start:start, end:prev })
+      return out
+    }
+
+    function formatDateSegments(segs){
+      if (!segs.length) return ''
+      // if exactly one range across same month/year, show "du 17 au 28 mars 2026"
+      if (segs.length === 1 && segs[0].kind === 'range'){
+        var s = segs[0].start
+        var e = segs[0].end
+        var monthYear = formatMonthYear(e)
+        var sDay = formatDateShort(s).split(' ')[0]
+        var eDay = formatDateShort(e).split(' ')[0]
+        return 'du ' + sDay + ' au ' + eDay + ' ' + monthYear
+      }
+
+      // otherwise list a few chunks, like "17, 18, 19 mars" or "17 mars, 2 avril"
+      var parts = []
+      for (var i=0;i<segs.length;i++){
+        var g = segs[i]
+        if (g.kind === 'single') parts.push(formatDateShort(g.start))
+        else {
+          parts.push('du ' + formatDateShort(g.start) + ' au ' + formatDateShort(g.end))
+        }
+      }
+      // keep it light
+      if (parts.length > 6) {
+        parts = parts.slice(0,6)
+        parts.push('…')
+      }
+      return parts.join(', ')
+    }
+
     async function load(){
       try {
         var today = toDateString(new Date())
@@ -99,42 +183,68 @@
 
         // Dedupe just in case (slot-level)
         var seen = new Set()
-        var out = []
+        var dedup = []
         for (var i=0;i<rows.length;i++){
           var k = repKey(rows[i])
           if (seen.has(k)) continue
           seen.add(k)
-          out.push(rows[i])
+          dedup.push(rows[i])
         }
 
-        if (!out.length){
-          wrap.innerHTML = '<p style="margin:0; color: var(--text-2);">Rien de publié à venir pour l’instant — on garde un œil.</p>'
+        if (!dedup.length){
+          wrap.innerHTML = '<p style="margin:0; color: var(--text-2);">Aucune date à venir n’est affichée pour l’instant.</p>'
           return
         }
 
-        var html = ''
-        for (var j=0;j<out.length;j++){
-          var r = out[j]
-          var dateLabel = formatDate(r.date)
-          var heureLabel = formatHeure(r.heure)
-          var title = normalizeTitle(r.titre)
-          var link = r.url
+        // Group occurrences by show
+        var groups = new Map()
+        for (var g=0; g<dedup.length; g++){
+          var r = dedup[g]
+          var sk = showKey(r)
+          if (!groups.has(sk)) {
+            groups.set(sk, {
+              titre: normalizeTitle(r.titre),
+              heure: (r.heure ? String(r.heure).slice(0,5) : null),
+              url: r.url,
+              dates: [],
+            })
+          }
+          groups.get(sk).dates.push(r.date)
+        }
 
-          html += '<div style="display:flex; justify-content:space-between; gap:1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border);">'
-          html +=   '<div>'
-          html +=     '<div style="font-weight:700; color: var(--text);">' + esc(title) + '</div>'
-          html +=     '<div style="color: var(--text-3); font-size: 0.9rem; margin-top: 0.15rem;">' + esc(dateLabel) + ' · ' + esc(heureLabel) + '</div>'
+        var grouped = Array.from(groups.values())
+          .map(function (x) {
+            x.dates = Array.from(new Set(x.dates)).sort()
+            return x
+          })
+          .sort(function (a,b){
+            return (a.dates[0]||'').localeCompare(b.dates[0]||'')
+          })
+
+        var html = ''
+        for (var j=0;j<grouped.length;j++){
+          var s = grouped[j]
+          var segs = compressDates(s.dates)
+          var dateLabel = formatDateSegments(segs)
+          var heureLabel = s.heure ? (s.heure) : null
+
+          html += '<div style="display:flex; justify-content:space-between; gap:1rem; padding: 0.95rem 0; border-bottom: 1px solid var(--border);">'
+          html +=   '<div style="min-width:0;">'
+          html +=     '<div style="font-weight:700; color: var(--text);">' + esc(s.titre) + '</div>'
+          html +=     '<div style="color: var(--text-3); font-size: 0.95rem; margin-top: 0.2rem;">'
+          html +=        esc(dateLabel)
+          if (heureLabel) html += ' · ' + esc(heureLabel)
+          html +=     '</div>'
           html +=   '</div>'
-          if (link) {
+          if (s.url) {
             html += '<div style="flex: 0 0 auto;">'
-            html +=   '<a class="show-btn" href="' + esc(link) + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">Voir</a>'
+            html +=   '<a class="show-btn" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">Voir</a>'
             html += '</div>'
           }
           html += '</div>'
         }
 
-        // remove last border
-        wrap.innerHTML = html.replace(/border-bottom: 1px solid var\(--border\);\"\>$/,'')
+        wrap.innerHTML = html
         // cleanup borders: remove border from last element
         var children = wrap.children
         if (children && children.length) {
