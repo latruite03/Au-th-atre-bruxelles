@@ -25,17 +25,18 @@
         <div style="padding: 1.5rem; border-left: 4px solid var(--accent);">
           <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Théâtre de la Vie</h1>
           <p style="color: var(--text-3); margin: 0;">Rue Traversière 45, 1210 Saint‑Josse‑ten‑Noode</p>
-          <p style="margin-top: 1rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 72ch;">
-            Au cœur de Saint‑Josse, le Théâtre de la Vie fait partie de ces salles qui comptent sans chercher à impressionner.
-            Depuis plus de deux décennies, il défend la jeune création et les écritures d’aujourd’hui — un théâtre de texte, mais pas au sens scolaire :
-            plutôt au sens où les mots y restent dangereux, drôles, et parfois nécessaires.
+          <p style="margin-top: 1rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 74ch;">
+            À Saint‑Josse, le Théâtre de la Vie est un lieu qui sert de tremplin et de laboratoire.
+            Sa ligne est plutôt du côté des <strong>formes contemporaines</strong> et de la <strong>jeune création</strong> — un endroit où l’on peut tenter, expérimenter,
+            prendre des risques, et où les récits moins vus ailleurs trouvent naturellement leur place.
           </p>
-          <p style="margin-top: 0.9rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 72ch;">
-            Le bâtiment lui‑même raconte Bruxelles : ancien dépôt industriel (fin XIXe), aujourd’hui réaffecté en lieu de scène.
-            On y vient pour la proximité, pour cette sensation d’être tout près du plateau, et pour découvrir des projets avant qu’ils deviennent “évidents” ailleurs.
+          <p style="margin-top: 0.9rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 74ch;">
+            Concrètement, attends‑toi à une programmation souvent <strong>engagée</strong>, curieuse des écritures et des formats,
+            plutôt qu’à du boulevard ou des “classiques” joués au cordeau.
+            Et comme la salle est à taille humaine, l’expérience est très proche du plateau.
           </p>
-          <p style="margin-top: 0.9rem; margin-bottom: 0; color: var(--text-3); line-height: 1.55; max-width: 72ch; font-size: 0.95rem;">
-            Repères&nbsp;: rue Traversière 45 (Saint‑Josse) · réaffectation d’un bâtiment de 1895 · inscrit à l’inventaire légal du patrimoine bruxellois (19 août 2024).
+          <p style="margin-top: 0.9rem; margin-bottom: 0; color: var(--text-3); line-height: 1.55; max-width: 74ch; font-size: 0.95rem;">
+            Repères&nbsp;: fondé en 1971, installé au 45 rue Traversière depuis 1988, dans un ancien bâtiment industriel de 1895.
           </p>
 
           <div style="margin-top: 1.1rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
@@ -85,9 +86,8 @@
     }
 
     function showKey(r){
-      // Group show occurrences by (normalized title + time). Keep the earliest url we see.
-      var heure = (r.heure ? String(r.heure).slice(0,5) : '')
-      return [normalizeKey(r.titre), heure].join('|')
+      // Group by title only; times will be summarized inside the show card.
+      return normalizeKey(r.titre)
     }
 
     function formatDateShort(iso){
@@ -196,7 +196,7 @@
           return
         }
 
-        // Group occurrences by show
+        // Group occurrences by show (title), then summarize per time
         var groups = new Map()
         for (var g=0; g<dedup.length; g++){
           var r = dedup[g]
@@ -204,37 +204,56 @@
           if (!groups.has(sk)) {
             groups.set(sk, {
               titre: normalizeTitle(r.titre),
-              heure: (r.heure ? String(r.heure).slice(0,5) : null),
               url: r.url,
-              dates: [],
+              times: new Map(), // heure -> dates[]
             })
           }
-          groups.get(sk).dates.push(r.date)
+          var s = groups.get(sk)
+          if (!s.url && r.url) s.url = r.url
+          var heure = (r.heure ? String(r.heure).slice(0,5) : '—')
+          if (!s.times.has(heure)) s.times.set(heure, [])
+          s.times.get(heure).push(r.date)
         }
 
         var grouped = Array.from(groups.values())
           .map(function (x) {
-            x.dates = Array.from(new Set(x.dates)).sort()
+            // normalize dates
+            x.times.forEach(function (dates, heure) {
+              x.times.set(heure, Array.from(new Set(dates)).sort())
+            })
+            // compute first date for sorting
+            var min = null
+            x.times.forEach(function (dates) {
+              if (dates && dates.length) {
+                if (!min || dates[0] < min) min = dates[0]
+              }
+            })
+            x.firstDate = min || '9999-99-99'
             return x
           })
           .sort(function (a,b){
-            return (a.dates[0]||'').localeCompare(b.dates[0]||'')
+            return a.firstDate.localeCompare(b.firstDate)
           })
 
         var html = ''
         for (var j=0;j<grouped.length;j++){
           var s = grouped[j]
-          var segs = compressDates(s.dates)
-          var dateLabel = formatDateSegments(segs)
-          var heureLabel = s.heure ? (s.heure) : null
-
           html += '<div style="display:flex; justify-content:space-between; gap:1rem; padding: 0.95rem 0; border-bottom: 1px solid var(--border);">'
           html +=   '<div style="min-width:0;">'
           html +=     '<div style="font-weight:700; color: var(--text);">' + esc(s.titre) + '</div>'
-          html +=     '<div style="color: var(--text-3); font-size: 0.95rem; margin-top: 0.2rem;">'
-          html +=        esc(dateLabel)
-          if (heureLabel) html += ' · ' + esc(heureLabel)
-          html +=     '</div>'
+
+          var timeKeys = Array.from(s.times.keys()).sort(function (a,b){ return a.localeCompare(b) })
+          for (var t=0; t<timeKeys.length; t++){
+            var heure = timeKeys[t]
+            var dates = s.times.get(heure) || []
+            var segs = compressDates(dates)
+            var dateLabel = formatDateSegments(segs)
+            html += '<div style="color: var(--text-3); font-size: 0.95rem; margin-top: 0.25rem;">'
+            html +=   esc(dateLabel)
+            if (heure && heure !== '—') html += ' · ' + esc(heure)
+            html += '</div>'
+          }
+
           html +=   '</div>'
           if (s.url) {
             html += '<div style="flex: 0 0 auto;">'
