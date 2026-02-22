@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /login
 
-Sitemap: https://autheatre.bruxellesensolo.be/sitemap.xml
+Sitemap: https://autheatre.brussels/sitemap.xml

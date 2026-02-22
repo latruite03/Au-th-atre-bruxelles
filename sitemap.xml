@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://autheatre.bruxellesensolo.be/</loc>
+    <loc>https://autheatre.brussels/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://autheatre.bruxellesensolo.be/lieux.html</loc>
+    <loc>https://autheatre.brussels/lieux.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://autheatre.bruxellesensolo.be/cette-semaine.html</loc>
+    <loc>https://autheatre.brussels/cette-semaine.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://autheatre.bruxellesensolo.be/a-propos.html</loc>
+    <loc>https://autheatre.brussels/a-propos.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
