@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Théâtre de Poche — Lieux — Au théâtre ce soir</title>
-  <meta name="description" content="Un théâtre niché au Bois de la Cambre. Prochains spectacles au Théâtre de Poche.">
+  <title>Les Riches-Claires — Lieux — Au théâtre ce soir</title>
+  <meta name="description" content="Une scène au centre-ville, vivante et accessible. Prochains spectacles aux Riches-Claires.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4F46E5">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,28 +24,26 @@
 
       <header style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
         <div style="padding: 1.5rem; border-left: 4px solid var(--accent);">
-          <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Théâtre de Poche</h1>
-          <p style="color: var(--text-3); margin: 0;">1a Chemin du Gymnase, 1000 Bruxelles (Bois de la Cambre)</p>
+          <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Les Riches-Claires</h1>
+          <p style="color: var(--text-3); margin: 0;">Centre de Bruxelles (à vérifier/adresse exacte via DB)</p>
 
           <p style="margin-top: 1rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 74ch;">
-            Le Poche est une <strong>petite salle cachée dans le Bois de la Cambre</strong> — ambiance “cabane” qui prend vite des airs de refuge.
-            On y trouve souvent des propositions où le <strong>texte</strong> et la <strong>présence</strong> priment, avec une vraie proximité.
+            Les Riches-Claires, c’est une salle <strong>au cœur de la ville</strong>, souvent choisie pour des spectacles qui veulent rester
+            <strong>proches du public</strong> : théâtre, stand-up, formes plus légères, ou projets qui cherchent l’énergie du direct.
           </p>
           <p style="margin-top: 0.9rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 74ch;">
-            C’est une bonne option quand tu veux un théâtre <strong>intime</strong>, sans “grand appareil”, et une soirée qui commence déjà par le trajet
-            (arriver au milieu des arbres, ça change tout).
+            Une bonne option quand tu veux une soirée <strong>simple</strong>, “tu sors du boulot, tu y vas”, avec une programmation qui bouge.
           </p>
 
           <div style="margin-top: 1.1rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
-            <a class="newsletter-btn" href="https://poche.be" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">Site officiel</a>
-            <a class="newsletter-btn" href="https://www.google.com/maps?q=1a%20Chemin%20du%20Gymnase%2C%201000%20Bruxelles" target="_blank" rel="noopener noreferrer" style="text-decoration:none; background: transparent; color: var(--text); border: 1px solid var(--border);">Voir sur la carte</a>
+            <a class="newsletter-btn" href="https://lesrichesclaires.be" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">Site officiel</a>
           </div>
         </div>
       </header>
 
       <section style="margin-top: 2rem;">
         <h2 style="font-size: 1.4rem; margin-bottom: 0.75rem;">Prochains spectacles</h2>
-        <p style="color: var(--text-3); margin-top: 0; margin-bottom: 1.25rem;">Les dates à venir au Théâtre de Poche.</p>
+        <p style="color: var(--text-3); margin-top: 0; margin-bottom: 1.25rem;">Les dates à venir aux Riches-Claires.</p>
 
         <div id="upcoming-wrap" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
           <div id="upcoming" style="padding: 1.25rem;">
@@ -64,7 +62,7 @@
   <script src="js/utils.js?v=20260219-2"></script>
   <script>
   (function(){
-    var theatreNom = 'Théâtre de Poche'
+    var theatreNom = 'Les Riches-Claires'
     var wrap = document.getElementById('upcoming')
 
     function esc(s){ return escapeHtml(String(s||'')) }

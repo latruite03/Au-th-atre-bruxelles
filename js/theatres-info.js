@@ -36,7 +36,23 @@ window.THEATRES_INFO = [
     slug: 'theatre-mercelis',
     official_url: 'https://culture.ixelles.be/fr/mercelis/',
   },
+  {
+    theatre_nom: 'Les Riches-Claires',
+    slug: 'les-riches-claires',
+    official_url: 'https://lesrichesclaires.be',
+  },
+  {
+    theatre_nom: 'Atelier 210',
+    slug: 'atelier-210',
+    official_url: 'https://atelier210.be',
+  },
+  {
+    theatre_nom: 'La Bellone',
+    slug: 'la-bellone',
+    official_url: 'https://bellone.be',
+  },
 ]
+
 
 window.getTheatreInfoByName = function (theatreNom) {
   if (!window.THEATRES_INFO) return null

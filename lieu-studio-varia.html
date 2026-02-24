@@ -152,6 +152,7 @@
           .from('representations')
           .select('id,date,heure,titre,url')
           .is('hidden_at', null)
+          .eq('is_theatre', true)
           .eq('theatre_nom', theatreNom)
           .gte('date', today)
           .order('date', { ascending: true })
