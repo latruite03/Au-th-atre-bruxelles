@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Varia — Au théâtre ce soir</title>
+  <meta name="description" content="Infos et prochaines représentations — Studio Varia">
+  <link rel="icon" href="../favicon.ico">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <h1 class="site-title">Au théâtre ce soir</h1>
+      <p class="site-subtitle">Région Bruxelles-Capitale</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container" style="padding-top:3rem; padding-bottom:3rem;">
+      <p style="margin-bottom:1rem;"><a href="../index.html">← Retour à l’agenda</a></p>
+
+      <h2 id="venue-title" class="results-title" style="margin-bottom:0.5rem;">Studio Varia</h2>
+      <p id="venue-address" class="theatre-card-address" style="margin-top:0;">&nbsp;</p>
+      <p id="venue-official" style="margin-top:0.5rem;"></p>
+
+      <h3 style="margin-top:2rem; margin-bottom:0.5rem;">Prochaines dates</h3>
+      <div id="venue-list">
+        <div class="spinner-wrap"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-text">Mise à jour hebdomadaire</div>
+    </div>
+  </footer>
+
+  <script>
+    window.VENUE_SLUG = 'studio-varia'
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/theatres-info.js"></script>
+  <script src="../js/venue.js"></script>
+
+</body>
+</html>

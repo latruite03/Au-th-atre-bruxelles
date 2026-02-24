@@ -350,10 +350,18 @@
       return true
     })
 
+    var info = window.getTheatreInfoByName ? window.getTheatreInfoByName(group.theatre_nom) : null
+    var infoLinkHtml = info && info.slug
+      ? '<a class="theatre-card-info" href="lieux/' + escapeHtml(info.slug) + '.html">Infos</a>'
+      : ''
+
     var html =
       '<div class="theatre-card">' +
         '<div class="theatre-card-header">' +
-          '<h3 class="theatre-card-name">' + escapeHtml(group.theatre_nom) + '</h3>' +
+          '<div class="theatre-card-header-row">' +
+            '<h3 class="theatre-card-name">' + escapeHtml(group.theatre_nom) + '</h3>' +
+            infoLinkHtml +
+          '</div>' +
           (group.theatre_adresse
             ? '<p class="theatre-card-address">' + escapeHtml(group.theatre_adresse) + '</p>'
             : '') +

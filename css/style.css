@@ -328,6 +328,24 @@ img { max-width: 100%; display: block; }
   border-left: 4px solid var(--accent);
 }
 
+.theatre-card-header-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.theatre-card-info {
+  font-size: 0.9rem;
+  color: var(--color-gray-300);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.theatre-card-info:hover {
+  color: var(--color-white);
+}
+
 .theatre-card-name {
   font-size: 1.125rem;
   font-family: var(--font-heading);
