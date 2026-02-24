@@ -1,0 +1,199 @@
+/* ============================================================
+   Cette semaine — sélection (7 spectacles) sur la semaine à venir
+   - 100% DB (Supabase)
+   - Filtre: is_theatre=true + hidden_at IS NULL
+   - Dédoublonne par (theatre_nom + titre)
+   - Priorise petites salles (liste)
+   ============================================================ */
+
+;(function () {
+  'use strict'
+
+  var wrap = document.getElementById('weekly-container')
+  var subtitle = document.getElementById('weekly-subtitle')
+
+  if (!wrap || !subtitle) return
+
+  var SMALL_VENUES_PRIORITY = [
+    'Théâtre Mercelis',
+    'Le Rideau',
+    'Théâtre Les Tanneurs',
+    'Théâtre de Poche',
+    'Studio Varia',
+    'Les Riches-Claires',
+    'La Bellone',
+    'Atelier 210',
+  ]
+
+  function esc(s) {
+    return escapeHtml(String(s || ''))
+  }
+
+  function normalizeKey(s) {
+    return String(s || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+  }
+
+  function venueScore(theatreNom) {
+    var key = normalizeKey(theatreNom)
+    for (var i = 0; i < SMALL_VENUES_PRIORITY.length; i++) {
+      if (normalizeKey(SMALL_VENUES_PRIORITY[i]) === key) return i
+    }
+    return 999
+  }
+
+  function startOfDay(d) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate())
+  }
+
+  function addDays(d, n) {
+    var x = new Date(d)
+    x.setDate(x.getDate() + n)
+    return x
+  }
+
+  function nextMonday(d) {
+    // JS: 0=Sun..6=Sat
+    var day = d.getDay()
+    var delta = (8 - day) % 7
+    if (delta === 0) delta = 7 // if already Monday -> next Monday
+    return startOfDay(addDays(d, delta))
+  }
+
+  function formatRange(start, end) {
+    // ex: "Semaine du 2 au 8 mars 2026"
+    var optsDayMonth = { day: 'numeric', month: 'long' }
+    var optsDayMonthYear = { day: 'numeric', month: 'long', year: 'numeric' }
+
+    var s = start.toLocaleDateString('fr-BE', optsDayMonth)
+    var e = end.toLocaleDateString('fr-BE', optsDayMonthYear)
+
+    return 'Semaine du ' + s + ' au ' + e
+  }
+
+  function repKey(r) {
+    return normalizeKey(r.theatre_nom) + '|' + normalizeKey(r.titre)
+  }
+
+  function renderCard(item) {
+    var dateLabel = ''
+    try {
+      var d = new Date(item.date + 'T00:00:00')
+      dateLabel = d.toLocaleDateString('fr-BE', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+      })
+    } catch {
+      dateLabel = item.date
+    }
+
+    var heure = item.heure ? formatHeure(item.heure) : 'Heure à confirmer'
+
+    var btn = ''
+    if (item.url) {
+      btn =
+        '<a href="' +
+        esc(item.url) +
+        '" target="_blank" rel="noopener noreferrer" ' +
+        'style="background: var(--accent); color: #FFFBF5; padding: 0.5rem 1.25rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 700; text-decoration:none;">Infos</a>'
+    }
+
+    return (
+      '<div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem;">' +
+      '<div style="padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">' +
+      '<div style="min-width: 0;">' +
+      '<p style="font-weight: 700; color: var(--text); font-size: 0.9rem; margin:0 0 0.15rem 0;">' +
+      esc(dateLabel) +
+      '</p>' +
+      '<p style="font-weight: 600; color: var(--accent); font-size: 0.875rem; margin:0 0 0.35rem 0;">' +
+      esc(heure) +
+      '</p>' +
+      '<h4 style="font-size: 1.05rem; margin:0 0 0.25rem 0;">' +
+      esc(normalizeTitle(item.titre)) +
+      '</h4>' +
+      '<p style="font-size: 0.8125rem; color: var(--text-3); margin:0;">' +
+      esc(item.theatre_nom) +
+      '</p>' +
+      '</div>' +
+      btn +
+      '</div>' +
+      '</div>'
+    )
+  }
+
+  async function load() {
+    wrap.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>'
+
+    var today = startOfDay(new Date())
+    var start = nextMonday(today)
+    var end = addDays(start, 6)
+
+    subtitle.textContent = formatRange(start, end) + ' — sélection (7 spectacles) — mise à jour chaque dimanche'
+
+    var startStr = toDateString(start)
+    var endStr = toDateString(end)
+
+    try {
+      var res = await supabaseClient
+        .from('representations')
+        .select('id,date,heure,titre,theatre_nom,url')
+        .is('hidden_at', null)
+        .eq('is_theatre', true)
+        .gte('date', startStr)
+        .lte('date', endStr)
+        .order('date', { ascending: true })
+        .order('heure', { ascending: true, nullsFirst: false })
+        .limit(600)
+
+      if (res.error) throw new Error(res.error.message)
+
+      var rows = res.data || []
+      if (!rows.length) {
+        wrap.innerHTML =
+          '<p style="color: var(--text-2);">Pas (encore) de représentations à venir pour cette semaine.</p>'
+        return
+      }
+
+      // Sort: small venues first, then by date/time
+      rows.sort(function (a, b) {
+        var sa = venueScore(a.theatre_nom)
+        var sb = venueScore(b.theatre_nom)
+        if (sa !== sb) return sa - sb
+        var da = (a.date || '').localeCompare(b.date || '')
+        if (da !== 0) return da
+        return (a.heure || '').localeCompare(b.heure || '')
+      })
+
+      // Dedupe by show (theatre+title), keep earliest occurrence
+      var seen = new Set()
+      var picked = []
+      for (var i = 0; i < rows.length; i++) {
+        var k = repKey(rows[i])
+        if (seen.has(k)) continue
+        seen.add(k)
+        picked.push(rows[i])
+        if (picked.length >= 7) break
+      }
+
+      var html = ''
+      for (var j = 0; j < picked.length; j++) html += renderCard(picked[j])
+
+      // Fallback note
+      html +=
+        '<p style="color: var(--text-3); font-size:0.875rem; margin-top:1.5rem;">' +
+        'Astuce : la sélection privilégie les petites salles. Pour le détail jour par jour, utilise l’<a href="/">agenda</a>.' +
+        '</p>'
+
+      wrap.innerHTML = html
+    } catch (err) {
+      wrap.innerHTML = '<div class="error-box">' + esc(err.message) + '</div>'
+    }
+  }
+
+  load()
+})()
