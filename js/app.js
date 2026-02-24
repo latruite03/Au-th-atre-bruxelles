@@ -352,7 +352,7 @@
 
     var info = window.getTheatreInfoByName ? window.getTheatreInfoByName(group.theatre_nom) : null
     var infoLinkHtml = info && info.slug
-      ? '<a class="theatre-card-info" href="lieux/' + escapeHtml(info.slug) + '.html">Infos</a>'
+      ? '<a class="theatre-card-info" href="lieu-' + escapeHtml(info.slug) + '.html">Infos</a>'
       : ''
 
     var html =

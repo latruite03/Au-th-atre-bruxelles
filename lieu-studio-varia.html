@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Varia — Lieux — Au théâtre ce soir</title>
+  <meta name="description" content="Le Studio Varia, petite salle du Varia à Ixelles. Prochains spectacles au Studio.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4F46E5">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="top-bar"><div class="container"><div class="top-bar-inner"><a href="/" class="top-bar-logo">Au théâtre ce soir</a><ul class="top-bar-nav"><li><a href="/">Agenda</a></li><li><a href="cette-semaine.html">Cette semaine</a></li><li><a href="lieux.html" class="active">Lieux</a></li><li><a href="#">Blog</a></li><li><a href="a-propos.html">À propos</a></li></ul><button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button></div></div></nav>
+  <div id="mobile-menu" class="mobile-menu"><button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')" aria-label="Fermer">&times;</button><a href="/" onclick="document.getElementById('mobile-menu').classList.remove('open')">Agenda</a><a href="cette-semaine.html">Cette semaine</a><a href="lieux.html">Lieux</a><a href="#">Blog</a><a href="a-propos.html">À propos</a></div>
+
+  <main>
+    <div class="container" style="padding-top: 3rem; padding-bottom: 4rem;">
+      <a href="lieux.html" style="display: inline-block; margin-bottom: 1rem; color: var(--text-2); text-decoration: none; font-size: 0.9rem;">← Retour aux lieux</a>
+
+      <header style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
+        <div style="padding: 1.5rem; border-left: 4px solid var(--accent);">
+          <h1 style="font-size: 2rem; margin-bottom: 0.35rem;">Studio Varia</h1>
+          <p style="color: var(--text-3); margin: 0;">Rue Gray 154, 1050 Ixelles</p>
+
+          <p style="margin-top: 1rem; margin-bottom: 0; color: var(--text-2); line-height: 1.65; max-width: 74ch;">
+            Le <strong>Studio Varia</strong> est la petite salle du Varia : une jauge plus intime, des formes souvent plus proches,
+            parfois plus “expérimentales” — et un excellent endroit pour découvrir des artistes avant qu’ils ne passent sur de plus grandes scènes.
+          </p>
+
+          <div style="margin-top: 1.1rem; display: flex; gap: 0.6rem; flex-wrap: wrap;">
+            <a class="newsletter-btn" href="https://varia.be" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">Site officiel</a>
+            <a class="newsletter-btn" href="https://www.google.com/maps?q=Rue%20Gray%20154%2C%201050%20Ixelles" target="_blank" rel="noopener noreferrer" style="text-decoration:none; background: transparent; color: var(--text); border: 1px solid var(--border);">Voir sur la carte</a>
+          </div>
+        </div>
+      </header>
+
+      <section style="margin-top: 2rem;">
+        <h2 style="font-size: 1.4rem; margin-bottom: 0.75rem;">Prochains spectacles</h2>
+        <p style="color: var(--text-3); margin-top: 0; margin-bottom: 1.25rem;">Les dates à venir au Studio Varia.</p>
+
+        <div id="upcoming-wrap" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
+          <div id="upcoming" style="padding: 1.25rem;">
+            <div class="spinner-wrap"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-section"><h4>Au théâtre ce soir</h4><p>L'agenda théâtre à Bruxelles — les petites scènes d'abord.</p></div><div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div><div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li></ul></div></div><div class="footer-bottom"><p>Un projet de l'ASBL — Bruxelles · Sans publicité</p></div></div></footer>
+  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab active">Lieux</a><a href="#" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab">Plus</a></nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js?v=20260219-2"></script>
+  <script src="js/utils.js?v=20260219-2"></script>
+  <script>
+  (function(){
+    var theatreNom = 'Studio Varia'
+    var wrap = document.getElementById('upcoming')
+
+    function esc(s){ return escapeHtml(String(s||'')) }
+
+    function normalizeKey(s){
+      return String(s||'')
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+        .replace(/[^a-z0-9]+/g,'')
+        .trim()
+    }
+
+    function repKey(r){
+      var heure = (r.heure ? String(r.heure).slice(0,5) : '')
+      return [r.date, heure, normalizeKey(r.theatre_nom), normalizeKey(r.titre)].join('|')
+    }
+
+    function showKey(r){
+      return normalizeKey(r.titre)
+    }
+
+    function formatDateShort(iso){
+      try {
+        var d = new Date(iso + 'T00:00:00')
+        return d.toLocaleDateString('fr-BE', { day: 'numeric', month: 'long' })
+      } catch { return iso }
+    }
+
+    function formatMonthYear(iso){
+      try {
+        var d = new Date(iso + 'T00:00:00')
+        return d.toLocaleDateString('fr-BE', { month: 'long', year: 'numeric' })
+      } catch { return '' }
+    }
+
+    function compressDates(dates){
+      if (!dates.length) return []
+      var out = []
+      var start = dates[0]
+      var prev = dates[0]
+
+      function nextDay(iso){
+        var d = new Date(iso + 'T00:00:00')
+        d = new Date(d.getTime() + 24*3600*1000)
+        return toDateString(d)
+      }
+
+      for (var i=1;i<dates.length;i++){
+        var cur = dates[i]
+        if (cur === nextDay(prev)) { prev = cur; continue }
+        if (start === prev) out.push({ kind:'single', start:start, end:start })
+        else out.push({ kind:'range', start:start, end:prev })
+        start = cur
+        prev = cur
+      }
+      if (start === prev) out.push({ kind:'single', start:start, end:start })
+      else out.push({ kind:'range', start:start, end:prev })
+      return out
+    }
+
+    function formatDateSegments(segs){
+      if (!segs.length) return ''
+      if (segs.length === 1 && segs[0].kind === 'range'){
+        var s = segs[0].start
+        var e = segs[0].end
+        var monthYear = formatMonthYear(e)
+        var sDay = formatDateShort(s).split(' ')[0]
+        var eDay = formatDateShort(e).split(' ')[0]
+        return 'du ' + sDay + ' au ' + eDay + ' ' + monthYear
+      }
+      var parts = []
+      for (var i=0;i<segs.length;i++){
+        var g = segs[i]
+        if (g.kind === 'single') parts.push(formatDateShort(g.start))
+        else parts.push('du ' + formatDateShort(g.start) + ' au ' + formatDateShort(g.end))
+      }
+      if (parts.length > 6) { parts = parts.slice(0,6); parts.push('…') }
+      return parts.join(', ')
+    }
+
+    async function load(){
+      try {
+        var today = toDateString(new Date())
+        var res = await supabaseClient
+          .from('representations')
+          .select('id,date,heure,titre,url')
+          .is('hidden_at', null)
+          .eq('theatre_nom', theatreNom)
+          .gte('date', today)
+          .order('date', { ascending: true })
+          .order('heure', { ascending: true, nullsFirst: false })
+          .limit(60)
+
+        if (res.error) throw new Error(res.error.message)
+        var rows = res.data || []
+
+        var seen = new Set()
+        var dedup = []
+        for (var i=0;i<rows.length;i++){
+          var k = repKey(rows[i])
+          if (seen.has(k)) continue
+          seen.add(k)
+          dedup.push(rows[i])
+        }
+
+        if (!dedup.length){
+          wrap.innerHTML = '<p style="margin:0; color: var(--text-2);">Aucune date à venir n’est affichée pour l’instant.</p>'
+          return
+        }
+
+        var groups = new Map()
+        for (var g=0; g<dedup.length; g++){
+          var r = dedup[g]
+          var sk = showKey(r)
+          if (!groups.has(sk)) {
+            groups.set(sk, { titre: normalizeTitle(r.titre), url: r.url, times: new Map() })
+          }
+          var s = groups.get(sk)
+          if (!s.url && r.url) s.url = r.url
+          var heure = (r.heure ? String(r.heure).slice(0,5) : '—')
+          if (!s.times.has(heure)) s.times.set(heure, [])
+          s.times.get(heure).push(r.date)
+        }
+
+        var grouped = Array.from(groups.values()).map(function (x) {
+          x.times.forEach(function (dates, heure) { x.times.set(heure, Array.from(new Set(dates)).sort()) })
+          var min = null
+          x.times.forEach(function (dates) { if (dates && dates.length) { if (!min || dates[0] < min) min = dates[0] } })
+          x.firstDate = min || '9999-99-99'
+          return x
+        }).sort(function (a,b){ return a.firstDate.localeCompare(b.firstDate) })
+
+        var html = ''
+        for (var j=0;j<grouped.length;j++){
+          var s = grouped[j]
+          html += '<div style="display:flex; justify-content:space-between; gap:1rem; padding: 0.95rem 0; border-bottom: 1px solid var(--border);">'
+          html +=   '<div style="min-width:0;">'
+          html +=     '<div style="font-weight:700; color: var(--text);">' + esc(s.titre) + '</div>'
+
+          var timeKeys = Array.from(s.times.keys()).sort(function (a,b){ return a.localeCompare(b) })
+          for (var t=0; t<timeKeys.length; t++){
+            var heure = timeKeys[t]
+            var dates = s.times.get(heure) || []
+            var segs = compressDates(dates)
+            var dateLabel = formatDateSegments(segs)
+            html += '<div style="color: var(--text-3); font-size: 0.95rem; margin-top: 0.25rem;">'
+            html +=   esc(dateLabel)
+            if (heure && heure !== '—') html += ' · ' + esc(heure)
+            html += '</div>'
+          }
+
+          html +=   '</div>'
+          if (s.url) {
+            html += '<div style="flex: 0 0 auto;">'
+            html +=   '<a class="newsletter-btn" href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">Infos</a>'
+            html += '</div>'
+          }
+          html += '</div>'
+        }
+
+        wrap.innerHTML = html
+      } catch (err) {
+        wrap.innerHTML = '<div class="error-box">' + esc(err.message) + '</div>'
+      }
+    }
+
+    load()
+  })();
+  </script>
+</body>
+</html>
