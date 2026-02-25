@@ -51,6 +51,16 @@ window.THEATRES_INFO = [
     slug: 'la-bellone',
     official_url: 'https://bellone.be',
   },
+  {
+    theatre_nom: 'Théâtre Océan Nord',
+    slug: 'theatre-ocean-nord',
+    official_url: 'https://www.oceannord.org',
+  },
+  {
+    theatre_nom: 'Théâtre la Balsamine',
+    slug: 'theatre-la-balsamine',
+    official_url: 'https://balsamine.be',
+  },
 ]
 
 
