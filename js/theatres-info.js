@@ -61,6 +61,11 @@ window.THEATRES_INFO = [
     slug: 'theatre-la-balsamine',
     official_url: 'https://balsamine.be',
   },
+  {
+    theatre_nom: 'Le 140',
+    slug: 'le-140',
+    official_url: 'https://www.le140.be/qui-sommes-nous/',
+  },
 ]
 
 
