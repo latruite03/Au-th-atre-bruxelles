@@ -66,6 +66,11 @@ window.THEATRES_INFO = [
     slug: 'le-140',
     official_url: 'https://www.le140.be/qui-sommes-nous/',
   },
+  {
+    theatre_nom: 'Le Marni',
+    slug: 'le-marni',
+    official_url: 'https://theatremarni.com/LE-MARNI',
+  },
 ]
 
 
