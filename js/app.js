@@ -329,14 +329,26 @@
 
     resultsContainer.innerHTML = html
 
-    // Attach image error handlers
+    // Attach image error handlers + watchdog (avoid blank boxes on some mobile browsers)
     var imgs = resultsContainer.querySelectorAll('.show-image')
     imgs.forEach(function (img) {
-      img.addEventListener('error', function () {
+      function replace() {
         var wrap = img.parentElement
+        if (!wrap) return
         wrap.innerHTML =
           '<div class="show-image-placeholder" style="width:100%;height:100%">Image indisponible</div>'
-      })
+      }
+
+      img.addEventListener('error', replace)
+
+      // If the image never paints (blocked/hotlink), show placeholder after a short delay.
+      setTimeout(function () {
+        try {
+          if (!img.complete || (img.naturalWidth || 0) === 0) replace()
+        } catch {
+          replace()
+        }
+      }, 6000)
     })
   }
 
@@ -385,7 +397,7 @@
     var imageHtml = rep.image_url
       ? '<div class="show-image-wrap">' +
           '<img class="show-image" src="' + escapeHtml(rep.image_url) + '" ' +
-            'alt="' + escapeHtml(title) + '" loading="lazy">' +
+            'alt="' + escapeHtml(title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' +
         '</div>'
       : '<div class="show-image-placeholder">Image indisponible</div>'
 
