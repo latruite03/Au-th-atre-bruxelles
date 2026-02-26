@@ -71,6 +71,11 @@ window.THEATRES_INFO = [
     slug: 'le-marni',
     official_url: 'https://theatremarni.com/LE-MARNI',
   },
+  {
+    theatre_nom: 'La Vénerie',
+    slug: 'la-venerie',
+    official_url: 'https://www.lavenerie.be/',
+  },
 ]
 
 
