@@ -5,9 +5,13 @@
   "display": "standalone",
   "background_color": "#F8F9FC",
   "theme_color": "#4F46E5",
-  "description": "L'agenda théâtre à Bruxelles — les petites scènes d'abord",
+  "description": "L'agenda théâtre à Bruxelles",
   "lang": "fr",
   "icons": [
-    { "src": "/icon.svg", "sizes": "512x512", "type": "image/svg+xml" }
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
   ]
 }
