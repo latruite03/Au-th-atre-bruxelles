@@ -79,6 +79,10 @@
     return normalizeKey(r.theatre_nom) + '|' + normalizeKey(r.titre)
   }
 
+  function showKey(r) {
+    return normalizeKey(r.theatre_nom) + '|' + normalizeKey(r.titre)
+  }
+
   function renderCard(item) {
     var dateLabel = ''
     try {
@@ -108,11 +112,12 @@
 
     var cover = ''
     if (item.image_url) {
+      // Avoid weird crops: show the full poster/visual.
       cover =
-        '<div style="height: 160px; background: #0f172a;">' +
+        '<div style="height: 220px; background: #0f172a; display:flex; align-items:center; justify-content:center;">' +
         '<img src="' +
         esc(item.image_url) +
-        '" alt="" loading="lazy" style="width:100%; height:160px; object-fit:cover; display:block;" onerror="this.style.display=\'none\'" />' +
+        '" alt="" loading="lazy" style="width:100%; height:220px; object-fit:contain; display:block;" onerror="this.style.display=\'none\'" />' +
         '</div>'
     }
 
@@ -199,15 +204,47 @@
         return normalizeKey(a.titre).localeCompare(normalizeKey(b.titre))
       })
 
-      // Dedupe by show (theatre+title), keep earliest occurrence
-      var seen = new Set()
+      // Pick exactly 1 show per day (Mon..Sun), all different if possible.
       var picked = []
-      for (var i = 0; i < rows.length; i++) {
-        var k = repKey(rows[i])
-        if (seen.has(k)) continue
-        seen.add(k)
-        picked.push(rows[i])
-        if (picked.length >= 7) break
+      var usedShows = new Set()
+
+      function scoreRow(r) {
+        var s = 0
+        if (r.image_url) s += 10
+        if (r.description && String(r.description).trim().length >= 80) s += 6
+        if (r.heure) s += 2
+        s -= venueScore(r.theatre_nom) / 100 // tiny preference
+        return -s // lower is better for Array.sort ascending
+      }
+
+      for (var day = 0; day < 7; day++) {
+        var d = addDays(start, day)
+        var ds = toDateString(d)
+
+        var candidates = []
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].date === ds) candidates.push(rows[i])
+        }
+
+        candidates.sort(function (a, b) {
+          var sa = scoreRow(a)
+          var sb = scoreRow(b)
+          if (sa !== sb) return sa - sb
+          return normalizeKey(a.titre).localeCompare(normalizeKey(b.titre))
+        })
+
+        var chosen = null
+        for (var c = 0; c < candidates.length; c++) {
+          var k = showKey(candidates[c])
+          if (usedShows.has(k)) continue
+          chosen = candidates[c]
+          usedShows.add(k)
+          break
+        }
+        // If nothing unique is available for that day, we still show something.
+        if (!chosen && candidates.length) chosen = candidates[0]
+
+        if (chosen) picked.push(chosen)
       }
 
       var html = ''
