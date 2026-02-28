@@ -103,10 +103,32 @@
         'style="background: var(--accent); color: #FFFBF5; padding: 0.5rem 1.25rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 700; text-decoration:none;">Infos</a>'
     }
 
+    var desc = (item.description || '').trim()
+    if (desc.length > 260) desc = desc.slice(0, 260).trim() + '…'
+
+    var cover = ''
+    if (item.image_url) {
+      cover =
+        '<div style="height: 160px; background: #0f172a;">' +
+        '<img src="' +
+        esc(item.image_url) +
+        '" alt="" loading="lazy" style="width:100%; height:160px; object-fit:cover; display:block;" onerror="this.style.display=\'none\'" />' +
+        '</div>'
+    }
+
+    var descHtml = ''
+    if (desc) {
+      descHtml =
+        '<p style="margin:0.55rem 0 0 0; color: var(--text-2); line-height:1.55; font-size:0.9rem;">' +
+        esc(desc) +
+        '</p>'
+    }
+
     return (
       '<div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem;">' +
-      '<div style="padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">' +
-      '<div style="min-width: 0;">' +
+      cover +
+      '<div style="padding: 1rem 1.25rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">' +
+      '<div style="min-width: 0; flex: 1 1 18rem;">' +
       '<p style="font-weight: 700; color: var(--text); font-size: 0.9rem; margin:0 0 0.15rem 0;">' +
       esc(dateLabel) +
       '</p>' +
@@ -119,6 +141,7 @@
       '<p style="font-size: 0.8125rem; color: var(--text-3); margin:0;">' +
       esc(item.theatre_nom) +
       '</p>' +
+      descHtml +
       '</div>' +
       btn +
       '</div>' +
@@ -141,7 +164,7 @@
     try {
       var res = await supabaseClient
         .from('representations')
-        .select('id,date,heure,titre,theatre_nom,url')
+        .select('id,date,heure,titre,theatre_nom,url,description,image_url')
         .is('hidden_at', null)
         .eq('is_theatre', true)
         .gte('date', startStr)
@@ -159,14 +182,21 @@
         return
       }
 
-      // Sort: small venues first, then by date/time
+      // Sort: Monday → Sunday (date asc), then time asc, then (optional) small venues priority
       rows.sort(function (a, b) {
+        var da = (a.date || '').localeCompare(b.date || '')
+        if (da !== 0) return da
+
+        var ha = a.heure || ''
+        var hb = b.heure || ''
+        var ht = ha.localeCompare(hb)
+        if (ht !== 0) return ht
+
         var sa = venueScore(a.theatre_nom)
         var sb = venueScore(b.theatre_nom)
         if (sa !== sb) return sa - sb
-        var da = (a.date || '').localeCompare(b.date || '')
-        if (da !== 0) return da
-        return (a.heure || '').localeCompare(b.heure || '')
+
+        return normalizeKey(a.titre).localeCompare(normalizeKey(b.titre))
       })
 
       // Dedupe by show (theatre+title), keep earliest occurrence
@@ -183,10 +213,10 @@
       var html = ''
       for (var j = 0; j < picked.length; j++) html += renderCard(picked[j])
 
-      // Fallback note
+      // Note
       html +=
         '<p style="color: var(--text-3); font-size:0.875rem; margin-top:1.5rem;">' +
-        'Astuce : la sélection privilégie les petites salles. Pour le détail jour par jour, utilise l’<a href="/">agenda</a>.' +
+        'Pour le détail jour par jour et tous les spectacles, utilise l’<a href="/">agenda</a>.' +
         '</p>'
 
       wrap.innerHTML = html
