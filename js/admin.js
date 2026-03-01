@@ -54,6 +54,10 @@
     'Zinnema',
     'GC De Kriekelaar',
     'Wolubilis',
+    // Maison de la Création (multiple venues)
+    'Maison de la Création - Bockstael',
+    'Maison de la Création - Cité Modèle',
+    'Maison de la Création - Gare',
 
     // Théâtres moyens/grands
     'Théâtre de Poche',
@@ -126,6 +130,10 @@
     'Centre Culturel de Schaerbeek',
     'GC De Kriekelaar',
     'Wolubilis',
+    // Maison de la Création (multiple venues)
+    'Maison de la Création - Bockstael',
+    'Maison de la Création - Cité Modèle',
+    'Maison de la Création - Gare',
     // --- Théâtres établis de taille moyenne ---
     'Th\u00e9\u00e2tre de Poche',
     'Th\u00e9\u00e2tre Oc\u00e9an Nord',
