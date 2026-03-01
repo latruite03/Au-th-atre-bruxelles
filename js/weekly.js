@@ -107,7 +107,8 @@
         'style="background: var(--accent); color: #FFFBF5; padding: 0.5rem 1.25rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 700; text-decoration:none;">Infos</a>'
     }
 
-    var desc = (item.description || '').trim()
+    // Some sources store HTML entities in DB (e.g., &egrave;). Decode before truncating.
+    var desc = decodeHtmlEntities((item.description || '')).trim()
     if (desc.length > 260) desc = desc.slice(0, 260).trim() + '…'
 
     var cover = ''
