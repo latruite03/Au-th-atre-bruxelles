@@ -329,6 +329,9 @@
 
     resultsContainer.innerHTML = html
 
+    // Inject structured data (schema.org/Event) for SEO
+    injectJsonLd(groups)
+
     // Attach image error handlers + watchdog (avoid blank boxes on some mobile browsers)
     var imgs = resultsContainer.querySelectorAll('.show-image')
     imgs.forEach(function (img) {
@@ -350,6 +353,57 @@
         }
       }, 6000)
     })
+  }
+
+  // --- JSON-LD structured data (schema.org/Event) ---
+
+  function injectJsonLd(groups) {
+    // Remove any previously injected JSON-LD block
+    var existing = document.getElementById('jsonld-events')
+    if (existing) existing.parentNode.removeChild(existing)
+
+    var events = []
+    for (var gi = 0; gi < groups.length; gi++) {
+      var g = groups[gi]
+      for (var ri = 0; ri < g.representations.length; ri++) {
+        var rep = g.representations[ri]
+        var event = {
+          '@context': 'https://schema.org',
+          '@type': 'TheaterEvent',
+          'name': normalizeTitle(rep.titre),
+          'eventStatus': 'https://schema.org/EventScheduled',
+          'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
+          'location': {
+            '@type': 'Place',
+            'name': g.theatre_nom,
+            'address': {
+              '@type': 'PostalAddress',
+              'streetAddress': g.theatre_adresse || '',
+              'addressCountry': 'BE'
+            }
+          }
+        }
+        if (rep.date) {
+          var startDate = rep.heure
+            ? rep.date + 'T' + rep.heure.slice(0, 5)
+            : rep.date
+          event['startDate'] = startDate
+        }
+        if (rep.url) event['url'] = rep.url
+        if (rep.image_url) event['image'] = rep.image_url
+        if (rep.description) event['description'] = decodeHtmlEntities(rep.description)
+        if (rep.is_complet) event['eventStatus'] = 'https://schema.org/EventSoldOut'
+        events.push(event)
+      }
+    }
+
+    if (!events.length) return
+
+    var script = document.createElement('script')
+    script.id = 'jsonld-events'
+    script.type = 'application/ld+json'
+    script.textContent = JSON.stringify(events)
+    document.head.appendChild(script)
   }
 
   function renderTheatreCard(group) {
