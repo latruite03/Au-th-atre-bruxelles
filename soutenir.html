@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soutenir le projet — Au théâtre ce soir</title>
+  <meta name="description" content="Soutenir Au théâtre ce soir — un agenda associatif, sans publicité, pour les petites scènes bruxelloises.">
+
+  <meta property="og:title" content="Soutenir le projet — Au théâtre ce soir">
+  <meta property="og:description" content="Soutenir Au théâtre ce soir — un agenda associatif, sans publicité, pour les petites scènes bruxelloises.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_BE">
+  <meta property="og:site_name" content="Au théâtre ce soir">
+  <meta property="og:url" content="https://autheatre.brussels/soutenir.html">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#B11E2D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="top-bar">
+    <div class="container">
+      <div class="top-bar-inner">
+        <a href="/" class="top-bar-logo">Au théâtre ce soir</a>
+        <ul class="top-bar-nav">
+          <li><a href="/">Agenda</a></li>
+          <li><a href="cette-semaine.html">Cette semaine</a></li>
+          <li><a href="lieux.html">Lieux</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+        </ul>
+        <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+    <a href="/">Agenda</a>
+    <a href="cette-semaine.html">Cette semaine</a>
+    <a href="lieux.html">Lieux</a>
+    <a href="blog.html">Blog</a>
+    <a href="a-propos.html">À propos</a>
+  </div>
+
+  <main>
+    <div class="container" style="padding-top: 3rem; padding-bottom: 4rem; max-width: 680px;">
+
+      <h1 style="font-size: 2rem; margin-bottom: 0.75rem;">Soutenir le projet</h1>
+      <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 2.5rem;">
+        Au théâtre ce soir est un projet associatif, bénévole, sans publicité. Il n'a aucune source de revenu commerciale. S'il existe, c'est parce que des gens lui consacrent du temps librement.
+      </p>
+
+      <!-- Don : en attente -->
+      <section style="background: var(--bg-warm); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; border-left: 4px solid var(--accent);">
+        <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem;">Don financier</h2>
+        <p style="color: var(--text-2); line-height: 1.8; margin: 0;">
+          L'ASBL est constituée. Nous ouvrons en ce moment un compte bancaire dédié — les virements seront possibles dès que c'est en place. Cette page sera mise à jour avec l'IBAN dès que c'est fait.
+        </p>
+      </section>
+
+      <!-- Soutiens non financiers -->
+      <section style="margin-bottom: 2.5rem;">
+        <h2 style="font-size: 1.1rem; margin-bottom: 1rem;">En attendant — et même après</h2>
+        <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 1.5rem;">
+          Il y a des façons de soutenir le projet qui ne coûtent rien et qui comptent vraiment :
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+          <div style="background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); padding: 1.25rem;">
+            <h3 style="font-size: 1rem; margin-bottom: 0.4rem;">Parlez-en</h3>
+            <p style="color: var(--text-2); line-height: 1.7; margin: 0; font-size: 0.9rem;">
+              Si vous cherchez quoi voir et que vous tombez sur quelque chose de bien ici, dites-le autour de vous. C'est comme ça que ça grandit.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); padding: 1.25rem;">
+            <h3 style="font-size: 1rem; margin-bottom: 0.4rem;">Vous gérez un lieu ou une troupe ?</h3>
+            <p style="color: var(--text-2); line-height: 1.7; margin: 0 0 0.75rem 0; font-size: 0.9rem;">
+              Signalez-nous vos prochaines représentations. Et si vous avez un site, un petit lien vers nous ne fait pas de mal — à vous non plus, parce qu'on renvoie vers vous dans les résultats.
+            </p>
+            <a href="soumettre.html" style="font-size: 0.875rem; color: var(--accent); font-weight: 500;">Signaler un spectacle →</a>
+          </div>
+
+          <div style="background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border); padding: 1.25rem;">
+            <h3 style="font-size: 1rem; margin-bottom: 0.4rem;">Signalez-nous les erreurs</h3>
+            <p style="color: var(--text-2); line-height: 1.7; margin: 0 0 0.75rem 0; font-size: 0.9rem;">
+              Une date fausse, un lien cassé, un lieu qui a fermé. Un message suffit.
+            </p>
+            <a href="mailto:contact@autheatre.brussels" style="font-size: 0.875rem; color: var(--accent); font-weight: 500;">contact@autheatre.brussels</a>
+          </div>
+
+        </div>
+      </section>
+
+      <section>
+        <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem;">Pourquoi ça compte</h2>
+        <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 0;">
+          Les outils comme celui-ci — petits, indépendants, sans objectif commercial — ont besoin d'un écosystème pour survivre. Chaque lien entrant améliore notre référencement et rend les petites scènes plus visibles dans Google. Chaque personne qui parle de nous à quelqu'un est un abonné en moins à devoir payer pour acquérir. Merci.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section"><h4>Au théâtre ce soir</h4><p class="footer-tagline">Un projet associatif, sans publicité.</p></div>
+        <div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div>
+        <div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="soutenir.html" class="active">Soutenir</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>Un projet de l'ASBL — Bruxelles · Sans publicité</p></div>
+    </div>
+  </footer>
+  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab">Lieux</a><a href="blog.html" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab">Plus</a></nav>
+
+  <script src="js/config.js?v=20260303"></script>
+</body>
+</html>

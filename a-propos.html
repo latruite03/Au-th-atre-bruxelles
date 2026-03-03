@@ -32,7 +32,7 @@
           <li><a href="/">Agenda</a></li>
           <li><a href="cette-semaine.html">Cette semaine</a></li>
           <li><a href="lieux.html">Lieux</a></li>
-          <li><a href="#">Blog</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="a-propos.html" class="active">À propos</a></li>
         </ul>
         <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -41,7 +41,7 @@
   </nav>
   <div id="mobile-menu" class="mobile-menu">
     <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
-    <a href="/">Agenda</a><a href="cette-semaine.html">Cette semaine</a><a href="lieux.html">Lieux</a><a href="#">Blog</a><a href="a-propos.html">À propos</a>
+    <a href="/">Agenda</a><a href="cette-semaine.html">Cette semaine</a><a href="lieux.html">Lieux</a><a href="blog.html">Blog</a><a href="a-propos.html">À propos</a>
   </div>
 
     <main>
@@ -92,14 +92,25 @@
         </p>
       </section>
 
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">Ce que représente le site, concrètement</h2>
+        <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 1rem;">
+          On référence plus de 60 lieux actifs en Région Bruxelles-Capitale. Les spectacles ont leurs propres pages indexées par Google, avec des données structurées qui permettent aux résultats de recherche de les afficher directement. Pas de cookie, pas de traçage publicitaire — l’analytique est assuré par Umami, sans dépôt d’identifiant persistant.
+        </p>
+        <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 0;">
+          L’objectif n’est pas de devenir gros. C’est qu’un habitant de Molenbeek ou de Forest qui cherche "théâtre ce soir Bruxelles" tombe aussi sur une petite scène de quartier — pas uniquement sur les institutions qui ont un budget communication.
+        </p>
+      </section>
+
       <section style="background: var(--bg-warm); border-radius: 12px; padding: 2rem;">
         <h2 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">Un lieu manque&nbsp;? Une info est fausse&nbsp;?</h2>
         <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 1rem;">
           Tu tiens un lieu, tu programmes, tu joues, tu connais une scène qu’on a ratée&nbsp;? Une date a changé, un lien est cassé, une fiche est incomplète&nbsp;?
         </p>
-        <p style="color: var(--text-2); line-height: 1.8; margin: 0;">
+        <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 1rem;">
           Écris-nous&nbsp;: on corrige et on améliore l’agenda au fil de l’eau.
         </p>
+        <a href="soumettre.html" style="display: inline-block; background: var(--accent); color: #fff; text-decoration: none; padding: 0.6rem 1.4rem; border-radius: 6px; font-size: 0.9rem; font-weight: 600;">Signaler un spectacle →</a>
       </section>
     </div>
   </main>
@@ -109,11 +120,11 @@
       <div class="footer-inner">
         <div class="footer-section"><h4>Au théâtre ce soir</h4><p class="footer-tagline">Un projet associatif, sans publicité.</p></div>
         <div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div>
-        <div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="#">Soutenir</a></li><li><a href="#">Mentions légales</a></li></ul></div>
+        <div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="soutenir.html">Soutenir</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul></div>
       </div>
       <div class="footer-bottom"><p>Un projet de l'ASBL — Bruxelles · Sans publicité</p></div>
     </div>
   </footer>
-  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab">Lieux</a><a href="#" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab active">Plus</a></nav>
+  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab">Lieux</a><a href="blog.html" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab active">Plus</a></nav>
 </body>
 </html>
