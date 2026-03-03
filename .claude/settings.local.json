@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(powershell -Command \"Get-ChildItem -Directory | Select-Object Name\")",
+      "Bash(powershell -Command \"Get-ChildItem -File | Select-Object Name\")",
+      "Bash(test:*)",
+      "Bash(cmd /c dir \"C:\\\\OPENCLAW\\\\workspace\\\\Au-th-atre-bruxelles\")",
+      "Bash(git commit:*)",
+      "Bash(git push origin main)",
+      "Bash(echo \"EXIT:$?\")"
+    ]
+  }
+}
