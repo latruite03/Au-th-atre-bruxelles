@@ -137,6 +137,58 @@
     setCanonical('https://autheatre.brussels/agenda/' + dateStr + '/')
   }
 
+  function updateAgendaJsonLd(groups) {
+    try {
+      var events = []
+      var seen = {}
+
+      groups.forEach(function (g) {
+        if (!g || !g.representations) return
+        g.representations.forEach(function (rep) {
+          if (!rep) return
+          var key = [rep.titre, rep.date, rep.heure, rep.theatre_nom].join('|')
+          if (seen[key]) return
+          seen[key] = true
+
+          var startDate = rep.date && rep.heure ? rep.date + 'T' + rep.heure : (rep.date || undefined)
+          var slug = buildShowSlug(rep)
+          var internalUrl = slug ? 'https://autheatre.brussels/spectacle/' + slug + '/' : undefined
+
+          events.push({
+            '@type': 'Event',
+            name: normalizeTitle(rep.titre),
+            startDate: startDate,
+            eventStatus: 'https://schema.org/EventScheduled',
+            eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+            location: {
+              '@type': 'Place',
+              name: rep.theatre_nom || undefined,
+              address: rep.theatre_adresse || undefined,
+            },
+            url: rep.url || internalUrl,
+            image: rep.image_url || undefined,
+          })
+        })
+      })
+
+      var payload = {
+        '@context': 'https://schema.org',
+        '@graph': events,
+      }
+
+      var script = document.querySelector('script[data-jsonld="agenda"]')
+      if (!script) {
+        script = document.createElement('script')
+        script.type = 'application/ld+json'
+        script.setAttribute('data-jsonld', 'agenda')
+        document.head.appendChild(script)
+      }
+      script.textContent = JSON.stringify(payload)
+    } catch (e) {
+      // no-op
+    }
+  }
+
   function onCommuneChange() {
     selectedCommune = theatreSelect.value || null
     renderResults()
@@ -360,6 +412,8 @@
           '<p class="empty-state-title">Aucune repr\u00e9sentation</p>' +
           '<p class="empty-state-text">Pas de spectacle pr\u00e9vu pour cette date.</p>' +
         '</div>'
+      var oldJsonLd = document.querySelector('script[data-jsonld="agenda"]')
+      if (oldJsonLd && oldJsonLd.parentNode) oldJsonLd.parentNode.removeChild(oldJsonLd)
       return
     }
 
@@ -379,6 +433,8 @@
     }
 
     resultsContainer.innerHTML = html
+
+    updateAgendaJsonLd(groups)
 
     // Attach image error handlers + watchdog (avoid blank boxes on some mobile browsers)
     var imgs = resultsContainer.querySelectorAll('.show-image')
