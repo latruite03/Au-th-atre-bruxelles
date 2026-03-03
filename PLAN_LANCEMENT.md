@@ -11,13 +11,13 @@ Le site est **HTML/JS vanilla + Supabase** (pas Next.js). Ce qui existe déjà :
 - ✅ Site public fonctionnel (`index.html`, `lieux.html`, `cette-semaine.html`, `a-propos.html`)
 - ✅ Admin complet (login, dashboard, import CSV, classement éditorial)
 - ✅ Base Supabase : tables `representations` + `theatre_rang`
-- ✅ PWA manifest, robots.txt, sitemap.xml statique (4 URLs)
+- ✅ PWA manifest + robots.txt
+- ✅ Sitemap enrichi + pages indexables `/agenda/YYYY-MM-DD/`, `/lieu/[slug]/`, `/spectacle/[slug]/`
+- ✅ Données structurées `schema.org/Event` (JSON‑LD pré‑généré pour l’agenda)
+- ✅ Search Console configurée + sitemap soumis
 - ✅ Tri éditorial "petits lieux d'abord" opérationnel
 - ❌ Pas d'analytics
 - ❌ Newsletter sans backend (form HTML orphelin)
-- ❌ Pas de données structurées `schema.org/Event`
-- ❌ Pas de pages URL stables par lieu/représentation
-- ❌ Pas de Search Console configurée
 
 ---
 
@@ -26,60 +26,27 @@ Le site est **HTML/JS vanilla + Supabase** (pas Next.js). Ce qui existe déjà :
 
 ### 1.1 Google Search Console + Sitemap dynamique
 
-**Tâche agent :** Améliorer le `sitemap.xml` pour inclure les pages lieux.
+**Statut : ✅ Fait**
+- Sitemap enrichi (agenda + lieux + spectacles) généré.
+- Search Console configurée et sitemap soumis.
 
-```
-Fichier à modifier : sitemap.xml
-Action : Ajouter une section <url> par théâtre référencé dans la table theatre_rang
-Format : https://autheatre.bruxellesensolo.be/lieu/{slug-du-theatre}
-Note : Pour l'instant ajouter les 10-15 lieux principaux manuellement
-```
-
-**Instructions manuelles (non-dev) :**
-1. Aller sur https://search.google.com/search-console
-2. Ajouter la propriété `autheatre.bruxellesensolo.be`
-3. Vérifier via balise HTML (coller dans `<head>` de `index.html`)
-4. Soumettre `https://autheatre.bruxellesensolo.be/sitemap.xml`
+**URL sitemap :** `https://autheatre.brussels/sitemap.xml`
 
 ---
 
 ### 1.2 Données structurées `schema.org/Event`
 
-**Tâche agent :** Ajouter du JSON-LD dynamique dans `js/app.js`
-
-Quand les représentations sont affichées, injecter dans le `<head>` un bloc `<script type="application/ld+json">` avec la liste des événements du jour au format Event schema.
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "Event",
-  "name": "{titre}",
-  "startDate": "{date}T{heure}",
-  "location": {
-    "@type": "Place",
-    "name": "{theatre_nom}",
-    "address": "{theatre_adresse}"
-  },
-  "url": "{url_billetterie}",
-  "eventStatus": "https://schema.org/EventScheduled",
-  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
-}
-```
-
-**Fichiers à modifier :** `js/app.js` (fonction de rendu des résultats)
+**Statut : ✅ Fait**
+- JSON‑LD Event pré‑généré et injecté directement dans les pages agenda (lecture sans JS).
 
 ---
 
-### 1.3 Pages stables par lieu (`/lieu/nom-du-theatre`)
+### 1.3 Pages stables par lieu (`/lieu/[slug]/`)
 
-**Tâche agent :** Créer `lieu.html` — page template pour un théâtre
-
-- URL : `autheatre.bruxellesensolo.be/lieu/?theatre=le-fou-rire`
-- Contenu : nom, adresse, rang éditorial, prochaines représentations
-- JSON-LD : `schema.org/TheaterEvent` + `schema.org/Place`
-- Mettre à jour `sitemap.xml` avec ces URLs
-
-**Fichiers à créer :** `lieu.html`, `js/lieu.js`
+**Statut : ✅ Fait**
+- Pages stables générées pour les lieux.
+- Pages stables générées pour les spectacles et agenda.
+- Sitemap mis à jour avec toutes ces URLs.
 
 ---
 
