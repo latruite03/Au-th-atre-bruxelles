@@ -7,7 +7,7 @@
    ============================================================ */
 
 const SUPABASE_URL = 'https://orcuuknomvpzduiyrfpw.supabase.co'
-const SUPABASE_ANON_KEY = 'sb_publishable_NkKpX5JgIFFqWk9D3R8VlQ_wgeJ8x_l'
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yY3V1a25vbXZwemR1aXlyZnB3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2NzgzMTEsImV4cCI6MjA4NTI1NDMxMX0.XysFZ7h5aXciGjLlgoQ5pPxAb7NJhiCeDOZOX-f60YM'
 
 // Client Supabase global (utilise par toutes les pages)
 // Le script supabase-js doit etre charge avant ce fichier
