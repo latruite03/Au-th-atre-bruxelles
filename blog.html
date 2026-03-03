@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Au théâtre ce soir</title>
+  <meta name="description" content="Quelques textes sur le théâtre à Bruxelles — le spectacle vivant, les petites scènes, ce qui se passe vraiment.">
+
+  <meta property="og:title" content="Blog — Au théâtre ce soir">
+  <meta property="og:description" content="Quelques textes sur le théâtre à Bruxelles.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_BE">
+  <meta property="og:site_name" content="Au théâtre ce soir">
+  <meta property="og:url" content="https://autheatre.brussels/blog.html">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#B11E2D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="top-bar">
+    <div class="container">
+      <div class="top-bar-inner">
+        <a href="/" class="top-bar-logo">Au théâtre ce soir</a>
+        <ul class="top-bar-nav">
+          <li><a href="/">Agenda</a></li>
+          <li><a href="cette-semaine.html">Cette semaine</a></li>
+          <li><a href="lieux.html">Lieux</a></li>
+          <li><a href="blog.html" class="active">Blog</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+        </ul>
+        <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+    <a href="/">Agenda</a>
+    <a href="cette-semaine.html">Cette semaine</a>
+    <a href="lieux.html">Lieux</a>
+    <a href="blog.html">Blog</a>
+    <a href="a-propos.html">À propos</a>
+  </div>
+
+  <main>
+    <div class="container" style="padding-top: 3rem; padding-bottom: 4rem; max-width: 720px;">
+
+      <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Blog</h1>
+      <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 3rem;">
+        Ici, quelques textes sur le théâtre à Bruxelles — pas un magazine, pas un guide, juste des réflexions sur ce qu'on observe en construisant cet agenda.
+      </p>
+
+      <!-- Article à venir -->
+      <div style="border-top: 1px solid var(--border); padding-top: 2rem;">
+        <p style="font-size: 0.8125rem; color: var(--text-3); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.07em;">À paraître</p>
+        <h2 style="font-size: 1.375rem; margin-bottom: 0.5rem; line-height: 1.3;">Le grand moment du spectacle vivant — et l'IA qui prétend le remplacer</h2>
+        <p style="color: var(--text-2); line-height: 1.8;">
+          L'intelligence artificielle peut maintenant générer des vidéos, des voix, des scènes entières. Est-ce que ça change quelque chose au fait d'être dans une salle, à deux mètres d'un comédien, à sentir que quelque chose peut rater ?
+        </p>
+        <p style="color: var(--text-3); font-size: 0.875rem; margin-top: 0.75rem;">Article en préparation</p>
+      </div>
+
+      <!-- Invite newsletter -->
+      <div style="background: var(--bg-warm); border-radius: 12px; padding: 1.75rem; margin-top: 3rem;">
+        <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 1rem;">
+          On préviendra les abonné·es à la newsletter quand le premier article sera en ligne.
+        </p>
+        <form class="newsletter-form" onsubmit="event.preventDefault()">
+          <input type="email" class="newsletter-input" placeholder="votre@email.be" required>
+          <button type="submit" class="newsletter-btn">S'abonner</button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section"><h4>Au théâtre ce soir</h4><p class="footer-tagline">Un projet associatif, sans publicité.</p></div>
+        <div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div>
+        <div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="soutenir.html">Soutenir</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>Un projet de l'ASBL — Bruxelles · Sans publicité</p></div>
+    </div>
+  </footer>
+  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab">Lieux</a><a href="blog.html" class="bottom-tab active">Blog</a><a href="a-propos.html" class="bottom-tab">Plus</a></nav>
+
+  <script src="js/config.js?v=20260303"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signaler un spectacle — Au théâtre ce soir</title>
+  <meta name="description" content="Votre troupe joue à Bruxelles ? Signalez votre représentation pour qu'elle apparaisse dans l'agenda.">
+
+  <meta property="og:title" content="Signaler un spectacle — Au théâtre ce soir">
+  <meta property="og:description" content="Votre troupe joue à Bruxelles ? Signalez votre représentation pour qu'elle apparaisse dans l'agenda.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_BE">
+  <meta property="og:site_name" content="Au théâtre ce soir">
+  <meta property="og:url" content="https://autheatre.brussels/soumettre.html">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#B11E2D">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .form-group label .required {
+      color: var(--accent);
+      margin-left: 2px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--text);
+      background: var(--bg-card);
+      box-sizing: border-box;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-hint {
+      font-size: 0.8125rem;
+      color: var(--text-3);
+      margin-top: 0.35rem;
+    }
+    .submit-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 2rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .submit-btn:hover { opacity: 0.88; }
+    .submit-btn:disabled { opacity: 0.5; cursor: default; }
+    #form-success {
+      display: none;
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      border-radius: 10px;
+      padding: 1.5rem;
+      color: #065f46;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-bar">
+    <div class="container">
+      <div class="top-bar-inner">
+        <a href="/" class="top-bar-logo">Au théâtre ce soir</a>
+        <ul class="top-bar-nav">
+          <li><a href="/">Agenda</a></li>
+          <li><a href="cette-semaine.html">Cette semaine</a></li>
+          <li><a href="lieux.html">Lieux</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+        </ul>
+        <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="mobile-menu">
+    <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button>
+    <a href="/">Agenda</a>
+    <a href="cette-semaine.html">Cette semaine</a>
+    <a href="lieux.html">Lieux</a>
+    <a href="blog.html">Blog</a>
+    <a href="a-propos.html">À propos</a>
+  </div>
+
+  <main>
+    <div class="container" style="padding-top: 3rem; padding-bottom: 4rem; max-width: 640px;">
+
+      <h1 style="font-size: 2rem; margin-bottom: 0.75rem;">Signaler un spectacle</h1>
+      <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 0.75rem;">
+        Votre troupe joue à Bruxelles ? Vous gérez un lieu qui n'est pas encore dans notre agenda ?
+        Signalez-nous la date — on vérifie et on l'ajoute.
+      </p>
+      <p style="color: var(--text-2); line-height: 1.8; margin-bottom: 2.5rem;">
+        Pas besoin d'être un théâtre établi. Une soirée unique dans une salle de quartier, une performance dans un café, une première de compagnie amateur — ça compte.
+      </p>
+
+      <!-- Message de succès (affiché après envoi) -->
+      <div id="form-success">
+        <strong>Message envoyé, merci !</strong><br>
+        On revient vers vous sous 48h ouvrables. Si vous n'avez pas de réponse, écrivez-nous directement à
+        <a href="mailto:contact@autheatre.brussels" style="color: var(--accent);">contact@autheatre.brussels</a>.
+      </div>
+
+      <!--
+        SETUP : Pour activer ce formulaire, créer un compte sur https://formspree.io (gratuit),
+        créer un nouveau formulaire et remplacer "VOTRE-CODE" dans l'attribut action ci-dessous
+        par votre identifiant Formspree (ex: xpwzwkve).
+        Formspree enverra chaque soumission par email à l'adresse que vous configurez.
+      -->
+      <form
+        id="submission-form"
+        action="https://formspree.io/f/VOTRE-CODE"
+        method="POST"
+      >
+        <div class="form-group">
+          <label for="titre">Titre du spectacle <span class="required">*</span></label>
+          <input type="text" id="titre" name="titre" required placeholder="ex. : La Cerisaie, Hamlet, Le Bourgeois Gentilhomme…">
+        </div>
+
+        <div class="form-group">
+          <label for="lieu">Nom du lieu <span class="required">*</span></label>
+          <input type="text" id="lieu" name="lieu" required placeholder="ex. : Café Théâtre du Soir, Salle X…">
+        </div>
+
+        <div class="form-group">
+          <label for="adresse">Adresse du lieu <span class="required">*</span></label>
+          <input type="text" id="adresse" name="adresse" required placeholder="Rue, numéro, commune (Bruxelles, Ixelles, Schaerbeek…)">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="date">Date(s) <span class="required">*</span></label>
+            <input type="text" id="date" name="date" required placeholder="ex. : 15 mars / du 14 au 22 mars">
+            <p class="form-hint">Vous pouvez indiquer plusieurs dates.</p>
+          </div>
+          <div class="form-group">
+            <label for="heure">Heure</label>
+            <input type="text" id="heure" name="heure" placeholder="ex. : 20h30">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lien">Lien vers la billetterie ou la page d'info <span class="required">*</span></label>
+          <input type="url" id="lien" name="lien" required placeholder="https://…">
+          <p class="form-hint">La page du spectacle, un lien de réservation, un événement Facebook — n'importe quoi qui donne plus d'infos.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="contact_nom">Votre nom <span class="required">*</span></label>
+          <input type="text" id="contact_nom" name="contact_nom" required placeholder="Prénom Nom">
+        </div>
+
+        <div class="form-group">
+          <label for="contact_email">Votre email <span class="required">*</span></label>
+          <input type="email" id="contact_email" name="contact_email" required placeholder="votre@email.be">
+          <p class="form-hint">Uniquement pour qu'on puisse vous recontacter si besoin. Pas de newsletter automatique.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Informations complémentaires</label>
+          <textarea id="message" name="message" placeholder="Description du spectacle, genre, compagnie, contexte particulier… tout ce qui peut aider."></textarea>
+        </div>
+
+        <!-- Champ anti-spam honeypot (invisible) -->
+        <input type="text" name="_gotcha" style="display:none">
+        <!-- Redirection Formspree après envoi (désactivée car on gère en JS) -->
+        <input type="hidden" name="_next" value="">
+
+        <button type="submit" class="submit-btn">Envoyer →</button>
+
+        <p style="font-size: 0.8125rem; color: var(--text-3); margin-top: 1rem;">
+          Si le formulaire ne répond pas, écrivez directement à
+          <a href="mailto:contact@autheatre.brussels" style="color: var(--accent);">contact@autheatre.brussels</a>.
+        </p>
+      </form>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-section"><h4>Au théâtre ce soir</h4><p class="footer-tagline">Un projet associatif, sans publicité.</p></div>
+        <div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div>
+        <div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="soutenir.html">Soutenir</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>Un projet de l'ASBL — Bruxelles · Sans publicité</p></div>
+    </div>
+  </footer>
+  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab">Lieux</a><a href="blog.html" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab">Plus</a></nav>
+
+  <script>
+    const form = document.getElementById('submission-form');
+    const successMsg = document.getElementById('form-success');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Envoyer →';
+          alert('Une erreur est survenue. Écrivez-nous à contact@autheatre.brussels.');
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Envoyer →';
+        alert('Impossible d\'envoyer le formulaire. Écrivez-nous à contact@autheatre.brussels.');
+      }
+    });
+  </script>
+  <script src="js/config.js?v=20260303"></script>
+</body>
+</html>
