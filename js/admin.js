@@ -1188,6 +1188,25 @@
         listEl.innerHTML = buildClassementRows(orderedList)
       })
 
+      // --- Event: dropdown change (jump to position) ---
+      listEl.addEventListener('change', function (e) {
+        var select = e.target.closest('.classement-select')
+        if (!select) return
+
+        var row = select.closest('.classement-row')
+        var fromIdx = parseInt(row.dataset.index, 10)
+        var toPos = parseInt(select.value, 10)
+        if (!Number.isFinite(toPos)) return
+
+        var toIdx = Math.min(Math.max(toPos - 1, 0), orderedList.length - 1)
+        if (fromIdx === toIdx) return
+
+        var item = orderedList.splice(fromIdx, 1)[0]
+        orderedList.splice(toIdx, 0, item)
+
+        listEl.innerHTML = buildClassementRows(orderedList)
+      })
+
       // --- Event: save ---
       document.getElementById('btn-save-classement').addEventListener('click', async function () {
         var btn = this
@@ -1244,6 +1263,11 @@
       html += '<span class="classement-rank">' + rank + '</span>'
       html += '<span class="classement-name">' + escapeHtml(name) + '</span>'
       html += '<div class="classement-actions">'
+      html += '<select class="classement-select" aria-label="Position">'
+      for (var p = 1; p <= orderedList.length; p++) {
+        html += '<option value="' + p + '"' + (p === rank ? ' selected' : '') + '>' + p + '</option>'
+      }
+      html += '</select>'
       html += '<button class="classement-arrow" data-dir="up"' + (i === 0 ? ' disabled' : '') + '>&#9650;</button>'
       html += '<button class="classement-arrow" data-dir="down"' + (i === orderedList.length - 1 ? ' disabled' : '') + '>&#9660;</button>'
       html += '</div></div>'
