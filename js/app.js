@@ -6,7 +6,8 @@
   'use strict'
 
   // --- State ---
-  var selectedDate = new Date()
+  var initialDateStr = window.AGENDA_DATE || getDateFromPath()
+  var selectedDate = initialDateStr ? new Date(initialDateStr + 'T00:00:00') : new Date()
   var allGroups = []
   var selectedCommune = null
   var theatreRanking = new Map() // theatre_nom -> rang (lower = first)
@@ -87,6 +88,55 @@
     }
   }
 
+  function setMetaTag(name, content) {
+    if (!content) return
+    var tag = document.querySelector('meta[name="' + name + '"]')
+    if (!tag) {
+      tag = document.createElement('meta')
+      tag.setAttribute('name', name)
+      document.head.appendChild(tag)
+    }
+    tag.setAttribute('content', content)
+  }
+
+  function setMetaProperty(property, content) {
+    if (!content) return
+    var tag = document.querySelector('meta[property="' + property + '"]')
+    if (!tag) {
+      tag = document.createElement('meta')
+      tag.setAttribute('property', property)
+      document.head.appendChild(tag)
+    }
+    tag.setAttribute('content', content)
+  }
+
+  function setCanonical(url) {
+    if (!url) return
+    var link = document.querySelector('link[rel="canonical"]')
+    if (!link) {
+      link = document.createElement('link')
+      link.setAttribute('rel', 'canonical')
+      document.head.appendChild(link)
+    }
+    link.setAttribute('href', url)
+  }
+
+  function updateAgendaMeta(dateStr) {
+    if (!dateStr) return
+    var nice = formatDate(dateStr)
+    var title = 'Agenda théâtre du ' + nice + ' — Au théâtre ce soir'
+    var desc = 'Les spectacles de théâtre à Bruxelles pour le ' + nice + '. Agenda mis à jour quotidiennement.'
+    document.title = title
+    setMetaTag('description', desc)
+    setMetaProperty('og:title', title)
+    setMetaProperty('og:description', desc)
+    setMetaProperty('og:type', 'website')
+    setMetaProperty('og:locale', 'fr_BE')
+    setMetaProperty('og:site_name', 'Au théâtre ce soir')
+    setMetaProperty('og:url', 'https://autheatre.brussels/agenda/' + dateStr + '/')
+    setCanonical('https://autheatre.brussels/agenda/' + dateStr + '/')
+  }
+
   function onCommuneChange() {
     selectedCommune = theatreSelect.value || null
     renderResults()
@@ -125,6 +175,7 @@
   async function fetchRepresentations(dateStr) {
     showLoading()
     resultsTitle.textContent = 'Spectacles du ' + formatDate(dateStr)
+    updateAgendaMeta(dateStr)
 
     try {
       var query = supabaseClient
@@ -364,7 +415,7 @@
 
     var info = window.getTheatreInfoByName ? window.getTheatreInfoByName(group.theatre_nom) : null
     var infoLinkHtml = info && info.slug
-      ? '<a class="theatre-card-info" href="lieu-' + escapeHtml(info.slug) + '.html">Infos</a>'
+      ? '<a class="theatre-card-info" href="/lieu/' + escapeHtml(info.slug) + '/">Infos</a>'
       : ''
 
     var html =
@@ -390,6 +441,10 @@
 
   function renderShowItem(rep) {
     var title = normalizeTitle(rep.titre)
+    var showSlug = buildShowSlug(rep)
+    var titleHtml = showSlug
+      ? '<a href="/spectacle/' + escapeHtml(showSlug) + '/">' + escapeHtml(title) + '</a>'
+      : escapeHtml(title)
     var heureHtml = rep.heure
       ? '<p class="show-time">' + escapeHtml(formatHeure(rep.heure)) + '</p>'
       : '<p class="show-time show-time--tbc">Heure \u00e0 confirmer</p>'
@@ -421,7 +476,7 @@
           '<div class="show-item-content">' +
             imageHtml +
             '<div class="show-info">' +
-              '<h4 class="show-title">' + escapeHtml(title) + '</h4>' +
+              '<h4 class="show-title">' + titleHtml + '</h4>' +
               heureHtml +
               descHtml +
             '</div>' +

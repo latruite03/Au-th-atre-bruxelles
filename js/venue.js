@@ -19,6 +19,39 @@
   var officialEl = document.getElementById('venue-official')
   var listEl = document.getElementById('venue-list')
 
+  function setMetaTag(name, content) {
+    if (!content) return
+    var tag = document.querySelector('meta[name="' + name + '"]')
+    if (!tag) {
+      tag = document.createElement('meta')
+      tag.setAttribute('name', name)
+      document.head.appendChild(tag)
+    }
+    tag.setAttribute('content', content)
+  }
+
+  function setMetaProperty(property, content) {
+    if (!content) return
+    var tag = document.querySelector('meta[property="' + property + '"]')
+    if (!tag) {
+      tag = document.createElement('meta')
+      tag.setAttribute('property', property)
+      document.head.appendChild(tag)
+    }
+    tag.setAttribute('content', content)
+  }
+
+  function setCanonical(url) {
+    if (!url) return
+    var link = document.querySelector('link[rel="canonical"]')
+    if (!link) {
+      link = document.createElement('link')
+      link.setAttribute('rel', 'canonical')
+      document.head.appendChild(link)
+    }
+    link.setAttribute('href', url)
+  }
+
   if (!info) {
     titleEl.textContent = 'Lieu introuvable'
     listEl.innerHTML = '<div class="error-box">Slug inconnu.</div>'
@@ -26,6 +59,18 @@
   }
 
   titleEl.textContent = info.theatre_nom
+
+  // SEO meta
+  setMetaTag('description', 'Prochains spectacles et informations pratiques pour ' + info.theatre_nom + ' 0 Bruxelles.')
+  setMetaProperty('og:title', info.theatre_nom + ' — Lieu — Au théâtre ce soir')
+  setMetaProperty('og:description', 'Prochains spectacles et informations pratiques pour ' + info.theatre_nom + ' 0 Bruxelles.')
+  setMetaProperty('og:type', 'website')
+  setMetaProperty('og:locale', 'fr_BE')
+  setMetaProperty('og:site_name', 'Au théâtre ce soir')
+  setMetaProperty('og:url', 'https://autheatre.brussels/lieu/' + info.slug + '/')
+  document.title = info.theatre_nom + ' — Lieu — Au théâtre ce soir'
+  setCanonical('https://autheatre.brussels/lieu/' + info.slug + '/')
+
   if (info.official_url) {
     officialEl.innerHTML = '<a href="' + escapeHtml(info.official_url) + '" target="_blank" rel="noopener noreferrer">Site officiel</a>'
   }
@@ -102,6 +147,10 @@
 
   function renderShowItem(rep) {
     var title = normalizeTitle(rep.titre)
+    var showSlug = buildShowSlug(rep)
+    var titleHtml = showSlug
+      ? '<a href="/spectacle/' + escapeHtml(showSlug) + '/">' + escapeHtml(title) + '</a>'
+      : escapeHtml(title)
     var dateHtml = rep.date ? '<p class="show-time">' + escapeHtml(formatDate(rep.date)) + '</p>' : ''
     var heureHtml = rep.heure
       ? '<p class="show-time">' + escapeHtml(formatHeure(rep.heure)) + '</p>'
@@ -130,7 +179,7 @@
           '<div class="show-item-content">' +
             imageHtml +
             '<div class="show-info">' +
-              '<h4 class="show-title">' + escapeHtml(title) + '</h4>' +
+              '<h4 class="show-title">' + titleHtml + '</h4>' +
               dateHtml +
               heureHtml +
             '</div>' +

@@ -82,6 +82,46 @@ function normalizeTitle(title) {
   return chars.join('')
 }
 
+function slugify(input) {
+  return String(input || '')
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function buildShowSlug(rep) {
+  if (!rep || !rep.id) return ''
+  var base = slugify(rep.titre || '') || 'spectacle'
+  return base + '--' + rep.id
+}
+
+function parseShowIdFromSlug(slug) {
+  var s = String(slug || '')
+  if (!s) return null
+  var parts = s.split('--')
+  var tail = parts[parts.length - 1]
+  if (!tail) return null
+  var id = parseInt(tail, 10)
+  return Number.isFinite(id) ? id : null
+}
+
+function getPathSegments() {
+  try {
+    return window.location.pathname.split('/').filter(Boolean)
+  } catch (e) {
+    return []
+  }
+}
+
+function getDateFromPath() {
+  var segs = getPathSegments()
+  if (segs[0] !== 'agenda' || !segs[1]) return null
+  var d = segs[1]
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) return null
+  return d
+}
+
 function getGenreLabel(genre) {
   switch (genre) {
     case 'comedie': return 'Com\u00e9die'
