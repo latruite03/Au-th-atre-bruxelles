@@ -469,11 +469,13 @@ img { max-width: 100%; display: block; }
 }
 
 .show-btn--complet {
-  background: var(--error);
+  background: #4B5563; /* slate/grey */
+  border: 1px solid #374151;
+  color: #F9FAFB;
 }
 
 .show-btn--complet:hover {
-  background: #B03A30;
+  background: #374151;
 }
 
 /* --- Empty State --- */
