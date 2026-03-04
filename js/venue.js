@@ -171,7 +171,7 @@
   function groupByShow(reps) {
     var map = new Map()
     reps.forEach(function (rep) {
-      var key = (rep.titre || '') + '|' + (rep.url || '')
+      var key = normalizeTitle(rep.titre || '').toLowerCase()
       if (!map.has(key)) {
         map.set(key, {
           titre: rep.titre,
@@ -192,7 +192,12 @@
   }
 
   function summarizeDates(reps) {
-    var dates = reps.map(function (r) { return r.date }).filter(Boolean).sort()
+    var seen = {}
+    var dates = reps.map(function (r) { return r.date }).filter(Boolean).filter(function (d) {
+      if (seen[d]) return false
+      seen[d] = true
+      return true
+    }).sort()
     if (!dates.length) return ''
     var first = dates[0]
     var last = dates[dates.length - 1]
