@@ -18,6 +18,7 @@
   var addressEl = document.getElementById('venue-address')
   var officialEl = document.getElementById('venue-official')
   var listEl = document.getElementById('venue-list')
+  var agendaLinkEl = document.getElementById('venue-agenda-link')
 
   function setMetaTag(name, content) {
     if (!content) return
@@ -59,6 +60,10 @@
   }
 
   titleEl.textContent = info.theatre_nom
+  if (agendaLinkEl) {
+    var today = toDateString(new Date())
+    agendaLinkEl.href = '/agenda/' + today + '/'
+  }
 
   // SEO meta
   setMetaTag('description', 'Prochains spectacles et informations pratiques pour ' + info.theatre_nom + ' 0 Bruxelles.')
@@ -109,7 +114,7 @@
 
       if (result.error) throw new Error(result.error.message)
 
-      var reps = result.data || []
+      var reps = (result.data || []).filter(function (r) { return !isLikelyNonTheatre(r) })
       if (reps.length === 0) {
         listEl.innerHTML = '<div class="empty-state"><p class="empty-state-title">Aucune date à venir</p></div>'
         return
@@ -144,6 +149,23 @@
     } catch (err) {
       listEl.innerHTML = '<div class="error-box">' + escapeHtml(err.message) + '</div>'
     }
+  }
+
+  function isLikelyNonTheatre(rep) {
+    var text = (rep.titre || '') + ' ' + (rep.description || '')
+    text = text.toLowerCase()
+
+    var theatreSignals = ['théâtre', 'theatre', 'pièce', 'spectacle', 'mise en scène', 'comédie', 'tragédie', 'monologue', 'scène']
+    var hasTheatre = theatreSignals.some(function (k) { return text.indexOf(k) !== -1 })
+
+    var nonTheatre = [
+      'atelier', 'workshop', 'stage', 'cours', 'conférence', 'conference', 'rencontre', 'débat', 'debat',
+      'projection', 'cinéma', 'cinema', 'expo', 'exposition', 'vernissage', 'concert', 'dj', 'bal',
+      'jeu', 'jeux', 'podcast', 'visite', 'repair café'
+    ]
+    var hasNonTheatre = nonTheatre.some(function (k) { return text.indexOf(k) !== -1 })
+
+    return hasNonTheatre && !hasTheatre
   }
 
   function groupByShow(reps) {
