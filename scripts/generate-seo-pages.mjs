@@ -79,6 +79,52 @@ async function fetchRepresentationsForDate(dateStr, limit = 2000) {
   return res.json()
 }
 
+function formatDateLabel(dateStr) {
+  const [y, m, d] = dateStr.split('-').map((x) => parseInt(x, 10))
+  const dt = new Date(Date.UTC(y, m - 1, d))
+  return new Intl.DateTimeFormat('fr-BE', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(dt)
+}
+
+function replaceOrInsertMeta(html, { name, property, content }) {
+  if (!content) return html
+  if (name) {
+    const re = new RegExp(`<meta[^>]*name=\"${name}\"[^>]*>`, 'i')
+    if (re.test(html)) {
+      return html.replace(re, `<meta name=\"${name}\" content=\"${content}\">`)
+    }
+    return html.replace('</head>', `<meta name=\"${name}\" content=\"${content}\">\n</head>`)
+  }
+  if (property) {
+    const re = new RegExp(`<meta[^>]*property=\"${property}\"[^>]*>`, 'i')
+    if (re.test(html)) {
+      return html.replace(re, `<meta property=\"${property}\" content=\"${content}\">`)
+    }
+    return html.replace('</head>', `<meta property=\"${property}\" content=\"${content}\">\n</head>`)
+  }
+  return html
+}
+
+function replaceTitle(html, title) {
+  if (!title) return html
+  if (/<title>[^<]*<\/title>/i.test(html)) {
+    return html.replace(/<title>[^<]*<\/title>/i, `<title>${title}</title>`)
+  }
+  return html.replace('</head>', `<title>${title}</title>\n</head>`)
+}
+
+function ensureCanonical(html, url) {
+  if (!url) return html
+  if (/rel=\"canonical\"/i.test(html)) {
+    return html.replace(/<link[^>]*rel=\"canonical\"[^>]*>/i, `<link rel=\"canonical\" href=\"${url}\">`)
+  }
+  return html.replace('</head>', `<link rel=\"canonical\" href=\"${url}\">\n</head>`)
+}
+
 function buildAgendaJsonLd(reps) {
   const events = []
   const seen = new Set()
@@ -122,6 +168,22 @@ function injectJsonLd(html, jsonLd) {
   return html.replace('</head>', `${script}\n</head>`)
 }
 
+function injectAgendaMeta(html, dateStr) {
+  const label = formatDateLabel(dateStr)
+  const title = `Agenda théâtre du ${label} — Au théâtre ce soir`
+  const desc = `Les spectacles de théâtre à Bruxelles pour le ${label}. Agenda mis à jour quotidiennement.`
+  const url = `${BASE_URL}/agenda/${dateStr}/`
+
+  let out = html
+  out = replaceTitle(out, title)
+  out = replaceOrInsertMeta(out, { name: 'description', content: desc })
+  out = replaceOrInsertMeta(out, { property: 'og:title', content: title })
+  out = replaceOrInsertMeta(out, { property: 'og:description', content: desc })
+  out = replaceOrInsertMeta(out, { property: 'og:url', content: url })
+  out = ensureCanonical(out, url)
+  return out
+}
+
 async function generateAgendaPages(days = 60) {
   const today = new Date()
   const urls = []
@@ -130,7 +192,7 @@ async function generateAgendaPages(days = 60) {
     const dir = path.join(ROOT, 'agenda', dateStr)
     const reps = await fetchRepresentationsForDate(dateStr, 2000)
     const jsonLd = buildAgendaJsonLd(reps)
-    const html = injectJsonLd(agendaTemplate, jsonLd)
+    const html = injectAgendaMeta(injectJsonLd(agendaTemplate, jsonLd), dateStr)
     await writePage(dir, html)
     urls.push(`${BASE_URL}/agenda/${dateStr}/`)
   }
