@@ -115,9 +115,10 @@
         return
       }
 
+      var grouped = groupByShow(reps)
       var html = ''
-      for (var i = 0; i < reps.length; i++) {
-        html += renderShowItem(reps[i])
+      for (var i = 0; i < grouped.length; i++) {
+        html += renderShowGroup(grouped[i])
       }
       listEl.innerHTML = html
 
@@ -145,29 +146,65 @@
     }
   }
 
-  function renderShowItem(rep) {
-    var title = normalizeTitle(rep.titre)
-    var showSlug = buildShowSlug(rep)
+  function groupByShow(reps) {
+    var map = new Map()
+    reps.forEach(function (rep) {
+      var key = (rep.titre || '') + '|' + (rep.url || '')
+      if (!map.has(key)) {
+        map.set(key, {
+          titre: rep.titre,
+          url: rep.url,
+          image_url: rep.image_url,
+          is_complet: rep.is_complet,
+          reps: [],
+        })
+      }
+      map.get(key).reps.push(rep)
+    })
+
+    return Array.from(map.values()).sort(function (a, b) {
+      var da = (a.reps[0] && a.reps[0].date) || ''
+      var db = (b.reps[0] && b.reps[0].date) || ''
+      return da.localeCompare(db)
+    })
+  }
+
+  function summarizeDates(reps) {
+    var dates = reps.map(function (r) { return r.date }).filter(Boolean).sort()
+    if (!dates.length) return ''
+    var first = dates[0]
+    var last = dates[dates.length - 1]
+    if (first === last) return 'Le ' + formatDate(first)
+
+    if (dates.length <= 4) {
+      var parts = dates.map(function (d) { return formatDate(d) })
+      return 'Dates : ' + parts.join(', ')
+    }
+    return 'Du ' + formatDate(first) + ' au ' + formatDate(last)
+  }
+
+  function renderShowGroup(group) {
+    var title = normalizeTitle(group.titre)
+    var showSlug = buildShowSlug(group.reps[0])
     var titleHtml = showSlug
       ? '<a href="/spectacle/' + escapeHtml(showSlug) + '/">' + escapeHtml(title) + '</a>'
       : escapeHtml(title)
-    var dateHtml = rep.date ? '<p class="show-time">' + escapeHtml(formatDate(rep.date)) + '</p>' : ''
-    var heureHtml = rep.heure
-      ? '<p class="show-time">' + escapeHtml(formatHeure(rep.heure)) + '</p>'
-      : '<p class="show-time show-time--tbc">Heure à confirmer</p>'
 
-    var imageHtml = rep.image_url
+    var dateSummary = summarizeDates(group.reps)
+    var dateHtml = dateSummary ? '<p class="show-time">' + escapeHtml(dateSummary) + '</p>' : ''
+
+    var imageHtml = group.image_url
       ? '<div class="show-image-wrap">' +
-          '<img class="show-image" src="' + escapeHtml(rep.image_url) + '" ' +
+          '<img class="show-image" src="' + escapeHtml(group.image_url) + '" ' +
             'alt="' + escapeHtml(title) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer">' +
         '</div>'
       : '<div class="show-image-placeholder">Image indisponible</div>'
 
     var btnHtml = ''
-    if (rep.url) {
-      var isComplet = rep.is_complet
+    if (group.url) {
+      var isComplet = group.is_complet
       btnHtml =
-        '<a href="' + escapeHtml(rep.url) + '" target="_blank" rel="noopener noreferrer" ' +
+        '<a href="' + escapeHtml(group.url) + '" target="_blank" rel="noopener noreferrer" ' +
           'class="show-btn' + (isComplet ? ' show-btn--complet' : '') + '">' +
           (isComplet ? 'Complet' : 'Réserver') +
         '</a>'
@@ -181,7 +218,6 @@
             '<div class="show-info">' +
               '<h4 class="show-title">' + titleHtml + '</h4>' +
               dateHtml +
-              heureHtml +
             '</div>' +
           '</div>' +
           btnHtml +
