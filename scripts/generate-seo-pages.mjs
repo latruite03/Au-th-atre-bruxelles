@@ -46,14 +46,14 @@ function addDays(d, n) {
   return x
 }
 
-function parseSlugsFromTheatresInfo(content) {
-  const slugs = []
-  const re = /slug:\s*'([^']+)'/g
+function parseTheatresInfoEntries(content) {
+  const entries = []
+  const re = /theatre_nom:\s*'([^']+)'[\s\S]*?slug:\s*'([^']+)'/g
   let match
   while ((match = re.exec(content))) {
-    slugs.push(match[1])
+    entries.push({ theatre_nom: match[1], slug: match[2] })
   }
-  return Array.from(new Set(slugs))
+  return entries
 }
 
 async function fetchRepresentationsForDate(dateStr, limit = 2000) {
@@ -199,14 +199,64 @@ async function generateAgendaPages(days = 60) {
   return urls
 }
 
+async function fetchLatestAddress(theatreNom) {
+  const url = new URL(`${SUPABASE_URL}/rest/v1/representations`)
+  url.searchParams.set('select', 'theatre_adresse,date')
+  url.searchParams.set('theatre_nom', `eq.${theatreNom}`)
+  url.searchParams.set('not.theatre_adresse', 'is.null')
+  url.searchParams.set('order', 'date.desc')
+  url.searchParams.set('limit', '1')
+
+  const res = await fetch(url, {
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    },
+  })
+  if (!res.ok) return null
+  const rows = await res.json()
+  return rows && rows[0] ? rows[0].theatre_adresse : null
+}
+
+function buildLieuJsonLd(name, address, url) {
+  const payload = {
+    '@context': 'https://schema.org',
+    '@type': 'Place',
+    name: name || undefined,
+    address: address || undefined,
+    url: url || undefined,
+  }
+  return JSON.stringify(payload)
+}
+
+function injectLieuMeta(html, name, url) {
+  if (!name) return html
+  const title = `${name} — Lieu — Au théâtre ce soir`
+  const desc = `Prochains spectacles et informations pratiques pour ${name} à Bruxelles.`
+  let out = html
+  out = replaceTitle(out, title)
+  out = replaceOrInsertMeta(out, { name: 'description', content: desc })
+  out = replaceOrInsertMeta(out, { property: 'og:title', content: title })
+  out = replaceOrInsertMeta(out, { property: 'og:description', content: desc })
+  out = replaceOrInsertMeta(out, { property: 'og:url', content: url })
+  out = ensureCanonical(out, url)
+  return out
+}
+
 async function generateLieuPages() {
   const theatresInfo = await fs.readFile(path.join(ROOT, 'js/theatres-info.js'), 'utf8')
-  const slugs = parseSlugsFromTheatresInfo(theatresInfo)
+  const entries = parseTheatresInfoEntries(theatresInfo)
   const urls = []
-  for (const slug of slugs) {
+  for (const entry of entries) {
+    const slug = entry.slug
+    const name = entry.theatre_nom
+    const url = `${BASE_URL}/lieu/${slug}/`
+    const address = await fetchLatestAddress(name)
+    const jsonLd = buildLieuJsonLd(name, address, url)
+    const html = injectJsonLd(injectLieuMeta(lieuTemplate, name, url), jsonLd)
     const dir = path.join(ROOT, 'lieu', slug)
-    await writePage(dir, lieuTemplate)
-    urls.push(`${BASE_URL}/lieu/${slug}/`)
+    await writePage(dir, html)
+    urls.push(url)
   }
   return urls
 }
@@ -239,15 +289,53 @@ async function fetchUpcomingRepresentations(days = 90, limit = 2000) {
   return res.json()
 }
 
+function buildSpectacleJsonLd(rep, url) {
+  const payload = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: rep.titre || undefined,
+    startDate: rep.date && rep.heure ? `${rep.date}T${rep.heure}` : rep.date || undefined,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: {
+      '@type': 'Place',
+      name: rep.theatre_nom || undefined,
+      address: rep.theatre_adresse || undefined,
+    },
+    url: rep.url || url,
+    image: rep.image_url || undefined,
+  }
+  return JSON.stringify(payload)
+}
+
+function injectSpectacleMeta(html, rep, url) {
+  const title = rep.titre ? `${rep.titre} — Spectacle — Au théâtre ce soir` : 'Spectacle — Au théâtre ce soir'
+  const desc = rep.titre
+    ? `Infos, dates et billetterie pour « ${rep.titre} » à Bruxelles.`
+    : 'Fiche spectacle : dates, lieu et billetterie.'
+
+  let out = html
+  out = replaceTitle(out, title)
+  out = replaceOrInsertMeta(out, { name: 'description', content: desc })
+  out = replaceOrInsertMeta(out, { property: 'og:title', content: title })
+  out = replaceOrInsertMeta(out, { property: 'og:description', content: desc })
+  out = replaceOrInsertMeta(out, { property: 'og:url', content: url })
+  out = ensureCanonical(out, url)
+  return out
+}
+
 async function generateSpectaclePages() {
   const reps = await fetchUpcomingRepresentations(90, 2000)
   const urls = []
   for (const rep of reps) {
     const slug = buildShowSlug(rep)
     if (!slug) continue
+    const url = `${BASE_URL}/spectacle/${slug}/`
+    const jsonLd = buildSpectacleJsonLd(rep, url)
+    const html = injectJsonLd(injectSpectacleMeta(spectacleTemplate, rep, url), jsonLd)
     const dir = path.join(ROOT, 'spectacle', slug)
-    await writePage(dir, spectacleTemplate)
-    urls.push(`${BASE_URL}/spectacle/${slug}/`)
+    await writePage(dir, html)
+    urls.push(url)
   }
   return urls
 }
