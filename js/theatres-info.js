@@ -65,6 +65,7 @@ window.THEATRES_INFO = [
     theatre_nom: 'Le 140',
     slug: 'le-140',
     official_url: 'https://www.le140.be/qui-sommes-nous/',
+    aliases: ['Théâtre 140'],
   },
   {
     theatre_nom: 'Le Marni',

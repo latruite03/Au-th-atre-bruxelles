@@ -81,17 +81,19 @@
   }
 
   // Adresse: on essaie de la retrouver dans la DB via une représentation récente
-  loadAddressAndUpcoming(info.theatre_nom)
+  loadAddressAndUpcoming(info.theatre_nom, info.aliases || [])
 
-  async function loadAddressAndUpcoming(theatreNom) {
+  async function loadAddressAndUpcoming(theatreNom, aliases) {
     listEl.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>'
+
+    var names = [theatreNom].concat(aliases || [])
 
     try {
       // 1) Adresse (best-effort)
       var addressResult = await supabaseClient
         .from('representations')
         .select('theatre_adresse')
-        .eq('theatre_nom', theatreNom)
+        .in('theatre_nom', names)
         .not('theatre_adresse', 'is', null)
         .order('date', { ascending: false })
         .limit(1)
@@ -105,7 +107,7 @@
       var result = await supabaseClient
         .from('representations')
         .select('*')
-        .eq('theatre_nom', theatreNom)
+        .in('theatre_nom', names)
         .eq('is_theatre', true)
         .gte('date', todayStr)
         .order('date', { ascending: true })
