@@ -60,6 +60,9 @@
   }
 
   titleEl.textContent = info.theatre_nom
+  if (info.address && addressEl) {
+    addressEl.textContent = info.address
+  }
   if (agendaLinkEl) {
     var today = toDateString(new Date())
     agendaLinkEl.href = '/agenda/' + today + '/'

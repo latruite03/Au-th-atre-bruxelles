@@ -83,16 +83,19 @@ window.THEATRES_INFO = [
     theatre_nom: 'Maison de la Création - Bockstael',
     slug: 'maison-de-la-creation-bockstael',
     official_url: '',
+    address: 'Boulevard Émile Bockstael 246A, 1020 Bruxelles',
   },
   {
     theatre_nom: 'Maison de la Création - Cité Modèle',
     slug: 'maison-de-la-creation-cite-modele',
     official_url: '',
+    address: 'Allée du Rubis, Annexe Bloc 3, 1020 Bruxelles',
   },
   {
     theatre_nom: 'Maison de la Création - Gare',
     slug: 'maison-de-la-creation-gare',
     official_url: '',
+    address: 'Rue du Champ de l’église 2, 1020 Bruxelles',
   },
   {
     theatre_nom: "Au B'Izou",

@@ -199,7 +199,7 @@ async function generateAgendaPages(days = 60) {
   return urls
 }
 
-async function fetchLatestAddress(theatreNom) {
+async function fetchLatestAddress(theatreNom, fallbackAddress) {
   const url = new URL(`${SUPABASE_URL}/rest/v1/representations`)
   url.searchParams.set('select', 'theatre_adresse,date')
   url.searchParams.set('theatre_nom', `eq.${theatreNom}`)
@@ -213,9 +213,9 @@ async function fetchLatestAddress(theatreNom) {
       Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
     },
   })
-  if (!res.ok) return null
+  if (!res.ok) return fallbackAddress || null
   const rows = await res.json()
-  return rows && rows[0] ? rows[0].theatre_adresse : null
+  return rows && rows[0] && rows[0].theatre_adresse ? rows[0].theatre_adresse : (fallbackAddress || null)
 }
 
 function buildLieuJsonLd(name, address, url) {
@@ -251,7 +251,7 @@ async function generateLieuPages() {
     const slug = entry.slug
     const name = entry.theatre_nom
     const url = `${BASE_URL}/lieu/${slug}/`
-    const address = await fetchLatestAddress(name)
+    const address = await fetchLatestAddress(name, entry.address)
     const jsonLd = buildLieuJsonLd(name, address, url)
     const html = injectJsonLd(injectLieuMeta(lieuTemplate, name, url), jsonLd)
     const dir = path.join(ROOT, 'lieu', slug)
