@@ -112,7 +112,7 @@
         .gte('date', todayStr)
         .order('date', { ascending: true })
         .order('heure', { ascending: true, nullsFirst: false })
-        .limit(80)
+        .limit(300)
 
       if (result.error) throw new Error(result.error.message)
 
