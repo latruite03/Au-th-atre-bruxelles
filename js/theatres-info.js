@@ -77,6 +77,78 @@ window.THEATRES_INFO = [
     slug: 'la-venerie',
     official_url: 'https://www.lavenerie.be/',
   },
+
+  // --- Ajouts (lieux prioritaires avec représentations) ---
+  {
+    theatre_nom: 'Maison de la Création - Bockstael',
+    slug: 'maison-de-la-creation-bockstael',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Maison de la Création - Cité Modèle',
+    slug: 'maison-de-la-creation-cite-modele',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Maison de la Création - Gare',
+    slug: 'maison-de-la-creation-gare',
+    official_url: '',
+  },
+  {
+    theatre_nom: "Au B'Izou",
+    slug: 'au-bizou',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'La Clarencière',
+    slug: 'la-clarenciere',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Comédie Royale Claude Volter',
+    slug: 'comedie-royale-claude-volter',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Le Jardin de ma Sœur',
+    slug: 'le-jardin-de-ma-soeur',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'La Villa',
+    slug: 'la-villa',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Archipel 19 – Le Fourquet',
+    slug: 'archipel-19-le-fourquet',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Escale du Nord',
+    slug: 'escale-du-nord',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Auditorium Jacques Brel (CERIA)',
+    slug: 'auditorium-jacques-brel-ceria',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Maison des Cultures et de la Cohésion Sociale',
+    slug: 'maison-des-cultures-et-de-la-cohesion-sociale',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Centre culturel Jacques Franck',
+    slug: 'centre-culturel-jacques-franck',
+    official_url: '',
+  },
+  {
+    theatre_nom: 'Espace Senghor',
+    slug: 'espace-senghor',
+    official_url: '',
+  },
 ]
 
 
