@@ -151,15 +151,9 @@ Liste des 13 lieux prioritaires (festival Bruxelles sur Scènes) :
 
 ### 3.1 Newsletter hebdomadaire (backend)
 
-**Solution recommandée : Brevo (ex-Sendinblue)** — gratuit jusqu'à 300 emails/jour
-
-**Tâche agent :**
-- Créer un compte sur https://www.brevo.com (gratuit)
-- Connecter le formulaire newsletter existant (dans footer de tous les .html)
-- Ajouter le script Brevo au `<head>`
-- Configurer une liste "Abonnés Au théâtre ce soir"
-
-**Fichiers à modifier :** `index.html`, `cette-semaine.html`, `lieux.html`, `a-propos.html`
+**Statut : ✅ Fait (fonctionnel)**
+- Brevo configuré, formulaire connecté, envoi test OK.
+- À améliorer : template éditorial, descriptions, branding.
 
 ---
 
