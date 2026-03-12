@@ -155,6 +155,26 @@
     )
   }
 
+  function getEditorialSelection(startStr, endStr) {
+    if (!window.WEEKLY_SELECTION || !Array.isArray(window.WEEKLY_SELECTION.items)) return null
+
+    var s = window.WEEKLY_SELECTION
+    if (s.weekStart !== startStr || s.weekEnd !== endStr) return null
+
+    var clean = []
+    var seen = new Set()
+    for (var i = 0; i < s.items.length; i++) {
+      var it = s.items[i]
+      if (!it || !it.date || !it.titre || !it.theatre_nom) continue
+      var k = showKey(it) + '|' + (it.date || '')
+      if (seen.has(k)) continue
+      seen.add(k)
+      clean.push(it)
+    }
+
+    return clean.length ? clean : null
+  }
+
   async function load() {
     wrap.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>'
 
@@ -162,10 +182,22 @@
     var start = nextMonday(today)
     var end = addDays(start, 6)
 
-    subtitle.textContent = formatRange(start, end) + ' — sélection (7 spectacles) — mise à jour chaque dimanche'
-
     var startStr = toDateString(start)
     var endStr = toDateString(end)
+
+    subtitle.textContent = formatRange(start, end) + ' — sélection (7 spectacles) — mise à jour chaque vendredi soir'
+
+    var editorial = getEditorialSelection(startStr, endStr)
+    if (editorial) {
+      var htmlManual = ''
+      for (var m = 0; m < editorial.length; m++) htmlManual += renderCard(editorial[m])
+      htmlManual +=
+        '<p style="color: var(--text-3); font-size:0.875rem; margin-top:1.5rem;">' +
+        'Sélection éditoriale hebdomadaire. Pour le détail jour par jour et tous les spectacles, utilise l’<a href="/">agenda</a>.' +
+        '</p>'
+      wrap.innerHTML = htmlManual
+      return
+    }
 
     try {
       var res = await supabaseClient
