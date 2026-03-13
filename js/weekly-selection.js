@@ -2,7 +2,7 @@
 window.WEEKLY_SELECTION = {
   weekStart: '2026-03-16',
   weekEnd: '2026-03-22',
-  updatedAt: '2026-03-12T13:45:00+01:00',
+  updatedAt: '2026-03-13T20:31:21+01:00',
   source: 'Selection de la semaine/selection-semaine-2026-03-16.md',
   items: [
     {
@@ -16,9 +16,9 @@ window.WEEKLY_SELECTION = {
       image_url: 'https://lesrichesclaires.be/wp-content/uploads/2025/09/RS_canevas-fassbinderSITE_BANNIERE.jpg'
     },
     {
-      id: 13381,
+      id: 13380,
       date: '2026-03-17',
-      heure: '20:00:00',
+      heure: '13:30:00',
       titre: 'Miskine, la démocratie │Le Sbeul',
       theatre_nom: 'Le Rideau',
       url: 'https://lerideau.brussels/spectacles/miskine-la-democratie',
@@ -32,7 +32,7 @@ window.WEEKLY_SELECTION = {
       titre: 'The Great He-Goat — Cie Mossoux-Bonté',
       theatre_nom: 'Théâtre 140',
       url: 'https://www.le140.be/spectacles/the-great-he-goat/',
-      description: 'Dix gardien·nes de musée, enfermé·es la nuit dans les salles, se font phagocyter par les tableaux de Goya qu’iels côtoient tout le jour.',
+      description: 'Dix gardien·nes de musée, enfermé·es la nuit dans les salles, se font phagocyter par les tableaux de Goya qu’iels côtoient tout le jour. Une horde d’hommes et de femmes, dans la lignée de celles et ceux que Goya peignait au cœur de l’Espagne en guerre, traverse les désastres de l’Histoire. Affublé·es de doubles marionnettiques qui […]',
       image_url: 'https://www.le140.be/wp-content/uploads/2025/11/The-Great-He-Goat_MajascMikha-Wajnrych-scaled.jpg'
     },
     {
@@ -62,7 +62,7 @@ window.WEEKLY_SELECTION = {
       titre: 'La méthode Grönholm',
       theatre_nom: 'La Clarencière',
       url: 'https://www.laclarenciere.be/SAISON_2025_2026/trismestre2.htm',
-      description: 'Comédie sur le monde du travail aux allures de thriller : quatre candidats se rendent à un entretien d\'embauche pour un poste de cadre supérieur.',
+      description: 'est une comédie sur le monde du travail aux allures de thriller… Quatre candidats se rendent à un entretien d\'embauche pour un poste de cadre supérieur. A force de jeux de dupes, de trahisons et de manipulations, le spec',
       image_url: 'https://www.laclarenciere.be/SAISON_2025_2026/AFFICHES/GRONHOLM.jpg'
     },
     {
@@ -72,7 +72,7 @@ window.WEEKLY_SELECTION = {
       titre: 'EN BARQUE',
       theatre_nom: 'Archipel 19 – Le Fourquet',
       url: 'https://archipel19.be/evenement/en-barque-2/',
-      description: 'Spectacle de la compagnie Les Pieds dans le Vent, le dimanche à Archipel 19.',
+      description: '"En barque" spectacle de la compagnie Les Pieds dans le Vent, le dimanche (15h) au centre culturel Archipel 19 à Berchem-Sainte-Agathe',
       image_url: 'https://archipel19.be/wp-content/uploads/2025/07/2526_SITE_SCOLSPEC_ENBARQUE_visuweb.gif'
     }
   ]
