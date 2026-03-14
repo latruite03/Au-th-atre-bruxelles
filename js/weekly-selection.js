@@ -46,14 +46,14 @@ window.WEEKLY_SELECTION = {
       image_url: 'https://varia.be/sites/default/files/2025-05/OK_DSC00278%20copie.JPG'
     },
     {
-      id: 2138,
+      id: 1865,
       date: '2026-03-20',
       heure: '20:30:00',
-      titre: 'L\'immense nuit par DoucheFLUX',
-      theatre_nom: 'Atelier 210',
-      url: 'https://atelier210.be/saisons/saison-25-26/doucheflux/',
-      description: 'On danse pour lutter contre le sans-abrisme sans-chez-soirisme',
-      image_url: 'https://atelier210.be//site/assets/files/7627/immense_nuit_2026_visu.-pim2-share2.jpg'
+      titre: 'Le Long Chemin du retour',
+      theatre_nom: 'Théâtre de Poche',
+      url: 'https://poche.be/show/2025-le-long-chemin-du-retour',
+      description: 'Nick et Tom reviennent d’Afghanistan. En apparence, tout va bien, mais les fantômes de la guerre s’invitent dans leur quotidien et bouleversent leurs liens. Entre humour fragile et blessures profondes, la pièce de Daniel Keene interroge ce que les conflits laissent derrière eux.',
+      image_url: 'https://poche.be/img/posters/1d959746-3704-46e9-abc3-1fe4ef684c43_big.jpg'
     },
     {
       id: 7980,
