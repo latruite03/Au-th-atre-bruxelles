@@ -71,9 +71,9 @@ window.WEEKLY_SELECTION = {
       heure: '15:00:00',
       titre: 'EN BARQUE',
       theatre_nom: 'Archipel 19 – Le Fourquet',
-      url: 'https://archipel19.be/evenement/en-barque-2/',
-      description: '"En barque" spectacle de la compagnie Les Pieds dans le Vent, le dimanche (15h) au centre culturel Archipel 19 à Berchem-Sainte-Agathe',
-      image_url: 'https://archipel19.be/wp-content/uploads/2025/07/2526_SITE_SCOLSPEC_ENBARQUE_visuweb.gif'
+      url: 'https://archipel19.be/produit/en-barque/',
+      description: 'Un beau dimanche. Un homme, une dame, un plan d’eau peu fréquenté. Ici, on est bien. Mais quel est cet Ici qui regorge de surprises aquatiques, terrestres et climatiques ? Un message de bonheur simple nous embarque dans un paradis où chaque tout petit vivant trouve place à sa mesure. Compagnie Les Pieds dans le Vent. Tout public, 45 minutes.',
+      image_url: 'https://archipel19.be/wp-content/uploads/2025/11/SPECTACLE_enbarque.jpg'
     }
   ]
 }
