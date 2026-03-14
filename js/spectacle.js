@@ -71,7 +71,54 @@
     } catch (e) {}
   }
 
-  function render(rep) {
+  async function resolveCanonicalId(rep) {
+    var fallbackId = rep && rep.id ? rep.id : null
+    if (!rep || !rep.id) return fallbackId
+
+    try {
+      if (rep.source_url) {
+        var bySource = await supabaseClient
+          .from('representations')
+          .select('id,date,titre,theatre_nom')
+          .eq('is_theatre', true)
+          .is('hidden_at', null)
+          .eq('source_url', rep.source_url)
+          .eq('theatre_nom', rep.theatre_nom)
+          .order('date', { ascending: true })
+          .order('id', { ascending: true })
+          .limit(50)
+
+        if (!bySource.error && Array.isArray(bySource.data) && bySource.data.length) {
+          var sameTitle = bySource.data.filter(function (r) {
+            return normalizeTitle(r.titre || '') === normalizeTitle(rep.titre || '')
+          })
+          var pool = sameTitle.length ? sameTitle : bySource.data
+          if (pool[0] && pool[0].id) return pool[0].id
+        }
+      }
+
+      var byTitleVenue = await supabaseClient
+        .from('representations')
+        .select('id,date')
+        .eq('is_theatre', true)
+        .is('hidden_at', null)
+        .eq('theatre_nom', rep.theatre_nom)
+        .eq('titre', rep.titre)
+        .order('date', { ascending: true })
+        .order('id', { ascending: true })
+        .limit(50)
+
+      if (!byTitleVenue.error && Array.isArray(byTitleVenue.data) && byTitleVenue.data.length) {
+        return byTitleVenue.data[0].id
+      }
+    } catch (e) {
+      // keep fallback
+    }
+
+    return fallbackId
+  }
+
+  async function render(rep) {
     var title = normalizeTitle(rep.titre)
     titleEl.textContent = title
 
@@ -111,7 +158,8 @@
         '</div>' +
       '</div>'
 
-    var canonical = 'https://autheatre.brussels/spectacle/' + buildShowSlug(rep) + '/'
+    var canonicalId = await resolveCanonicalId(rep)
+    var canonical = 'https://autheatre.brussels/spectacle/' + buildShowSlug({ id: canonicalId, titre: rep.titre }) + '/'
     document.title = title + ' — Spectacle — Au théâtre ce soir'
     setMetaTag('description', 'Infos, dates et billetterie pour « ' + title + ' » à Bruxelles.')
     setMetaProperty('og:title', title + ' — Spectacle — Au théâtre ce soir')
@@ -145,7 +193,7 @@
 
       if (res.error || !res.data) throw new Error('Spectacle introuvable')
 
-      render(res.data)
+      await render(res.data)
     } catch (err) {
       container.innerHTML = '<div class="error-box">' + escapeHtml(err.message || 'Erreur de chargement') + '</div>'
     }
