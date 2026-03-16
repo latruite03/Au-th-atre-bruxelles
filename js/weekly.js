@@ -310,19 +310,3 @@
 
   load()
 })()
-picked[j])
-
-      // Note
-      html +=
-        '<p style="color: var(--text-3); font-size:0.875rem; margin-top:1.5rem;">' +
-        'Pour le détail jour par jour et tous les spectacles, utilise l’<a href="/">agenda</a>.' +
-        '</p>'
-
-      wrap.innerHTML = html
-    } catch (err) {
-      wrap.innerHTML = '<div class="error-box">' + esc(err.message) + '</div>'
-    }
-  }
-
-  load()
-})()
