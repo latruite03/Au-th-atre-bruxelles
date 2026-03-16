@@ -24,7 +24,7 @@ window.WEEKLY_SELECTION = {
       url: 'https://lerideau.brussels/spectacles/miskine-la-democratie',
       description: 'Est-ce qu\'une salle de spectacle peut être le départ d\'un reboot sociétal, d\'un renouveau démocratique ?',
       image_url: 'https://lerideau.brussels/img/asset/YXNzZXRzLzExLW1za2luZS1sYS1kZW1vY3JhdGllLkpQRw==?w=1200&q=70&s=6d19421340f0b14d00e821e8eef6aace'
-    }
+    },
     {
       id: 8012,
       date: '2026-03-18',
