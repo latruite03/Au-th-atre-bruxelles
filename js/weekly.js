@@ -56,12 +56,19 @@
     return x
   }
 
-  function nextMonday(d) {
-    // JS: 0=Sun..6=Sat
+  function mondayOfCurrentWeek(d) {
+    // JS: 0=Sun..6=Sat, Monday-based week
     var day = d.getDay()
-    var delta = (8 - day) % 7
-    if (delta === 0) delta = 7 // if already Monday -> next Monday
-    return startOfDay(addDays(d, delta))
+    var delta = (day + 6) % 7 // Mon=0, Tue=1, ..., Sun=6
+    return startOfDay(addDays(d, -delta))
+  }
+
+  function shouldSwitchToNextWeek(now) {
+    // Rule: switch to next week on Saturday at 23:00 (Europe/Brussels local browser time)
+    var day = now.getDay() // 6 = Saturday, 0 = Sunday
+    if (day === 6) return now.getHours() >= 23
+    if (day === 0) return true
+    return false
   }
 
   function formatRange(start, end) {
@@ -178,8 +185,10 @@
   async function load() {
     wrap.innerHTML = '<div class="spinner-wrap"><div class="spinner"></div></div>'
 
-    var today = startOfDay(new Date())
-    var start = nextMonday(today)
+    var now = new Date()
+    var today = startOfDay(now)
+    var start = mondayOfCurrentWeek(today)
+    if (shouldSwitchToNextWeek(now)) start = addDays(start, 7)
     var end = addDays(start, 6)
 
     var startStr = toDateString(start)
