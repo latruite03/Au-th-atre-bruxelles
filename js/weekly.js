@@ -173,6 +173,10 @@
     for (var i = 0; i < s.items.length; i++) {
       var it = s.items[i]
       if (!it || !it.date || !it.titre || !it.theatre_nom) continue
+
+      var dayIdx = i // expected Monday..Sunday ordering in editorial file
+      if (!isEveningSlot(it, dayIdx)) continue
+
       var k = showKey(it) + '|' + (it.date || '')
       if (seen.has(k)) continue
       seen.add(k)
@@ -291,6 +295,22 @@
 
       var html = ''
       for (var j = 0; j < picked.length; j++) html += renderCard(picked[j])
+
+      // Note
+      html +=
+        '<p style="color: var(--text-3); font-size:0.875rem; margin-top:1.5rem;">' +
+        'Pour le détail jour par jour et tous les spectacles, utilise l’<a href="/">agenda</a>.' +
+        '</p>'
+
+      wrap.innerHTML = html
+    } catch (err) {
+      wrap.innerHTML = '<div class="error-box">' + esc(err.message) + '</div>'
+    }
+  }
+
+  load()
+})()
+picked[j])
 
       // Note
       html +=
