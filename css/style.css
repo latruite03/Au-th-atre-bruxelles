@@ -337,13 +337,15 @@ img { max-width: 100%; display: block; }
 
 .theatre-card-info {
   font-size: 0.9rem;
-  color: var(--color-gray-300);
+  color: var(--text-2);
+  font-weight: 600;
   text-decoration: underline;
+  text-underline-offset: 2px;
   white-space: nowrap;
 }
 
 .theatre-card-info:hover {
-  color: var(--color-white);
+  color: var(--accent);
 }
 
 .theatre-card-name {
