@@ -154,6 +154,16 @@
       editorialCopy: 'Fondé en 1971 et installé rue Traversière depuis 1988, le Théâtre de la Vie compte parmi les lieux bruxellois où l’on peut voir émerger des récits, des voix et des formats qu’on ne trouve pas toujours dans les circuits les plus visibles. La salle reste à taille humaine, ce qui donne souvent une vraie proximité avec le plateau.',
       statAreaLabel: 'quartier'
     };
+    document.addEventListener('DOMContentLoaded', function () {
+      var values = document.querySelectorAll('.venue-stat-value');
+      var labels = document.querySelectorAll('.venue-stat-label');
+      if (values[0]) values[0].textContent = 'Jeune création';
+      if (labels[0]) labels[0].textContent = 'ligne sensible au contemporain';
+      if (values[1]) values[1].textContent = 'Salle à taille humaine';
+      if (labels[1]) labels[1].textContent = 'proximité avec le plateau';
+      if (values[2]) values[2].textContent = 'Saint-Josse';
+      if (labels[2]) labels[2].textContent = 'quartier';
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="/js/config.js?v=20260303-1"></script>
