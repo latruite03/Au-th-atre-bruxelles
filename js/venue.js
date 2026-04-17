@@ -19,6 +19,13 @@
   var officialEl = document.getElementById('venue-official')
   var listEl = document.getElementById('venue-list')
   var agendaLinkEl = document.getElementById('venue-agenda-link')
+  var kickerEl = document.getElementById('venue-kicker')
+  var summaryEl = document.getElementById('venue-summary')
+  var sideCopyEl = document.getElementById('venue-sidecopy')
+  var editorialCopyEl = document.getElementById('venue-editorial-copy')
+  var statShowsEl = document.getElementById('venue-stat-shows')
+  var statDatesEl = document.getElementById('venue-stat-dates')
+  var statAreaEl = document.getElementById('venue-stat-area')
 
   function setMetaTag(name, content) {
     if (!content) return
@@ -68,6 +75,14 @@
     agendaLinkEl.href = '/agenda/' + today + '/'
   }
 
+  var pageCopy = window.VENUE_PAGE_COPY || {}
+  var initialArea = pageCopy.area || detectArea(info.address || '') || 'Bruxelles'
+  if (kickerEl) kickerEl.textContent = pageCopy.kicker || (initialArea + ' — fiche lieu')
+  if (summaryEl) summaryEl.textContent = pageCopy.summary || buildVenueSummary(info.theatre_nom, initialArea)
+  if (sideCopyEl) sideCopyEl.textContent = pageCopy.sideCopy || buildSideCopy(info.theatre_nom, initialArea)
+  if (editorialCopyEl) editorialCopyEl.textContent = pageCopy.editorialCopy || buildEditorialCopy(info.theatre_nom, initialArea)
+  if (statAreaEl) statAreaEl.textContent = initialArea
+
   // SEO meta
   setMetaTag('description', 'Prochains spectacles et informations pratiques pour ' + info.theatre_nom + ' 0 Bruxelles.')
   setMetaProperty('og:title', info.theatre_nom + ' — Lieu — Au théâtre ce soir')
@@ -103,6 +118,15 @@
 
       if (!addressResult.error && addressResult.data && addressResult.data[0] && addressResult.data[0].theatre_adresse) {
         addressEl.textContent = addressResult.data[0].theatre_adresse
+        var liveArea = detectArea(addressResult.data[0].theatre_adresse)
+        if (liveArea) {
+          var resolvedArea = pageCopy.area || liveArea
+          if (kickerEl) kickerEl.textContent = pageCopy.kicker || (resolvedArea + ' — fiche lieu')
+          if (summaryEl) summaryEl.textContent = pageCopy.summary || buildVenueSummary(info.theatre_nom, resolvedArea)
+          if (sideCopyEl) sideCopyEl.textContent = pageCopy.sideCopy || buildSideCopy(info.theatre_nom, resolvedArea)
+          if (editorialCopyEl) editorialCopyEl.textContent = pageCopy.editorialCopy || buildEditorialCopy(info.theatre_nom, resolvedArea)
+          if (statAreaEl) statAreaEl.textContent = resolvedArea
+        }
       }
 
       // 2) Upcoming
@@ -120,6 +144,10 @@
       if (result.error) throw new Error(result.error.message)
 
       var reps = (result.data || []).filter(function (r) { return !isLikelyNonTheatre(r) })
+      if (statShowsEl && pageCopy.statShowsLabel) statShowsEl.nextElementSibling.textContent = pageCopy.statShowsLabel
+      if (statDatesEl && pageCopy.statDatesLabel) statDatesEl.nextElementSibling.textContent = pageCopy.statDatesLabel
+      if (statAreaEl && pageCopy.statAreaLabel) statAreaEl.nextElementSibling.textContent = pageCopy.statAreaLabel
+      updateStats(reps)
       if (reps.length === 0) {
         listEl.innerHTML = '<div class="empty-state"><p class="empty-state-title">Aucune date à venir</p></div>'
         return
@@ -154,6 +182,45 @@
     } catch (err) {
       listEl.innerHTML = '<div class="error-box">' + escapeHtml(err.message) + '</div>'
     }
+  }
+
+  function detectArea(address) {
+    var text = String(address || '')
+    if (!text) return ''
+    var patterns = [
+      ['Ixelles', /(ixelles|1050)/i],
+      ['Bruxelles centre', /(1000 bruxelles|centre de bruxelles|bruxelles-centre)/i],
+      ['Schaerbeek', /(schaerbeek|1030)/i],
+      ['Etterbeek', /(etterbeek|1040)/i],
+      ['Saint-Gilles', /(saint-gilles|1060)/i],
+      ['Forest', /(forest|1190)/i],
+      ['Molenbeek', /(molenbeek|1080)/i],
+      ['Saint-Josse', /(saint-josse|1210)/i],
+      ['Watermael-Boitsfort', /(watermael|boitsfort|1170)/i],
+      ['Laeken', /(laeken|1020)/i],
+      ['Uccle', /(uccle|1180)/i],
+    ]
+    for (var i = 0; i < patterns.length; i++) {
+      if (patterns[i][1].test(text)) return patterns[i][0]
+    }
+    return 'Bruxelles'
+  }
+
+  function buildVenueSummary(name, area) {
+    return name + ' fait partie des lieux à garder en tête quand on cherche du théâtre à ' + area + ', avec un accès rapide aux prochaines dates et aux infos utiles.'
+  }
+
+  function buildSideCopy(name, area) {
+    return 'On a réuni ici l’essentiel pour ' + name + ' : adresse, accès utiles et prochaines représentations, afin de voir rapidement si ce lieu mérite un détour dans ' + area + '.'
+  }
+
+  function buildEditorialCopy(name, area) {
+    return 'Une bonne fiche lieu doit donner envie sans en faire trop : situer ' + name + ' dans Bruxelles, rendre ses prochaines dates lisibles et permettre de repartir facilement vers l’agenda complet.'
+  }
+
+  function updateStats(reps) {
+    if (statShowsEl) statShowsEl.textContent = String(groupByShow(reps).length || 0)
+    if (statDatesEl) statDatesEl.textContent = String(reps.length || 0)
   }
 
   function isLikelyNonTheatre(rep) {

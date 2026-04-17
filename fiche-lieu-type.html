@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiche lieu type — Au théâtre ce soir</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .venue-page { padding-bottom: 4rem; }
+    .venue-hero { padding: 3.5rem 0 2.5rem; background: radial-gradient(circle at top left, rgba(177, 30, 45, 0.08), transparent 32%), linear-gradient(180deg, #FCFCFE 0%, #F3F4FA 100%); border-bottom: 1px solid rgba(23,25,40,0.08); }
+    .venue-backlink { display:inline-flex; align-items:center; gap:.45rem; margin-bottom:1.15rem; color:var(--text-2); text-decoration:none; font-size:.92rem; }
+    .venue-hero-grid, .venue-section-head { display:grid; gap:1.5rem; }
+    .venue-kicker, .venue-section-kicker { display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .7rem; border-radius:999px; background:rgba(177,30,45,.08); color:var(--accent); font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .venue-title { font-size:clamp(2.4rem,5vw,4.3rem); line-height:.98; margin-top:1rem; letter-spacing:-.04em; max-width:11ch; }
+    .venue-address { margin-top:.95rem; color:var(--text); font-size:1rem; line-height:1.8; max-width:42rem; }
+    .venue-summary { margin-top:1rem; color:var(--text-2); font-size:1rem; line-height:1.8; max-width:44rem; }
+    .venue-hero-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem; }
+    .venue-btn { display:inline-flex; align-items:center; justify-content:center; min-height:2.9rem; padding:.7rem 1.1rem; border-radius:999px; border:1px solid transparent; font-size:.95rem; font-weight:700; text-decoration:none; }
+    .venue-btn-primary { background:var(--accent); color:#fffaf8; box-shadow:0 12px 30px rgba(177,30,45,.16); }
+    .venue-btn-secondary { background:rgba(255,255,255,.85); border-color:rgba(23,25,40,.1); color:var(--text); }
+    .venue-sidecard, .venue-editorial, #venue-list { background:rgba(255,255,255,.92); border:1px solid rgba(23,25,40,.08); border-radius:24px; box-shadow:0 16px 32px rgba(23,25,40,.05); }
+    .venue-sidecard { padding:1.6rem; }
+    .venue-sidecard-label { font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-3); }
+    .venue-sidecard-text, .venue-editorial-copy, .venue-section-note { color:var(--text); line-height:1.75; }
+    .venue-stats { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:.75rem; margin-top:1.2rem; padding-top:1rem; border-top:1px solid rgba(23,25,40,.08); }
+    .venue-stat { background:rgba(23,25,40,.03); border-radius:16px; padding:.85rem .9rem; }
+    .venue-stat-value { font-size:1.2rem; font-weight:700; color:var(--text); }
+    .venue-stat-label { color:var(--text-3); font-size:.78rem; margin-top:.15rem; }
+    .venue-content { padding:2.25rem 0 0; }
+    .venue-editorial { margin-top:1.6rem; padding:1.3rem; }
+    .venue-editorial-title { font-size:1.2rem; margin-bottom:.45rem; }
+    .venue-section { margin-top:2.2rem; }
+    .venue-section-title { font-size:clamp(1.7rem,3vw,2.6rem); margin-top:.7rem; line-height:1.02; }
+    .venue-list-inner { padding:1rem; display:grid; gap:1rem; }
+    .show-card { display:grid; grid-template-columns:150px 1fr; gap:1rem; padding:1rem; border:1px solid rgba(23,25,40,.08); border-radius:18px; background:#fff; }
+    .show-thumb { border-radius:14px; background:linear-gradient(135deg,#22253f 0%,#131525 100%); min-height:140px; display:flex; align-items:flex-end; padding:1rem; color:#fffaf8; font-family:var(--font-heading); font-size:1.2rem; }
+    .show-meta { display:flex; flex-wrap:wrap; gap:.55rem; }
+    .show-pill { display:inline-flex; align-items:center; min-height:2rem; padding:.25rem .65rem; border-radius:999px; font-size:.78rem; font-weight:700; }
+    .show-pill-accent { background:rgba(177,30,45,.09); color:var(--accent); }
+    .show-pill-neutral { background:rgba(23,25,40,.05); color:var(--text-2); }
+    .show-title { font-size:1.4rem; line-height:1.1; margin-top:.75rem; }
+    .show-copy { margin-top:.55rem; color:var(--text-2); line-height:1.7; }
+    .show-footer { display:flex; flex-wrap:wrap; justify-content:space-between; gap:.8rem; align-items:center; margin-top:1rem; }
+    .show-link { display:inline-flex; align-items:center; justify-content:center; min-height:2.6rem; padding:.6rem .95rem; border-radius:999px; background:rgba(177,30,45,.08); border:1px solid rgba(177,30,45,.14); color:var(--accent); font-size:.9rem; font-weight:700; text-decoration:none; }
+    @media (min-width:900px){ .venue-hero-grid, .venue-section-head { grid-template-columns:minmax(0,1fr) 320px; } }
+    @media (max-width:779px){ .venue-stats { grid-template-columns:1fr; } .show-card { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="top-bar"><div class="container"><div class="top-bar-inner"><a href="/" class="top-bar-logo">Au théâtre ce soir</a><ul class="top-bar-nav"><li><a href="/">Agenda</a></li><li><a href="/cette-semaine.html">Cette semaine</a></li><li><a href="/lieux.html" class="active">Lieux</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/a-propos.html">À propos</a></li></ul></div></div></nav>
+  <main class="venue-page">
+    <section class="venue-hero">
+      <div class="container">
+        <a href="/lieux.html" class="venue-backlink">← Retour aux lieux</a>
+        <div class="venue-hero-grid">
+          <div>
+            <span class="venue-kicker">Ixelles — fiche lieu</span>
+            <h1 class="venue-title">Théâtre Les Tanneurs</h1>
+            <p class="venue-address">Rue des Tanneurs 75–77, 1000 Bruxelles</p>
+            <p class="venue-summary">La fiche lieu type sert à comprendre tout de suite où se situe la salle, pourquoi elle compte dans l’écosystème bruxellois, et quelles dates peuvent donner envie d’y aller bientôt.</p>
+            <div class="venue-hero-actions">
+              <a href="#prochains" class="venue-btn venue-btn-primary">Voir les prochaines dates</a>
+              <a href="https://lestanneurs.be" class="venue-btn venue-btn-secondary">Site officiel</a>
+            </div>
+          </div>
+          <aside class="venue-sidecard">
+            <p class="venue-sidecard-label">Repères pratiques</p>
+            <p class="venue-sidecard-text">Le bloc de droite résume l’essentiel : volume de programmation visible, repère géographique et accès rapides. C’est là qu’on évite la fiche sèche et purement technique.</p>
+            <div class="venue-stats">
+              <div class="venue-stat"><div class="venue-stat-value">4</div><div class="venue-stat-label">spectacles à venir</div></div>
+              <div class="venue-stat"><div class="venue-stat-value">11</div><div class="venue-stat-label">dates annoncées</div></div>
+              <div class="venue-stat"><div class="venue-stat-value">Centre</div><div class="venue-stat-label">repère géographique</div></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+    <section class="venue-content">
+      <div class="container">
+        <div class="venue-editorial">
+          <h2 class="venue-editorial-title">Ce qu’une bonne fiche lieu doit raconter</h2>
+          <p class="venue-editorial-copy">Pas besoin d’un roman. Quelques phrases suffisent pour situer le lieu dans Bruxelles, dire à quel type de programmation il fait penser, et relier le tout aux prochaines représentations. L’idée est d’avoir une page utile, vivante, et pas juste une adresse avec trois liens.</p>
+        </div>
+        <section class="venue-section" id="prochains">
+          <div class="venue-section-head">
+            <div>
+              <p class="venue-section-kicker">À voir bientôt</p>
+              <h2 class="venue-section-title">Prochains spectacles</h2>
+            </div>
+            <p class="venue-section-note">Le cœur de la page : des cartes simples, plus désirables qu’un tableau brut, avec assez d’info pour cliquer sans hésiter.</p>
+          </div>
+          <div id="venue-list">
+            <div class="venue-list-inner">
+              <article class="show-card">
+                <div class="show-thumb">Cérémonies</div>
+                <div>
+                  <div class="show-meta"><span class="show-pill show-pill-accent">Du 13 au 18 avril</span><span class="show-pill show-pill-neutral">création contemporaine</span></div>
+                  <h3 class="show-title">Cérémonies</h3>
+                  <p class="show-copy">Une fiche lieu type gagne beaucoup à montrer comment les spectacles vivent à l’intérieur du lieu. Ici, on met une accroche courte, une plage de dates lisible et un bouton clair.</p>
+                  <div class="show-footer"><span>Le spectacle a aussi sa fiche dédiée.</span><a class="show-link" href="#">Voir le spectacle →</a></div>
+                </div>
+              </article>
+              <article class="show-card">
+                <div class="show-thumb">Portrait de Rita</div>
+                <div>
+                  <div class="show-meta"><span class="show-pill show-pill-accent">25 avril à 20h30</span><span class="show-pill show-pill-neutral">théâtre</span></div>
+                  <h3 class="show-title">Portrait de Rita</h3>
+                  <p class="show-copy">Deuxième exemple de carte : on garde un système stable, pour que la lecture soit la même sur toutes les fiches lieu du site.</p>
+                  <div class="show-footer"><span>Billetterie ou fiche spectacle.</span><a class="show-link" href="#">Réserver →</a></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

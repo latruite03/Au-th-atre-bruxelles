@@ -88,38 +88,54 @@
 
   function renderCard(item) {
     var dateLabel = item.date
+    var dayName = ''
+    var dayNumber = ''
+    var monthName = ''
     try {
-      dateLabel = new Date(item.date + 'T00:00:00').toLocaleDateString('fr-BE', { weekday: 'long', day: 'numeric', month: 'long' })
+      var d = new Date(item.date + 'T00:00:00')
+      dateLabel = d.toLocaleDateString('fr-BE', { weekday: 'long', day: 'numeric', month: 'long' })
+      dayName = d.toLocaleDateString('fr-BE', { weekday: 'long' })
+      dayNumber = d.toLocaleDateString('fr-BE', { day: 'numeric' })
+      monthName = d.toLocaleDateString('fr-BE', { month: 'short' })
     } catch (e) {}
 
     var heure = item.heure ? formatHeure(item.heure) : 'Heure à confirmer'
     var desc = decodeHtmlEntities((item.description || '')).trim()
-    if (desc.length > 260) desc = desc.slice(0, 260).trim() + '…'
+    if (desc.length > 180) desc = desc.slice(0, 180).trim() + '…'
 
     var cover = item.image_url
-      ? '<div style="height:220px;background:#0f172a;display:flex;align-items:center;justify-content:center;">' +
-          '<img src="' + esc(item.image_url) + '" alt="" loading="lazy" style="width:100%;height:220px;object-fit:contain;display:block;" onerror="this.style.display=\'none\'" />' +
+      ? '<div class="weekly-card-media">' +
+          '<img src="' + esc(item.image_url) + '" alt="" loading="lazy" class="weekly-card-image" onerror="this.parentNode.classList.add(\'weekly-card-media-empty\'); this.remove()" />' +
         '</div>'
-      : ''
+      : '<div class="weekly-card-media weekly-card-media-empty"><span class="weekly-card-media-label">Au théâtre ce soir</span></div>'
 
     var btn = item.url
-      ? '<a href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer" style="background: var(--accent); color:#FFFBF5; padding:0.5rem 1.25rem; border-radius:9999px; font-size:0.875rem; font-weight:700; text-decoration:none;">Infos</a>'
+      ? '<a href="' + esc(item.url) + '" target="_blank" rel="noopener noreferrer" class="weekly-card-link">Voir les infos</a>'
       : ''
 
     return (
-      '<div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem;">' +
-        cover +
-        '<div style="padding:1rem 1.25rem; display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap;">' +
-          '<div style="min-width:0; flex:1 1 18rem;">' +
-            '<p style="font-weight:700; color:var(--text); font-size:0.9rem; margin:0 0 0.15rem 0;">' + esc(dateLabel) + '</p>' +
-            '<p style="font-weight:600; color:var(--accent); font-size:0.875rem; margin:0 0 0.35rem 0;">' + esc(heure) + '</p>' +
-            '<h4 style="font-size:1.05rem; margin:0 0 0.25rem 0;">' + esc(normalizeTitle(item.titre)) + '</h4>' +
-            '<p style="font-size:0.8125rem; color:var(--text-3); margin:0;">' + esc(item.theatre_nom) + '</p>' +
-            (desc ? '<p style="margin:0.55rem 0 0 0; color:var(--text-2); line-height:1.55; font-size:0.9rem;">' + esc(desc) + '</p>' : '') +
-          '</div>' +
-          btn +
+      '<article class="weekly-card">' +
+        '<div class="weekly-card-date">' +
+          '<span class="weekly-card-day">' + esc(dayName || dateLabel) + '</span>' +
+          '<strong class="weekly-card-number">' + esc(dayNumber || '') + '</strong>' +
+          '<span class="weekly-card-month">' + esc(monthName || '') + '</span>' +
         '</div>' +
-      '</div>'
+        '<div class="weekly-card-main">' +
+          cover +
+          '<div class="weekly-card-body">' +
+            '<div class="weekly-card-meta">' +
+              '<span class="weekly-card-time">' + esc(heure) + '</span>' +
+              '<span class="weekly-card-venue">' + esc(item.theatre_nom) + '</span>' +
+            '</div>' +
+            '<h3 class="weekly-card-title">' + esc(normalizeTitle(item.titre)) + '</h3>' +
+            (desc ? '<p class="weekly-card-description">' + esc(desc) + '</p>' : '') +
+            '<div class="weekly-card-footer">' +
+              '<p class="weekly-card-date-label">' + esc(dateLabel) + '</p>' +
+              btn +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</article>'
     )
   }
 
@@ -159,7 +175,7 @@
     if (editorial) {
       var htmlE = ''
       for (var e = 0; e < editorial.length; e++) htmlE += renderCard(editorial[e])
-      htmlE += '<p style="color: var(--text-3); font-size:0.875rem; margin-top:1.5rem;">Sélection éditoriale hebdomadaire. Pour le détail jour par jour et tous les spectacles, utilise l’<a href="/">agenda</a>.</p>'
+      htmlE += '<p class="weekly-footnote">Sélection éditoriale hebdomadaire. Pour le détail jour par jour et tous les spectacles, utilise l’<a href="/">agenda</a>.</p>'
       wrap.innerHTML = htmlE
       return
     }
@@ -235,7 +251,7 @@
 
       var html = ''
       for (var j = 0; j < picked.length; j++) html += renderCard(picked[j])
-      html += '<p style="color: var(--text-3); font-size:0.875rem; margin-top:1.5rem;">Pour le détail jour par jour et tous les spectacles, utilise l’<a href="/">agenda</a>.</p>'
+      html += '<p class="weekly-footnote">Pour le détail jour par jour et tous les spectacles, utilise l’<a href="/">agenda</a>.</p>'
       wrap.innerHTML = html
     } catch (err) {
       wrap.innerHTML = '<div class="error-box">' + esc(err.message) + '</div>'

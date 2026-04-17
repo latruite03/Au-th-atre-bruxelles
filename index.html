@@ -1,151 +1,151 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Au théâtre ce soir — L'agenda théâtre à Bruxelles</title>
-  <meta name="description" content="L'agenda des spectacles de théâtre à Bruxelles. Gratuit, sans publicité.">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Au théâtre ce soir — L'agenda théâtre à Bruxelles</title>
+ <meta name="description" content="L'agenda des spectacles de théâtre à Bruxelles. Gratuit, sans publicité.">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Agenda théâtre Bruxelles — Au théâtre ce soir">
-  <meta property="og:description" content="Agenda théâtre Bruxelles : spectacles à voir ce soir et cette semaine.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_BE">
-  <meta property="og:site_name" content="Au théâtre ce soir">
-  <meta property="og:url" content="https://autheatre.brussels/">
+ <!-- Open Graph -->
+ <meta property="og:title" content="Agenda théâtre Bruxelles — Au théâtre ce soir">
+ <meta property="og:description" content="Agenda théâtre Bruxelles : spectacles à voir ce soir et cette semaine.">
+ <meta property="og:type" content="website">
+ <meta property="og:locale" content="fr_BE">
+ <meta property="og:site_name" content="Au théâtre ce soir">
+ <meta property="og:url" content="https://autheatre.brussels/">
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#B11E2D">
+ <!-- PWA -->
+ <link rel="manifest" href="manifest.json">
+ <meta name="theme-color" content="#B11E2D">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+ <!-- Fonts -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
 
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="alternate icon" href="favicon.svg">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="canonical" href="https://autheatre.brussels/">
+ <link rel="icon" type="image/svg+xml" href="favicon.svg">
+ <link rel="alternate icon" href="favicon.svg">
+ <link rel="stylesheet" href="css/style.css">
+ <link rel="canonical" href="https://autheatre.brussels/">
 </head>
 <body>
 
-  <!-- Top Bar -->
-  <nav class="top-bar">
-    <div class="container">
-      <div class="top-bar-inner">
-        <a href="/" class="top-bar-logo">Au théâtre ce soir</a>
-        <ul class="top-bar-nav">
-          <li><a href="/" class="active">Agenda</a></li>
-          <li><a href="cette-semaine.html">Cette semaine</a></li>
-          <li><a href="lieux.html">Lieux</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="a-propos.html">À propos</a></li>
-        </ul>
-        <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </nav>
+ <!-- Top Bar -->
+ <nav class="top-bar">
+   <div class="container">
+     <div class="top-bar-inner">
+       <a href="/" class="top-bar-logo">Au théâtre ce soir</a>
+       <ul class="top-bar-nav">
+         <li><a href="/" class="active">Agenda</a></li>
+         <li><a href="cette-semaine.html">Cette semaine</a></li>
+         <li><a href="lieux.html">Lieux</a></li>
+         <li><a href="blog.html">Blog</a></li>
+         <li><a href="a-propos.html">À propos</a></li>
+       </ul>
+       <button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu">
+         <span></span><span></span><span></span>
+       </button>
+     </div>
+   </div>
+ </nav>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="mobile-menu">
-    <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')" aria-label="Fermer">&times;</button>
-    <a href="/" onclick="document.getElementById('mobile-menu').classList.remove('open')">Agenda</a>
-    <a href="cette-semaine.html">Cette semaine</a>
-    <a href="lieux.html">Lieux</a>
-    <a href="blog.html">Blog</a>
-    <a href="a-propos.html">À propos</a>
-  </div>
+ <!-- Mobile Menu -->
+ <div id="mobile-menu" class="mobile-menu">
+   <button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')" aria-label="Fermer">&times;</button>
+   <a href="/" onclick="document.getElementById('mobile-menu').classList.remove('open')">Agenda</a>
+   <a href="cette-semaine.html">Cette semaine</a>
+   <a href="lieux.html">Lieux</a>
+   <a href="blog.html">Blog</a>
+   <a href="a-propos.html">À propos</a>
+ </div>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h1 class="hero-title">Que voir à <span class="hero-accent">Bruxelles</span> ce soir ?</h1>
-      <p class="hero-subtitle" style="margin-top:0.9rem; max-width: 72ch; color: var(--text-2);">Agenda théâtre Bruxelles : découvre chaque jour les spectacles de théâtre qui se jouent à Bruxelles. Au théâtre ce soir centralise les dates, horaires, lieux et liens de réservation, sans pub et avec une attention particulière aux petites salles.</p>
-    </div>
-  </section>
+ <!-- Hero -->
+ <section class="hero">
+   <div class="container">
+     <h1 class="hero-title">Que voir à <span class="hero-accent">Bruxelles</span> ce soir ?</h1>
+     <p class="hero-subtitle" style="margin-top:0.9rem; max-width: 72ch; color: var(--text-2);">Agenda théâtre Bruxelles : découvre chaque jour les spectacles de théâtre qui se jouent à Bruxelles. Au théâtre ce soir centralise les dates, horaires, lieux et liens de réservation, sans pub et avec une attention particulière aux petites salles.</p>
+   </div>
+ </section>
 
-  <!-- Controls Bar -->
-  <div class="controls-bar">
-    <div class="container">
-      <div class="controls-inner">
-        <span class="controls-label">Que voir le</span>
-        <button id="prev-day" class="day-nav" type="button" aria-label="Jour précédent">‹</button>
-        <input type="date" id="date-input" class="date-input">
-        <button id="next-day" class="day-nav" type="button" aria-label="Jour suivant">›</button>
-        <span class="controls-label">à</span>
-        <select id="theatre-select" class="filter-select">
-          <option value="">Bruxelles (toutes communes)</option>
-        </select>
-        <span class="controls-label">?</span>
-      </div>
-    </div>
-  </div>
+ <!-- Controls Bar -->
+ <div class="controls-bar">
+   <div class="container">
+     <div class="controls-inner">
+       <span class="controls-label">Que voir le</span>
+       <button id="prev-day" class="day-nav" type="button" aria-label="Jour précédent">‹</button>
+       <input type="date" id="date-input" class="date-input">
+       <button id="next-day" class="day-nav" type="button" aria-label="Jour suivant">›</button>
+       <span class="controls-label">à</span>
+       <select id="theatre-select" class="filter-select">
+         <option value="">Bruxelles (toutes communes)</option>
+       </select>
+       <span class="controls-label">?</span>
+     </div>
+   </div>
+ </div>
 
-  <!-- Main Content -->
-  <main>
-    <div class="container">
-      <div class="results-section">
-        <h2 id="results-title" class="results-title">Spectacles du &hellip;</h2>
-        <div id="results-container">
-          <div class="spinner-wrap"><div class="spinner"></div></div>
-        </div>
-      </div>
-    </div>
-  </main>
+ <!-- Main Content -->
+ <main>
+   <div class="container">
+     <div class="results-section">
+       <h2 id="results-title" class="results-title">Spectacles du &hellip;</h2>
+       <div id="results-container">
+         <div class="spinner-wrap"><div class="spinner"></div></div>
+       </div>
+     </div>
+   </div>
+ </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-section">
-          <h4>Au théâtre ce soir</h4>
-          
-          <p class="footer-tagline">Bruxelles Pistaches Club ASBL — sans publicité.</p>
-        </div>
-        <div class="footer-section">
-          <h4>Newsletter</h4>
-          <p>Chaque lundi, les 10 spectacles à ne pas rater.</p>
-          <form class="newsletter-form">
-            <input type="email" class="newsletter-input" placeholder="votre@email.be" required>
-            <button type="submit" class="newsletter-btn">OK</button>
-          </form>
-        </div>
-        <div class="footer-section">
-          <h4>Navigation</h4>
-          <ul class="footer-nav">
-            <li><a href="/">Agenda</a></li>
-            <li><a href="lieux.html">Lieux</a></li>
-            <li><a href="a-propos.html">À propos</a></li>
-            <li><a href="soutenir.html">Soutenir</a></li>
+ <!-- Footer -->
+ <footer class="site-footer">
+   <div class="container">
+     <div class="footer-inner">
+       <div class="footer-section">
+         <h4>Au théâtre ce soir</h4>
+         
+         <p class="footer-tagline">Un agenda indépendant pour découvrir le théâtre à Bruxelles.</p>
+       </div>
+       <div class="footer-section">
+         <h4>Newsletter</h4>
+         <p>Chaque lundi, les 10 spectacles à ne pas rater.</p>
+         <form class="newsletter-form">
+           <input type="email" class="newsletter-input" placeholder="votre@email.be" required>
+           <button type="submit" class="newsletter-btn">OK</button>
+         </form>
+       </div>
+       <div class="footer-section">
+         <h4>Navigation</h4>
+         <ul class="footer-nav">
+           <li><a href="/">Agenda</a></li>
+           <li><a href="lieux.html">Lieux</a></li>
+           <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="soumettre.html">Signaler un spectacle</a></li>
             <li><a href="mentions-legales.html">Mentions légales</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Bruxelles Pistaches Club ASBL — BCE 0741.601.325 — TVA BE0741601325</p>
-      </div>
-    </div>
-  </footer>
+         </ul>
+       </div>
+     </div>
+     <div class="footer-bottom">
+       <p>Au théâtre ce soir — agenda indépendant du théâtre à Bruxelles.</p>
+     </div>
+   </div>
+ </footer>
 
-  <!-- Bottom Tabs (mobile only) -->
-  <nav class="bottom-tabs">
-    <a href="/" class="bottom-tab active">Agenda</a>
-    <a href="cette-semaine.html" class="bottom-tab">Semaine</a>
-    <a href="lieux.html" class="bottom-tab">Lieux</a>
-    <a href="blog.html" class="bottom-tab">Blog</a>
-    <a href="a-propos.html" class="bottom-tab">Plus</a>
-  </nav>
+ <!-- Bottom Tabs (mobile only) -->
+ <nav class="bottom-tabs">
+   <a href="/" class="bottom-tab active">Agenda</a>
+   <a href="cette-semaine.html" class="bottom-tab">Semaine</a>
+   <a href="lieux.html" class="bottom-tab">Lieux</a>
+   <a href="blog.html" class="bottom-tab">Blog</a>
+   <a href="a-propos.html" class="bottom-tab">Plus</a>
+ </nav>
 
-  <!-- Supabase JS (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <!-- App scripts -->
-  <script src="js/config.js?v=20260219-2"></script>
-  <script src="js/utils.js?v=20260219-2"></script>
-  <script src="js/theatres-info.js?v=20260219-2"></script>
-  <script src="js/app.js?v=20260219-2"></script>
+ <!-- Supabase JS (CDN) -->
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+ <!-- App scripts -->
+ <script src="js/config.js?v=20260219-2"></script>
+ <script src="js/utils.js?v=20260219-2"></script>
+ <script src="js/theatres-info.js?v=20260219-2"></script>
+ <script src="js/app.js?v=20260219-2"></script>
 
 </body>
 </html>

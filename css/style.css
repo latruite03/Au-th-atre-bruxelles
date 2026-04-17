@@ -856,6 +856,370 @@ tbody td { padding: 0.5rem 1rem 0.5rem 0; color: var(--text-2); }
 .file-input-wrap input[type="file"]::file-selector-button { margin-right: 1rem; padding: 0.5rem 1rem; border-radius: 0.5rem; border: none; font-size: 0.875rem; font-weight: 500; background: rgba(79,70,229,0.1); color: var(--accent); cursor: pointer; }
 
 /* ============================================================
+   CETTE SEMAINE
+   ============================================================ */
+
+.weekly-page {
+  padding-bottom: 4rem;
+}
+
+.weekly-hero {
+  padding: 3.5rem 0 2.5rem;
+  background:
+    radial-gradient(circle at top left, rgba(177, 30, 45, 0.08), transparent 32%),
+    linear-gradient(180deg, #FCFCFE 0%, #F3F4FA 100%);
+  border-bottom: 1px solid rgba(23, 25, 40, 0.08);
+}
+
+.weekly-hero-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.weekly-hero-copy {
+  max-width: 42rem;
+}
+
+.weekly-kicker,
+.weekly-section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(177, 30, 45, 0.08);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.weekly-title {
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 0.98;
+  margin-top: 1rem;
+  letter-spacing: -0.04em;
+  max-width: 12ch;
+}
+
+.weekly-lead {
+  margin-top: 1.1rem;
+  max-width: 38rem;
+  color: var(--text-2);
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.weekly-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.weekly-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.9rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.weekly-btn:hover {
+  transform: translateY(-1px);
+}
+
+.weekly-btn-primary {
+  background: var(--accent);
+  color: #fffaf8;
+  box-shadow: 0 12px 30px rgba(177, 30, 45, 0.16);
+}
+
+.weekly-btn-primary:hover {
+  color: #fffaf8;
+  background: var(--accent-hover);
+}
+
+.weekly-btn-secondary {
+  background: rgba(255,255,255,0.78);
+  border-color: rgba(23, 25, 40, 0.1);
+  color: var(--text);
+}
+
+.weekly-intro-card {
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(23, 25, 40, 0.1);
+  border-radius: 24px;
+  padding: 1.6rem;
+  box-shadow: 0 24px 48px rgba(23, 25, 40, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.weekly-intro-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.weekly-intro-text {
+  margin-top: 0.65rem;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.weekly-intro-list {
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.weekly-intro-list li {
+  position: relative;
+  padding-left: 1rem;
+  color: var(--text-2);
+}
+
+.weekly-intro-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.weekly-subtitle {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(23, 25, 40, 0.08);
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.weekly-content {
+  padding: 2.25rem 0 0;
+}
+
+.weekly-section-head {
+  display: grid;
+  gap: 0.9rem;
+  align-items: end;
+  margin-bottom: 1.5rem;
+}
+
+.weekly-section-title {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  margin-top: 0.7rem;
+  line-height: 1.02;
+}
+
+.weekly-section-note {
+  color: var(--text-2);
+  max-width: 34rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.weekly-grid {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.weekly-card {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(23, 25, 40, 0.08);
+  border-radius: 24px;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 16px 32px rgba(23, 25, 40, 0.05);
+}
+
+.weekly-card-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(177, 30, 45, 0.08), rgba(177, 30, 45, 0.02));
+  color: var(--accent);
+  min-height: 100%;
+  padding: 0.85rem 0.5rem;
+}
+
+.weekly-card-day {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.weekly-card-number {
+  font-size: 2rem;
+  line-height: 1;
+  margin: 0.35rem 0 0.2rem;
+  color: var(--text);
+}
+
+.weekly-card-month {
+  font-size: 0.78rem;
+  color: var(--text-2);
+  text-transform: uppercase;
+}
+
+.weekly-card-main {
+  display: grid;
+  grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.weekly-card-media {
+  position: relative;
+  min-height: 190px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #22253f 0%, #131525 100%);
+}
+
+.weekly-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.weekly-card-media-empty {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+.weekly-card-media-label {
+  display: inline-flex;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.86);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.weekly-card-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.weekly-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.weekly-card-time,
+.weekly-card-venue {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.weekly-card-time {
+  background: rgba(177, 30, 45, 0.09);
+  color: var(--accent);
+}
+
+.weekly-card-venue {
+  background: rgba(23, 25, 40, 0.05);
+  color: var(--text-2);
+}
+
+.weekly-card-title {
+  font-size: clamp(1.35rem, 2vw, 1.9rem);
+  line-height: 1.08;
+  margin-top: 0.8rem;
+}
+
+.weekly-card-description {
+  margin-top: 0.7rem;
+  color: var(--text-2);
+  line-height: 1.75;
+  max-width: 56ch;
+}
+
+.weekly-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.9rem;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1.1rem;
+}
+
+.weekly-card-date-label {
+  color: var(--text-3);
+  font-size: 0.9rem;
+}
+
+.weekly-card-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  background: rgba(177, 30, 45, 0.08);
+  border: 1px solid rgba(177, 30, 45, 0.14);
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.weekly-card-link:hover {
+  color: var(--accent-hover);
+  background: rgba(177, 30, 45, 0.13);
+  border-color: rgba(177, 30, 45, 0.24);
+}
+
+.weekly-footnote {
+  margin-top: 0.8rem;
+  color: var(--text-2);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+@media (min-width: 900px) {
+  .weekly-hero-grid,
+  .weekly-section-head {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 
@@ -879,6 +1243,18 @@ tbody td { padding: 0.5rem 1rem 0.5rem 0; color: var(--text-2); }
   .theatre-list-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 899px) {
+  .weekly-section-head {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 779px) {
+  .weekly-card-main {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 639px) {
   body { padding-bottom: 3.5rem; }
   .bottom-tabs { display: flex; }
@@ -887,6 +1263,54 @@ tbody td { padding: 0.5rem 1rem 0.5rem 0; color: var(--text-2); }
   .controls-inner { flex-direction: column; gap: 0.5rem; }
   .controls-label { display: none; }
   .date-input, .filter-select { width: 100%; }
+
+  .weekly-hero {
+    padding: 2.25rem 0 1.75rem;
+  }
+
+  .weekly-title {
+    max-width: none;
+  }
+
+  .weekly-intro-card {
+    border-radius: 20px;
+    padding: 1.2rem;
+  }
+
+  .weekly-card {
+    grid-template-columns: 1fr;
+    padding: 0.9rem;
+    border-radius: 20px;
+  }
+
+  .weekly-card-date {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.55rem;
+    min-height: auto;
+    padding: 0.7rem 0.85rem;
+  }
+
+  .weekly-card-number {
+    font-size: 1.35rem;
+    margin: 0;
+  }
+
+  .weekly-card-main {
+    grid-template-columns: 1fr;
+  }
+
+  .weekly-card-media {
+    min-height: 180px;
+  }
+
+  .weekly-card-footer {
+    align-items: stretch;
+  }
+
+  .weekly-card-link {
+    width: 100%;
+  }
 
   .show-item-inner { flex-direction: column; }
   .show-item-content { flex-direction: column; width: 100%; }

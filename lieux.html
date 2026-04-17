@@ -1,369 +1,352 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lieux — Au théâtre ce soir</title>
-  <meta name="description" content="Tous les théâtres et cafés-théâtres à Bruxelles.">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Lieux — Au théâtre ce soir</title>
+ <meta name="description" content="Les lieux de théâtre à Bruxelles : petites salles, scènes indépendantes et maisons reconnues à explorer.">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Lieux — Au théâtre ce soir">
-  <meta property="og:description" content="Tous les théâtres et cafés-théâtres à Bruxelles.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_BE">
-  <meta property="og:site_name" content="Au théâtre ce soir">
-  <meta property="og:url" content="https://autheatre.brussels/lieux.html">
+ <meta property="og:title" content="Lieux — Au théâtre ce soir">
+ <meta property="og:description" content="Petites salles, scènes indépendantes et théâtres à Bruxelles.">
+ <meta property="og:type" content="website">
+ <meta property="og:locale" content="fr_BE">
+ <meta property="og:site_name" content="Au théâtre ce soir">
+ <meta property="og:url" content="https://autheatre.brussels/lieux.html">
 
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#B11E2D">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="alternate icon" href="favicon.svg">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="canonical" href="https://autheatre.brussels/lieux.html">
+ <link rel="manifest" href="manifest.json">
+ <meta name="theme-color" content="#B11E2D">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+ <link rel="icon" type="image/svg+xml" href="favicon.svg">
+ <link rel="alternate icon" href="favicon.svg">
+ <link rel="stylesheet" href="css/style.css">
+ <link rel="canonical" href="https://autheatre.brussels/lieux.html">
+
+ <style>
+   .venues-page { padding-bottom: 4rem; }
+   .venues-hero {
+     padding: 3.5rem 0 2.5rem;
+     background:
+       radial-gradient(circle at top left, rgba(177, 30, 45, 0.08), transparent 32%),
+       linear-gradient(180deg, #FCFCFE 0%, #F3F4FA 100%);
+     border-bottom: 1px solid rgba(23,25,40,0.08);
+   }
+   .venues-hero-grid, .venues-section-head { display: grid; gap: 1.5rem; }
+   .venues-kicker, .venues-section-kicker {
+     display: inline-flex; align-items: center; gap: .35rem; padding: .35rem .7rem; border-radius: 999px;
+     background: rgba(177,30,45,.08); color: var(--accent); font-size: .72rem; font-weight: 700;
+     letter-spacing: .08em; text-transform: uppercase;
+   }
+   .venues-title {
+     font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: .98; margin-top: 1rem; letter-spacing: -.04em; max-width: 11ch;
+   }
+   .venues-lead {
+     margin-top: 1.1rem; max-width: 41rem; color: var(--text); font-size: 1.02rem; line-height: 1.8;
+   }
+   .venues-hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+   .venues-btn {
+     display: inline-flex; align-items: center; justify-content: center; min-height: 2.9rem; padding: .7rem 1.1rem;
+     border-radius: 999px; border: 1px solid transparent; font-size: .95rem; font-weight: 700; text-decoration: none;
+     transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+   }
+   .venues-btn:hover { transform: translateY(-1px); }
+   .venues-btn-primary { background: var(--accent); color: #fffaf8; box-shadow: 0 12px 30px rgba(177,30,45,.16); }
+   .venues-btn-primary:hover { background: var(--accent-hover); color: #fffaf8; }
+   .venues-btn-secondary { background: rgba(255,255,255,.85); border-color: rgba(23,25,40,.1); color: var(--text); }
+   .venues-intro-card {
+     background: rgba(255,255,255,.92); border: 1px solid rgba(23,25,40,.1); border-radius: 24px; padding: 1.6rem;
+     box-shadow: 0 24px 48px rgba(23,25,40,.08); backdrop-filter: blur(8px);
+   }
+   .venues-intro-label { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+   .venues-intro-text { margin-top: .65rem; color: var(--text); font-size: .98rem; line-height: 1.75; }
+   .venues-intro-list { list-style: none; display: grid; gap: .55rem; margin-top: 1rem; }
+   .venues-intro-list li { position: relative; padding-left: 1rem; color: var(--text); }
+   .venues-intro-list li::before {
+     content: ''; position: absolute; left: 0; top: .72rem; width: .35rem; height: .35rem; border-radius: 50%; background: var(--accent);
+   }
+   .venues-stats {
+     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: 1.25rem; padding-top: 1rem;
+     border-top: 1px solid rgba(23,25,40,.08);
+   }
+   .venues-stat { background: rgba(23,25,40,.03); border-radius: 16px; padding: .85rem .9rem; }
+   .venues-stat-value { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+   .venues-stat-label { color: var(--text-3); font-size: .78rem; margin-top: .15rem; }
+
+   .venues-content { padding: 2.25rem 0 0; }
+   .venues-section { margin-top: 2.2rem; }
+   .venues-section-title { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-top: .7rem; line-height: 1.02; }
+   .venues-section-note { color: var(--text); max-width: 38rem; font-size: .96rem; line-height: 1.7; }
+
+   .venues-featured-grid { display: grid; gap: 1rem; margin-top: 1.4rem; }
+   .venue-card {
+     display: grid; gap: 1rem; padding: 1rem; border: 1px solid rgba(23,25,40,.08); border-radius: 24px;
+     background: rgba(255,255,255,.92); box-shadow: 0 16px 32px rgba(23,25,40,.05); color: inherit; text-decoration: none;
+     transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+   }
+   .venue-card:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(23,25,40,.08); border-color: rgba(177,30,45,.18); }
+   .venue-card-media {
+     min-height: 180px; border-radius: 18px; overflow: hidden; padding: 1.1rem;
+     background: linear-gradient(135deg, #22253f 0%, #131525 100%); display: flex; flex-direction: column; justify-content: space-between;
+   }
+   .venue-card-badge {
+     display: inline-flex; align-self: flex-start; padding: .35rem .6rem; border-radius: 999px; background: rgba(255,255,255,.12);
+     color: rgba(255,255,255,.86); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase;
+   }
+   .venue-card-quote { font-family: var(--font-heading); font-size: 1.55rem; line-height: 1.08; color: #fffaf8; max-width: 11ch; }
+   .venue-card-body { display: flex; flex-direction: column; min-width: 0; }
+   .venue-card-meta { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; }
+   .venue-pill {
+     display: inline-flex; align-items: center; min-height: 2rem; padding: .25rem .65rem; border-radius: 999px; font-size: .78rem; font-weight: 700;
+   }
+   .venue-pill-accent { background: rgba(177,30,45,.09); color: var(--accent); }
+   .venue-pill-neutral { background: rgba(23,25,40,.05); color: var(--text-2); }
+   .venue-card-title { font-size: clamp(1.35rem, 2vw, 1.9rem); line-height: 1.08; margin-top: .8rem; }
+   .venue-card-address { margin-top: .55rem; color: var(--text-2); font-size: .92rem; }
+   .venue-card-description { margin-top: .75rem; color: var(--text-2); line-height: 1.75; max-width: 54ch; }
+   .venue-card-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .9rem; align-items: center; margin-top: auto; padding-top: 1rem; }
+   .venue-card-link {
+     display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: .65rem 1rem; border-radius: 999px;
+     background: rgba(177,30,45,.08); border: 1px solid rgba(177,30,45,.14); color: var(--accent); font-size: .9rem; font-weight: 700;
+   }
+   .venue-card-link:hover { color: var(--accent-hover); background: rgba(177,30,45,.13); border-color: rgba(177,30,45,.24); }
+   .venue-card-note { color: var(--text-2); font-size: .9rem; }
+
+   .venues-directory {
+     margin-top: 1.4rem; padding: 1.2rem; border-radius: 24px; background: rgba(255,255,255,.9);
+     border: 1px solid rgba(23,25,40,.08); box-shadow: 0 16px 32px rgba(23,25,40,.04);
+   }
+   .venues-directory-title { font-size: 1.15rem; margin-bottom: .35rem; }
+   .venues-directory-text { color: var(--text); max-width: 46rem; line-height: 1.7; margin-bottom: 1rem; }
+   .venues-directory-list {
+     list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem 1rem;
+   }
+   .venues-directory-list a {
+     display: inline-flex; width: 100%; padding: .8rem .95rem; border-radius: 16px; background: rgba(23,25,40,.03);
+     color: var(--text); text-decoration: none; transition: background .12s ease, transform .12s ease;
+   }
+   .venues-directory-list a:hover { background: rgba(177,30,45,.08); transform: translateY(-1px); }
+
+   .venues-footnote { margin-top: .8rem; color: var(--text); font-size: .92rem; line-height: 1.7; }
+
+   @media (min-width: 900px) {
+     .venues-hero-grid, .venues-section-head { grid-template-columns: minmax(0,1fr) 320px; }
+     .venues-featured-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+   }
+   @media (max-width: 899px) {
+     .venues-section-head { grid-template-columns: 1fr; }
+   }
+   @media (max-width: 779px) {
+     .venues-stats { grid-template-columns: 1fr; }
+     .venues-directory-list { grid-template-columns: 1fr; }
+   }
+   @media (max-width: 639px) {
+     .venues-hero { padding: 2.25rem 0 1.75rem; }
+     .venues-title { max-width: none; }
+     .venues-intro-card { border-radius: 20px; padding: 1.2rem; }
+     .venue-card { border-radius: 20px; padding: .9rem; }
+     .venue-card-media { min-height: 160px; }
+     .venue-card-footer { align-items: stretch; }
+     .venue-card-link { width: 100%; }
+   }
+ </style>
 </head>
 <body>
-  <nav class="top-bar"><div class="container"><div class="top-bar-inner"><a href="/" class="top-bar-logo">Au théâtre ce soir</a><ul class="top-bar-nav"><li><a href="/">Agenda</a></li><li><a href="cette-semaine.html">Cette semaine</a></li><li><a href="lieux.html" class="active">Lieux</a></li><li><a href="blog.html">Blog</a></li><li><a href="a-propos.html">À propos</a></li></ul><button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button></div></div></nav>
-  <div id="mobile-menu" class="mobile-menu"><button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button><a href="/">Agenda</a><a href="cette-semaine.html">Cette semaine</a><a href="lieux.html">Lieux</a><a href="blog.html">Blog</a><a href="a-propos.html">À propos</a></div>
+ <nav class="top-bar"><div class="container"><div class="top-bar-inner"><a href="/" class="top-bar-logo">Au théâtre ce soir</a><ul class="top-bar-nav"><li><a href="/">Agenda</a></li><li><a href="cette-semaine.html">Cette semaine</a></li><li><a href="lieux.html" class="active">Lieux</a></li><li><a href="blog.html">Blog</a></li><li><a href="a-propos.html">À propos</a></li></ul><button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button></div></div></nav>
+ <div id="mobile-menu" class="mobile-menu"><button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button><a href="/">Agenda</a><a href="cette-semaine.html">Cette semaine</a><a href="lieux.html">Lieux</a><a href="blog.html">Blog</a><a href="a-propos.html">À propos</a></div>
 
-  <main>
-    <div class="container" style="padding-top: 3rem; padding-bottom: 4rem;">
-      <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">Lieux</h1>
-      <p style="color: var(--text-2); margin-bottom: 2.5rem;">Théâtres et scènes déjà référencés.</p>
+ <main class="venues-page">
+   <section class="venues-hero">
+     <div class="container venues-hero-grid">
+       <div>
+         <span class="venues-kicker">Explorer Bruxelles</span>
+         <h1 class="venues-title">Des petites scènes aux maisons plus installées</h1>
+         <p class="venues-lead">Cette page aide à repérer où voir du théâtre à Bruxelles : des lieux déjà présents dans l’agenda, avec une attention particulière pour les salles qu’on a envie de mieux faire circuler.</p>
+         <div class="venues-hero-actions">
+           <a href="/" class="venues-btn venues-btn-primary">Voir l’agenda</a>
+           <a href="cette-semaine.html" class="venues-btn venues-btn-secondary">Voir la sélection de la semaine</a>
+         </div>
+       </div>
+       <aside class="venues-intro-card">
+         <p class="venues-intro-label">Comment lire cette page</p>
+         <p class="venues-intro-text">Tu peux commencer par quelques lieux mis en avant, ou parcourir ensuite l’annuaire complet pour retrouver une salle précise.</p>
+         <ul class="venues-intro-list">
+           <li>portraits de lieux déjà publiés</li>
+           <li>théâtres et scènes indépendantes</li>
+           <li>accès rapide vers les pages lieu</li>
+         </ul>
+         <div class="venues-stats">
+           <div class="venues-stat"><div class="venues-stat-value">27</div><div class="venues-stat-label">lieux déjà listés</div></div>
+           <div class="venues-stat"><div class="venues-stat-value">10+</div><div class="venues-stat-label">portraits mis en avant</div></div>
+           <div class="venues-stat"><div class="venues-stat-value">Bruxelles</div><div class="venues-stat-label">centre, Ixelles, Schaerbeek et plus</div></div>
+         </div>
+       </aside>
+     </div>
+   </section>
 
-      
-      <section style="margin-bottom: 2rem;">
-        <h2 style="font-size: 1.25rem; color: var(--accent); margin-bottom: 0.75rem;">Lieux disponibles</h2>
-        <ul class="lieux-list" style="columns: 2; column-gap: 2rem; list-style: none; padding: 0; margin: 0;">
-<li><a href="/lieu/theatre-de-la-vie/">Théâtre de la Vie</a></li>
-<li><a href="/lieu/le-rideau/">Le Rideau</a></li>
-<li><a href="/lieu/les-tanneurs/">Théâtre Les Tanneurs</a></li>
-<li><a href="/lieu/theatre-de-poche/">Théâtre de Poche</a></li>
-<li><a href="/lieu/studio-varia/">Studio Varia</a></li>
-<li><a href="/lieu/theatre-mercelis/">Théâtre Mercelis</a></li>
-<li><a href="/lieu/les-riches-claires/">Les Riches-Claires</a></li>
-<li><a href="/lieu/atelier-210/">Atelier 210</a></li>
-<li><a href="/lieu/la-bellone/">La Bellone</a></li>
-<li><a href="/lieu/theatre-ocean-nord/">Théâtre Océan Nord</a></li>
-<li><a href="/lieu/theatre-la-balsamine/">Théâtre la Balsamine</a></li>
-<li><a href="/lieu/le-140/">Le 140</a></li>
-<li><a href="/lieu/le-marni/">Le Marni</a></li>
-<li><a href="/lieu/la-venerie/">La Vénerie</a></li>
-<li><a href="/lieu/maison-de-la-creation-bockstael/">Maison de la Création - Bockstael</a></li>
-<li><a href="/lieu/maison-de-la-creation-cite-modele/">Maison de la Création - Cité Modèle</a></li>
-<li><a href="/lieu/maison-de-la-creation-gare/">Maison de la Création - Gare</a></li>
-<li><a href="/lieu/la-clarenciere/">La Clarencière</a></li>
-<li><a href="/lieu/comedie-royale-claude-volter/">Comédie Royale Claude Volter</a></li>
-<li><a href="/lieu/le-jardin-de-ma-soeur/">Le Jardin de ma Sœur</a></li>
-<li><a href="/lieu/la-villa/">La Villa</a></li>
-<li><a href="/lieu/archipel-19-le-fourquet/">Archipel 19 – Le Fourquet</a></li>
-<li><a href="/lieu/escale-du-nord/">Escale du Nord</a></li>
-<li><a href="/lieu/auditorium-jacques-brel-ceria/">Auditorium Jacques Brel (CERIA)</a></li>
-<li><a href="/lieu/maison-des-cultures-et-de-la-cohesion-sociale/">Maison des Cultures et de la Cohésion Sociale</a></li>
-<li><a href="/lieu/centre-culturel-jacques-franck/">Centre culturel Jacques Franck</a></li>
-<li><a href="/lieu/espace-senghor/">Espace Senghor</a></li>
-        </ul>
-      </section>
+   <section class="venues-content">
+     <div class="container">
+       <div class="venues-section-head">
+         <div>
+           <p class="venues-section-kicker">Commencer par quelques repères</p>
+           <h2 class="venues-section-title">Lieux à découvrir en premier</h2>
+         </div>
+         <p class="venues-section-note">Quelques salles qui donnent une bonne idée du paysage théâtral bruxellois : petites scènes, lieux de création et maisons déjà bien identifiées.</p>
+       </div>
 
+       <div class="venues-featured-grid">
+         <a class="venue-card" href="lieu/les-tanneurs/">
+           <div class="venue-card-media">
+             <span class="venue-card-badge">Portrait de lieu</span>
+             <p class="venue-card-quote">Création contemporaine au cœur de Bruxelles.</p>
+           </div>
+           <div class="venue-card-body">
+             <div class="venue-card-meta">
+               <span class="venue-pill venue-pill-accent">Bruxelles centre</span>
+               <span class="venue-pill venue-pill-neutral">Scène de création</span>
+             </div>
+             <h3 class="venue-card-title">Théâtre Les Tanneurs</h3>
+             <p class="venue-card-address">Rue des Tanneurs 75–77, 1000 Bruxelles</p>
+             <p class="venue-card-description">Un lieu important pour la création contemporaine, souvent utile pour commencer à cartographier la scène bruxelloise sans passer uniquement par les très grosses institutions.</p>
+             <div class="venue-card-footer"><span class="venue-card-note">Voir la page lieu</span><span class="venue-card-link">Ouvrir le portrait →</span></div>
+           </div>
+         </a>
 
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/les-tanneurs/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre Les Tanneurs</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Rue des Tanneurs 75–77, 1000 Bruxelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
+         <a class="venue-card" href="lieu/theatre-de-poche/">
+           <div class="venue-card-media">
+             <span class="venue-card-badge">Portrait de lieu</span>
+             <p class="venue-card-quote">Une scène singulière au bord du Bois de la Cambre.</p>
+           </div>
+           <div class="venue-card-body">
+             <div class="venue-card-meta">
+               <span class="venue-pill venue-pill-accent">Bois de la Cambre</span>
+               <span class="venue-pill venue-pill-neutral">Lieu emblématique</span>
+             </div>
+             <h3 class="venue-card-title">Théâtre de Poche</h3>
+             <p class="venue-card-address">1a Chemin du Gymnase, 1000 Bruxelles</p>
+             <p class="venue-card-description">Un théâtre qui a sa place à part dans le paysage local, avec une vraie identité et un ancrage qui le rend immédiatement reconnaissable.</p>
+             <div class="venue-card-footer"><span class="venue-card-note">Voir la page lieu</span><span class="venue-card-link">Ouvrir le portrait →</span></div>
+           </div>
+         </a>
 
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/theatre-de-poche/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre de Poche</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Bois de la Cambre — 1a Chemin du Gymnase, 1000 Bruxelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
+         <a class="venue-card" href="lieu/studio-varia/">
+           <div class="venue-card-media">
+             <span class="venue-card-badge">Portrait de lieu</span>
+             <p class="venue-card-quote">Un repère ixellois qui revient souvent dans l’agenda.</p>
+           </div>
+           <div class="venue-card-body">
+             <div class="venue-card-meta">
+               <span class="venue-pill venue-pill-accent">Ixelles</span>
+               <span class="venue-pill venue-pill-neutral">Programmation régulière</span>
+             </div>
+             <h3 class="venue-card-title">Studio Varia</h3>
+             <p class="venue-card-address">Rue Gray 154, 1050 Ixelles</p>
+             <p class="venue-card-description">Un lieu facile à recommander à celles et ceux qui veulent explorer Bruxelles par quartiers, avec une présence fréquente dans la programmation théâtrale.</p>
+             <div class="venue-card-footer"><span class="venue-card-note">Voir la page lieu</span><span class="venue-card-link">Ouvrir le portrait →</span></div>
+           </div>
+         </a>
 
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/studio-varia/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Studio Varia</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Rue Gray 154, 1050 Ixelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
+         <a class="venue-card" href="lieu/le-rideau/">
+           <div class="venue-card-media">
+             <span class="venue-card-badge">Portrait de lieu</span>
+             <p class="venue-card-quote">Une maison bien identifiée, entre visibilité et exigence.</p>
+           </div>
+           <div class="venue-card-body">
+             <div class="venue-card-meta">
+               <span class="venue-pill venue-pill-accent">Ixelles</span>
+               <span class="venue-pill venue-pill-neutral">Maison reconnue</span>
+             </div>
+             <h3 class="venue-card-title">Le Rideau</h3>
+             <p class="venue-card-address">Rue Goffart 7a, 1050 Ixelles</p>
+             <p class="venue-card-description">Le Rideau permet de faire le lien entre scènes plus confidentielles et lieux déjà bien installés dans les habitudes du public bruxellois.</p>
+             <div class="venue-card-footer"><span class="venue-card-note">Voir la page lieu</span><span class="venue-card-link">Ouvrir le portrait →</span></div>
+           </div>
+         </a>
 
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/theatre-mercelis/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre Mercelis</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Rue Mercelis 13, 1050 Ixelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
+         <a class="venue-card" href="lieu/atelier-210/">
+           <div class="venue-card-media">
+             <span class="venue-card-badge">Portrait de lieu</span>
+             <p class="venue-card-quote">Un lieu qu’on aime pour sa place dans les circulations plus indépendantes.</p>
+           </div>
+           <div class="venue-card-body">
+             <div class="venue-card-meta">
+               <span class="venue-pill venue-pill-accent">Etterbeek</span>
+               <span class="venue-pill venue-pill-neutral">Scène indépendante</span>
+             </div>
+             <h3 class="venue-card-title">Atelier 210</h3>
+             <p class="venue-card-address">Etterbeek</p>
+             <p class="venue-card-description">Atelier 210 fait partie des lieux qui méritent d’être mieux repérés quand on cherche autre chose que les circuits les plus évidents.</p>
+             <div class="venue-card-footer"><span class="venue-card-note">Voir la page lieu</span><span class="venue-card-link">Ouvrir le portrait →</span></div>
+           </div>
+         </a>
 
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/le-rideau/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Le Rideau</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Rue Goffart 7a, 1050 Ixelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
+         <a class="venue-card" href="lieu/theatre-ocean-nord/">
+           <div class="venue-card-media">
+             <span class="venue-card-badge">Portrait de lieu</span>
+             <p class="venue-card-quote">Une adresse schaerbeekoise qui compte dans la cartographie locale.</p>
+           </div>
+           <div class="venue-card-body">
+             <div class="venue-card-meta">
+               <span class="venue-pill venue-pill-accent">Schaerbeek</span>
+               <span class="venue-pill venue-pill-neutral">Lieu de création</span>
+             </div>
+             <h3 class="venue-card-title">Théâtre Océan Nord</h3>
+             <p class="venue-card-address">Rue Vandeweyer 63, 1030 Schaerbeek</p>
+             <p class="venue-card-description">Un repère utile dès qu’on s’éloigne du centre pour regarder Bruxelles comme une constellation de scènes, pas comme un seul quartier culturel.</p>
+             <div class="venue-card-footer"><span class="venue-card-note">Voir la page lieu</span><span class="venue-card-link">Ouvrir le portrait →</span></div>
+           </div>
+         </a>
+       </div>
 
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/les-tanneurs/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre Les Tanneurs</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Rue des Tanneurs 75–77, 1000 Bruxelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
+       <section class="venues-section">
+         <div class="venues-section-head">
+           <div>
+             <p class="venues-section-kicker">Annuaire</p>
+             <h2 class="venues-section-title">Tous les lieux déjà référencés</h2>
+           </div>
+           <p class="venues-section-note">Si tu cherches une salle précise, passe par cette liste. Toutes n’ont pas encore un portrait éditorial complet, mais elles sont déjà présentes dans la cartographie du site.</p>
+         </div>
 
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/theatre-de-poche/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre de Poche</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">1a Chemin du Gymnase, 1000 Bruxelles (Bois de la Cambre)</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
+         <div class="venues-directory">
+           <h3 class="venues-directory-title">Annuaire des lieux</h3>
+           <p class="venues-directory-text">Des petites salles aux maisons plus installées, voici les lieux déjà présents sur Au théâtre ce soir. La liste s’étoffera au fur et à mesure des nouvelles pages.</p>
+           <ul class="venues-directory-list">
+             <li><a href="/lieu/theatre-de-la-vie/">Théâtre de la Vie</a></li>
+             <li><a href="/lieu/le-rideau/">Le Rideau</a></li>
+             <li><a href="/lieu/les-tanneurs/">Théâtre Les Tanneurs</a></li>
+             <li><a href="/lieu/theatre-de-poche/">Théâtre de Poche</a></li>
+             <li><a href="/lieu/studio-varia/">Studio Varia</a></li>
+             <li><a href="/lieu/theatre-mercelis/">Théâtre Mercelis</a></li>
+             <li><a href="/lieu/les-riches-claires/">Les Riches-Claires</a></li>
+             <li><a href="/lieu/atelier-210/">Atelier 210</a></li>
+             <li><a href="/lieu/la-bellone/">La Bellone</a></li>
+             <li><a href="/lieu/theatre-ocean-nord/">Théâtre Océan Nord</a></li>
+             <li><a href="/lieu/theatre-la-balsamine/">Théâtre la Balsamine</a></li>
+             <li><a href="/lieu/le-140/">Le 140</a></li>
+             <li><a href="/lieu/le-marni/">Le Marni</a></li>
+             <li><a href="/lieu/la-venerie/">La Vénerie</a></li>
+             <li><a href="/lieu/maison-de-la-creation-bockstael/">Maison de la Création - Bockstael</a></li>
+             <li><a href="/lieu/maison-de-la-creation-cite-modele/">Maison de la Création - Cité Modèle</a></li>
+             <li><a href="/lieu/maison-de-la-creation-gare/">Maison de la Création - Gare</a></li>
+             <li><a href="/lieu/la-clarenciere/">La Clarencière</a></li>
+             <li><a href="/lieu/comedie-royale-claude-volter/">Comédie Royale Claude Volter</a></li>
+             <li><a href="/lieu/le-jardin-de-ma-soeur/">Le Jardin de ma Sœur</a></li>
+             <li><a href="/lieu/la-villa/">La Villa</a></li>
+             <li><a href="/lieu/archipel-19-le-fourquet/">Archipel 19 – Le Fourquet</a></li>
+             <li><a href="/lieu/escale-du-nord/">Escale du Nord</a></li>
+             <li><a href="/lieu/auditorium-jacques-brel-ceria/">Auditorium Jacques Brel (CERIA)</a></li>
+             <li><a href="/lieu/maison-des-cultures-et-de-la-cohesion-sociale/">Maison des Cultures et de la Cohésion Sociale</a></li>
+             <li><a href="/lieu/centre-culturel-jacques-franck/">Centre culturel Jacques Franck</a></li>
+             <li><a href="/lieu/espace-senghor/">Espace Senghor</a></li>
+           </ul>
+         </div>
+         <p class="venues-footnote">Tu gères un lieu, une scène ou une programmation ponctuelle à Bruxelles ? La porte d’entrée la plus simple reste <a href="soumettre.html">la page de soumission</a>.</p>
+       </section>
+     </div>
+   </section>
+ </main>
 
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/studio-varia/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Studio Varia</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Rue Gray 154, 1050 Ixelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/theatre-mercelis/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre Mercelis</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Rue Mercelis 13, 1050 Ixelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/les-riches-claires/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Les Riches-Claires</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Centre de Bruxelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/atelier-210/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Atelier 210</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Etterbeek</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/la-bellone/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">La Bellone</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Centre de Bruxelles</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-            <div>
-              <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Le Fou Rire</h3>
-              <p style="font-size: 0.8125rem; color: var(--text-3);">Rue des Alexiens 55, 1000 Bruxelles</p>
-              <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Scène indépendante</span>
-            </div>
-            <div style="text-align: right;"><p style="font-size: 1.5rem; font-weight: 700; color: var(--text);">3</p><p style="font-size: 0.75rem; color: var(--text-3);">spectacles</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-            <div>
-              <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre de la Toison d'Or</h3>
-              <p style="font-size: 0.8125rem; color: var(--text-3);">Galerie de la Toison d'Or 396, 1050 Ixelles</p>
-              <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Scène indépendante</span>
-            </div>
-            <div style="text-align: right;"><p style="font-size: 1.5rem; font-weight: 700; color: var(--text);">5</p><p style="font-size: 0.75rem; color: var(--text-3);">spectacles</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/theatre-ocean-nord/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre Océan Nord</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Rue Vandeweyer 63, 1030 Schaerbeek</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/theatre-la-balsamine/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre la Balsamine</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Schaerbeek (Josaphat)</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/la-venerie/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">La Vénerie</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Watermael-Boitsfort</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/le-140/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Le 140</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Schaerbeek</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <a href="lieu/le-marni/" style="display:block; color: inherit; text-decoration:none;">
-          <div style="padding: 1.25rem; border-left: 4px solid var(--accent);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-              <div>
-                <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Le Marni</h3>
-                <p style="font-size: 0.8125rem; color: var(--text-3);">Ixelles (surtout concerts, parfois théâtre)</p>
-                <span style="font-family: var(--font-accent); font-size: 1rem; color: var(--accent); display: inline-block; margin-top: 0.5rem;">Portrait de lieu</span>
-              </div>
-              <div style="text-align: right;"><p style="font-size: 0.9rem; color: var(--text-2); margin:0;">Voir la page →</p></div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div style="background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <div style="padding: 1.25rem;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap;">
-            <div>
-              <h3 style="font-size: 1.125rem; margin-bottom: 0.25rem;">Théâtre National Wallonie-Bruxelles</h3>
-              <p style="font-size: 0.8125rem; color: var(--text-3);">Boulevard Emile Jacqmain 111-115, 1000 Bruxelles</p>
-            </div>
-            <div style="text-align: right;"><p style="font-size: 1.5rem; font-weight: 700; color: var(--text);">8</p><p style="font-size: 0.75rem; color: var(--text-3);">spectacles</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-section"><h4>Au théâtre ce soir</h4></div><div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div><div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li></ul></div></div><div class="footer-bottom"><p>Bruxelles Pistaches Club ASBL — BCE 0741.601.325 — TVA BE0741601325</p></div></div></footer>
-  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab active">Lieux</a><a href="blog.html" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab">Plus</a></nav>
+ <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-section"><h4>Au théâtre ce soir</h4><p class="footer-tagline">Un agenda indépendant pour découvrir le théâtre à Bruxelles.</p></div><div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div><div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li><li><a href="soumettre.html">Signaler un spectacle</a></li><li><a href="mentions-legales.html">Mentions légales</a></li></ul></div></div><div class="footer-bottom"><p>Au théâtre ce soir — agenda indépendant du théâtre à Bruxelles.</p></div></div></footer>
+ <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab active">Lieux</a><a href="blog.html" class="bottom-tab">Blog</a><a href="a-propos.html" class="bottom-tab">Plus</a></nav>
 </body>
 </html>
