@@ -23,8 +23,6 @@
   var summaryEl = document.getElementById('venue-summary')
   var sideCopyEl = document.getElementById('venue-sidecopy')
   var editorialCopyEl = document.getElementById('venue-editorial-copy')
-  var statShowsEl = document.getElementById('venue-stat-shows')
-  var statDatesEl = document.getElementById('venue-stat-dates')
   var statAreaEl = document.getElementById('venue-stat-area')
 
   function setMetaTag(name, content) {
@@ -144,10 +142,7 @@
       if (result.error) throw new Error(result.error.message)
 
       var reps = (result.data || []).filter(function (r) { return !isLikelyNonTheatre(r) })
-      if (statShowsEl && pageCopy.statShowsLabel) statShowsEl.nextElementSibling.textContent = pageCopy.statShowsLabel
-      if (statDatesEl && pageCopy.statDatesLabel) statDatesEl.nextElementSibling.textContent = pageCopy.statDatesLabel
       if (statAreaEl && pageCopy.statAreaLabel) statAreaEl.nextElementSibling.textContent = pageCopy.statAreaLabel
-      updateStats(reps)
       if (reps.length === 0) {
         listEl.innerHTML = '<div class="empty-state"><p class="empty-state-title">Aucune date à venir</p></div>'
         return
@@ -216,11 +211,6 @@
 
   function buildEditorialCopy(name, area) {
     return 'Une bonne fiche lieu doit donner envie sans en faire trop : situer ' + name + ' dans Bruxelles, rendre ses prochaines dates lisibles et permettre de repartir facilement vers l’agenda complet.'
-  }
-
-  function updateStats(reps) {
-    if (statShowsEl) statShowsEl.textContent = String(groupByShow(reps).length || 0)
-    if (statDatesEl) statDatesEl.textContent = String(reps.length || 0)
   }
 
   function isLikelyNonTheatre(rep) {
