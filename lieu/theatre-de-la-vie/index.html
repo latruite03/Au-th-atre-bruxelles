@@ -52,10 +52,10 @@
     }
     .venue-sidecard-label { font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-3); }
     .venue-sidecard-text { margin-top:.65rem; color:var(--text); font-size:.98rem; line-height:1.75; }
-    .venue-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.75rem; margin-top:1.2rem; padding-top:1rem; border-top:1px solid rgba(23,25,40,.08); }
-    .venue-stat { background:rgba(23,25,40,.03); border-radius:16px; padding:.85rem .9rem; }
-    .venue-stat-value { font-size:1.2rem; font-weight:700; color:var(--text); }
-    .venue-stat-label { color:var(--text-3); font-size:.78rem; margin-top:.15rem; }
+    .venue-practical-list { display:grid; gap:.7rem; margin-top:1rem; }
+    .venue-practical-item { display:grid; gap:.24rem; padding:.95rem 1rem; border-radius:18px; background:rgba(23,25,40,.035); border:1px solid rgba(23,25,40,.06); }
+    .venue-practical-title { font-size:1rem; font-weight:700; color:var(--text); line-height:1.25; }
+    .venue-practical-text { color:var(--text); font-size:.9rem; line-height:1.5; }
     .venue-content { padding:2.25rem 0 0; }
     .venue-editorial {
       margin-top:1.6rem; padding:1.3rem; border-radius:24px; background:rgba(255,255,255,.9);
@@ -69,13 +69,13 @@
     #venue-official { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; }
     #venue-official a {
       display:inline-flex; align-items:center; justify-content:center; min-height:2.75rem; padding:.65rem 1rem; border-radius:999px;
-      background:rgba(255,255,255,.85); border:1px solid rgba(23,25,40,.1); color:var(--text); text-decoration:none; font-weight:700; font-size:.92rem;
+      background:rgba(177,30,45,.08); border:1px solid rgba(177,30,45,.16); color:var(--accent); text-decoration:none; font-weight:700; font-size:.92rem;
+      box-shadow:0 8px 18px rgba(177,30,45,.08);
     }
-    #venue-official a:hover { border-color:rgba(177,30,45,.24); color:var(--accent); }
+    #venue-official a:hover { border-color:rgba(177,30,45,.28); color:var(--accent-hover); background:rgba(177,30,45,.12); }
     #venue-list { background:rgba(255,255,255,.92); border:1px solid rgba(23,25,40,.08); border-radius:24px; box-shadow:0 16px 32px rgba(23,25,40,.05); overflow:hidden; }
     #venue-list .spinner-wrap { padding:2rem; }
     @media (min-width:900px) { .venue-hero-grid, .venue-section-head { grid-template-columns:minmax(0,1fr) 320px; } }
-    @media (max-width:779px) { .venue-stats { grid-template-columns:1fr; } }
     @media (max-width:639px) {
       .venue-hero { padding:2.25rem 0 1.75rem; }
       .venue-title { max-width:none; }
@@ -107,10 +107,19 @@
             <p class="venue-sidecard-label">Repères pratiques</p>
             <p id="venue-sidecopy" class="venue-sidecard-text">Le Théâtre de la Vie fonctionne comme un lieu de tremplin et de laboratoire : on y croise volontiers des écritures d’aujourd’hui, des tentatives formelles et une programmation proche du plateau.</p>
             <div id="venue-official"></div>
-            <div class="venue-stats">
-              <div class="venue-stat"><div class="venue-stat-value">Jeune création</div><div class="venue-stat-label">ligne sensible au contemporain</div></div>
-              <div class="venue-stat"><div class="venue-stat-value">Salle à taille humaine</div><div class="venue-stat-label">proximité avec le plateau</div></div>
-              <div class="venue-stat"><div id="venue-stat-area" class="venue-stat-value">Saint-Josse</div><div class="venue-stat-label">quartier</div></div>
+            <div class="venue-practical-list">
+              <div class="venue-practical-item">
+                <div class="venue-practical-title">Jeune création</div>
+                <div class="venue-practical-text">Une ligne sensible aux écritures contemporaines et aux formes qui prennent des risques.</div>
+              </div>
+              <div class="venue-practical-item">
+                <div class="venue-practical-title">Salle à taille humaine</div>
+                <div class="venue-practical-text">Une proximité réelle avec le plateau, plus de laboratoire que de grande machine.</div>
+              </div>
+              <div class="venue-practical-item">
+                <div id="venue-stat-area" class="venue-practical-title">Saint-Josse</div>
+                <div class="venue-practical-text">Un lieu bien ancré dans le quartier, à deux pas des circulations du centre.</div>
+              </div>
             </div>
           </aside>
         </div>
@@ -152,18 +161,7 @@
       summary: 'À Saint-Josse, le Théâtre de la Vie est une adresse à garder en tête si l’on cherche des formes contemporaines, de la jeune création et des spectacles qui préfèrent le risque à la routine.',
       sideCopy: 'Le Théâtre de la Vie fonctionne comme un lieu de tremplin et de laboratoire : on y croise volontiers des écritures d’aujourd’hui, des tentatives formelles et une programmation proche du plateau.',
       editorialCopy: 'Fondé en 1971 et installé rue Traversière depuis 1988, le Théâtre de la Vie compte parmi les lieux bruxellois où l’on peut voir émerger des récits, des voix et des formats qu’on ne trouve pas toujours dans les circuits les plus visibles. La salle reste à taille humaine, ce qui donne souvent une vraie proximité avec le plateau.',
-      statAreaLabel: 'quartier'
     };
-    document.addEventListener('DOMContentLoaded', function () {
-      var values = document.querySelectorAll('.venue-stat-value');
-      var labels = document.querySelectorAll('.venue-stat-label');
-      if (values[0]) values[0].textContent = 'Jeune création';
-      if (labels[0]) labels[0].textContent = 'ligne sensible au contemporain';
-      if (values[1]) values[1].textContent = 'Salle à taille humaine';
-      if (labels[1]) labels[1].textContent = 'proximité avec le plateau';
-      if (values[2]) values[2].textContent = 'Saint-Josse';
-      if (labels[2]) labels[2].textContent = 'quartier';
-    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="/js/config.js?v=20260303-1"></script>
