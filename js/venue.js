@@ -142,7 +142,6 @@
       if (result.error) throw new Error(result.error.message)
 
       var reps = (result.data || []).filter(function (r) { return !isLikelyNonTheatre(r) })
-      if (statAreaEl && pageCopy.statAreaLabel) statAreaEl.nextElementSibling.textContent = pageCopy.statAreaLabel
       if (reps.length === 0) {
         listEl.innerHTML = '<div class="empty-state"><p class="empty-state-title">Aucune date à venir</p></div>'
         return
