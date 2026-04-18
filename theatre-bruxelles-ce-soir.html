@@ -74,6 +74,36 @@
   }
   .tonight-card-empty a { color: var(--accent); font-weight: 700; text-decoration: none; }
   .tonight-card-empty a:hover { color: var(--accent-hover); }
+  .tonight-show-card {
+    display: grid; gap: 1rem; padding: 1rem; border-radius: 24px; background: rgba(255,255,255,.96);
+    border: 1px solid rgba(23,25,40,.08); box-shadow: 0 16px 32px rgba(23,25,40,.05);
+  }
+  .tonight-show-media {
+    aspect-ratio: 16/10; border-radius: 18px; overflow: hidden; background: linear-gradient(135deg, #efe7e5, #f7f2f1);
+  }
+  .tonight-show-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tonight-show-media-empty {
+    display: flex; align-items: center; justify-content: center; padding: 1rem; color: var(--text-3); font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  }
+  .tonight-show-body { display: grid; gap: .75rem; min-width: 0; }
+  .tonight-show-meta { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; }
+  .tonight-show-time,
+  .tonight-show-venue,
+  .tonight-show-date {
+    display: inline-flex; align-items: center; min-height: 2rem; padding: .28rem .7rem; border-radius: 999px; font-size: .8rem; font-weight: 700;
+  }
+  .tonight-show-time { background: rgba(177,30,45,.1); color: var(--accent); }
+  .tonight-show-venue { background: rgba(23,25,40,.05); color: var(--text); }
+  .tonight-show-date { background: rgba(23,25,40,.03); color: var(--text-2); }
+  .tonight-show-title { font-size: clamp(1.45rem, 2.2vw, 2rem); line-height: 1.05; }
+  .tonight-show-desc { color: var(--text-2); line-height: 1.75; max-width: 56ch; }
+  .tonight-show-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; padding-top: .2rem; }
+  .tonight-show-link {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 2.8rem; padding: .65rem 1rem; border-radius: 999px;
+    background: var(--accent); color: #fffaf8; text-decoration: none; font-weight: 700; box-shadow: 0 12px 28px rgba(177,30,45,.14);
+  }
+  .tonight-show-link:hover { background: var(--accent-hover); color: #fffaf8; }
+  .tonight-show-secondary { color: var(--text-2); font-size: .92rem; }
   .tonight-venues-grid { display: grid; gap: 1rem; margin-top: 1.4rem; }
   .tonight-venue-card {
     display: grid; gap: .8rem; padding: 1rem; border-radius: 24px; background: rgba(255,255,255,.92);
@@ -122,8 +152,8 @@
   }
   .tonight-cta-links a:hover { color: var(--accent); border-color: rgba(177,30,45,.18); }
   @media (min-width: 900px) {
-    .tonight-hero-grid, .tonight-section-head { grid-template-columns: minmax(0,1fr) 320px; }
-    .tonight-grid, .tonight-venues-grid, .tonight-paths { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .tonight-section-head { grid-template-columns: minmax(0,1fr) 320px; }
+    .tonight-venues-grid, .tonight-paths { grid-template-columns: repeat(2, minmax(0,1fr)); }
   }
   @media (max-width: 779px) {
     .tonight-stats { grid-template-columns: 1fr; }
@@ -131,7 +161,9 @@
   @media (max-width: 639px) {
     .tonight-hero { padding: 2.25rem 0 1.75rem; }
     .tonight-title { max-width: none; }
-    .tonight-intro-card, .tonight-venue-card, .tonight-path-card, .tonight-copy-block, .tonight-cta { border-radius: 20px; }
+    .tonight-intro-card, .tonight-show-card, .tonight-venue-card, .tonight-path-card, .tonight-copy-block, .tonight-cta { border-radius: 20px; }
+    .tonight-show-actions { align-items: stretch; }
+    .tonight-show-link { width: 100%; }
   }
  </style>
 </head>
@@ -152,18 +184,14 @@
       </div>
     </div>
     <aside class="tonight-intro-card">
-      <p class="tonight-intro-label">Ce que tu trouves ici</p>
+      <p class="tonight-intro-label">En un coup d’œil</p>
       <p id="tonight-subtitle" class="tonight-intro-text">Chargement des spectacles visibles aujourd’hui…</p>
-      <ul class="tonight-intro-list">
-        <li>une sélection lisible du jour</li>
-        <li>des lieux à suivre régulièrement</li>
-        <li>des liens pour continuer par l’agenda ou les fiches lieu</li>
-      </ul>
       <div class="tonight-stats">
         <div class="tonight-stat"><div id="tonight-stat-reps" class="tonight-stat-value">—</div><div class="tonight-stat-label">représentations visibles</div></div>
-        <div class="tonight-stat"><div id="tonight-stat-venues" class="tonight-stat-value">—</div><div class="tonight-stat-label">lieux repérés aujourd’hui</div></div>
-        <div class="tonight-stat"><div id="tonight-stat-date" class="tonight-stat-value">Ce soir</div><div class="tonight-stat-label">mise à jour en temps réel</div></div>
+        <div class="tonight-stat"><div id="tonight-stat-venues" class="tonight-stat-value">—</div><div class="tonight-stat-label">lieux repérés</div></div>
+        <div class="tonight-stat"><div id="tonight-stat-date" class="tonight-stat-value">Ce soir</div><div class="tonight-stat-label">mise à jour</div></div>
       </div>
+      <p class="tonight-intro-text" style="margin-top: 1rem;">Tu peux commencer par une sélection simple du jour, puis continuer par les lieux ou l’agenda complet si tu veux affiner.</p>
     </aside>
    </div>
   </section>

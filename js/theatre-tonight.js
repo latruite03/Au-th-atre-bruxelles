@@ -52,39 +52,28 @@
 
   function buildCard(rep, dateLabel) {
     var heure = rep.heure ? formatHeure(rep.heure) : 'Heure à confirmer'
-    var desc = truncateText(rep.description, 190)
+    var desc = truncateText(rep.description, 220)
     var showUrl = '/spectacle/' + buildShowSlug(rep) + '/'
     var cover = rep.image_url
-      ? '<div class="weekly-card-media">' +
-          '<img src="' + escapeHtml(rep.image_url) + '" alt="" loading="lazy" class="weekly-card-image" onerror="this.parentNode.classList.add(\'weekly-card-media-empty\'); this.remove()" />' +
+      ? '<div class="tonight-show-media">' +
+          '<img src="' + escapeHtml(rep.image_url) + '" alt="" loading="lazy" onerror="this.parentNode.classList.add(\'tonight-show-media-empty\'); this.remove()" />' +
         '</div>'
-      : '<div class="weekly-card-media weekly-card-media-empty"><span class="weekly-card-media-label">Au théâtre ce soir</span></div>'
-
-    var cardDate = new Date(rep.date + 'T00:00:00')
-    var dayName = cardDate.toLocaleDateString('fr-BE', { weekday: 'long' })
-    var dayNumber = cardDate.toLocaleDateString('fr-BE', { day: 'numeric' })
-    var monthName = cardDate.toLocaleDateString('fr-BE', { month: 'short' })
+      : '<div class="tonight-show-media tonight-show-media-empty">Image du spectacle</div>'
 
     return (
-      '<article class="weekly-card">' +
-        '<div class="weekly-card-date">' +
-          '<span class="weekly-card-day">' + escapeHtml(dayName) + '</span>' +
-          '<strong class="weekly-card-number">' + escapeHtml(dayNumber) + '</strong>' +
-          '<span class="weekly-card-month">' + escapeHtml(monthName) + '</span>' +
-        '</div>' +
-        '<div class="weekly-card-main">' +
-          cover +
-          '<div class="weekly-card-body">' +
-            '<div class="weekly-card-meta">' +
-              '<span class="weekly-card-time">' + escapeHtml(heure) + '</span>' +
-              '<span class="weekly-card-venue">' + escapeHtml(rep.theatre_nom || '') + '</span>' +
-            '</div>' +
-            '<h3 class="weekly-card-title">' + escapeHtml(normalizeTitle(rep.titre)) + '</h3>' +
-            (desc ? '<p class="weekly-card-description">' + escapeHtml(desc) + '</p>' : '') +
-            '<div class="weekly-card-footer">' +
-              '<p class="weekly-card-date-label">' + escapeHtml(dateLabel) + '</p>' +
-              '<a href="' + escapeHtml(showUrl) + '" class="weekly-card-link">Voir la fiche</a>' +
-            '</div>' +
+      '<article class="tonight-show-card">' +
+        cover +
+        '<div class="tonight-show-body">' +
+          '<div class="tonight-show-meta">' +
+            '<span class="tonight-show-time">' + escapeHtml(heure) + '</span>' +
+            '<span class="tonight-show-venue">' + escapeHtml(rep.theatre_nom || '') + '</span>' +
+            '<span class="tonight-show-date">' + escapeHtml(dateLabel) + '</span>' +
+          '</div>' +
+          '<h3 class="tonight-show-title">' + escapeHtml(normalizeTitle(rep.titre)) + '</h3>' +
+          (desc ? '<p class="tonight-show-desc">' + escapeHtml(desc) + '</p>' : '') +
+          '<div class="tonight-show-actions">' +
+            '<a href="' + escapeHtml(showUrl) + '" class="tonight-show-link">Voir la fiche spectacle</a>' +
+            '<span class="tonight-show-secondary">Repéré pour ce soir dans l’agenda.</span>' +
           '</div>' +
         '</div>' +
       '</article>'
@@ -183,7 +172,7 @@
         return normalizeKey(a.titre).localeCompare(normalizeKey(b.titre))
       })
 
-      var picked = rows.slice(0, 8)
+      var picked = rows.slice(0, 6)
       wrap.innerHTML = picked.map(function (rep) { return buildCard(rep, dateLabel) }).join('')
     } catch (err) {
       wrap.innerHTML = '<div class="error-box">' + escapeHtml(err.message) + '</div>'
