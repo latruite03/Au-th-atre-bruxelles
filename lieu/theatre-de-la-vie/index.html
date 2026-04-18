@@ -1,162 +1,162 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Théâtre de la Vie — Lieu — Au théâtre ce soir</title>
-  <meta name="description" content="Une salle bruxelloise qui parie sur la jeune création et les écritures d’aujourd’hui. Prochains spectacles au Théâtre de la Vie.">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Théâtre de la Vie — Lieu — Au théâtre ce soir</title>
+ <meta name="description" content="Une salle bruxelloise qui parie sur la jeune création et les écritures d’aujourd’hui. Prochains spectacles au Théâtre de la Vie.">
 
-  <meta property="og:title" content="Théâtre de la Vie — Lieu — Au théâtre ce soir">
-  <meta property="og:description" content="Une salle bruxelloise qui parie sur la jeune création et les écritures d’aujourd’hui. Prochains spectacles au Théâtre de la Vie.">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="fr_BE">
-  <meta property="og:site_name" content="Au théâtre ce soir">
-  <meta property="og:url" content="https://autheatre.brussels/lieu/theatre-de-la-vie/">
+ <meta property="og:title" content="Théâtre de la Vie — Lieu — Au théâtre ce soir">
+ <meta property="og:description" content="Une salle bruxelloise qui parie sur la jeune création et les écritures d’aujourd’hui. Prochains spectacles au Théâtre de la Vie.">
+ <meta property="og:type" content="website">
+ <meta property="og:locale" content="fr_BE">
+ <meta property="og:site_name" content="Au théâtre ce soir">
+ <meta property="og:url" content="https://autheatre.brussels/lieu/theatre-de-la-vie/">
 
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#B11E2D">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="alternate icon" href="/favicon.svg">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="canonical" href="https://autheatre.brussels/lieu/theatre-de-la-vie/">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Théâtre de la Vie","address":"Rue Traversière 45, 1210 Saint-Josse-ten-Noode, Bruxelles","url":"https://autheatre.brussels/lieu/theatre-de-la-vie/"}</script>
+ <link rel="manifest" href="/manifest.json">
+ <meta name="theme-color" content="#B11E2D">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+ <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+ <link rel="alternate icon" href="/favicon.svg">
+ <link rel="stylesheet" href="/css/style.css">
+ <link rel="canonical" href="https://autheatre.brussels/lieu/theatre-de-la-vie/">
+ <script type="application/ld+json">{"@context":"https://schema.org","@type":"Place","name":"Théâtre de la Vie","address":"Rue Traversière 45, 1210 Saint-Josse-ten-Noode, Bruxelles","url":"https://autheatre.brussels/lieu/theatre-de-la-vie/"}</script>
 
-  <style>
-    .venue-page { padding-bottom: 4rem; }
-    .venue-hero {
-      padding: 3rem 0 1.75rem;
-      background:
-        radial-gradient(circle at top left, rgba(177, 30, 45, 0.08), transparent 32%),
-        linear-gradient(180deg, #FCFCFE 0%, #F3F4FA 100%);
-      border-bottom: 1px solid rgba(23,25,40,0.08);
-    }
-    .venue-backlink { display:inline-flex; align-items:center; gap:.45rem; margin-bottom:1.15rem; color:var(--text-2); text-decoration:none; font-size:.92rem; }
-    .venue-backlink:hover { color:var(--accent); }
-    .venue-hero-grid, .venue-section-head { display:grid; gap:1.5rem; }
-    .venue-kicker, .venue-section-kicker { display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .7rem; border-radius:999px; background:rgba(177,30,45,.08); color:var(--accent); font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
-    .venue-title { font-size:clamp(2.4rem,5vw,4.3rem); line-height:.98; margin-top:1rem; letter-spacing:-.04em; max-width:11ch; }
-    .venue-address { margin-top:.95rem; color:var(--text); font-size:1rem; line-height:1.8; max-width:42rem; }
-    .venue-summary { margin-top:1rem; color:var(--text-2); font-size:1rem; line-height:1.8; max-width:44rem; }
-    .venue-hero-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem; }
-    .venue-btn { display:inline-flex; align-items:center; justify-content:center; min-height:2.9rem; padding:.7rem 1.1rem; border-radius:999px; border:1px solid transparent; font-size:.95rem; font-weight:700; text-decoration:none; transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease; }
-    .venue-btn:hover { transform:translateY(-1px); }
-    .venue-btn-primary { background:var(--accent); color:#fffaf8; box-shadow:0 12px 30px rgba(177,30,45,.16); }
-    .venue-btn-primary:hover { background:var(--accent-hover); color:#fffaf8; }
-    .venue-btn-secondary { background:rgba(255,255,255,.85); border-color:rgba(23,25,40,.1); color:var(--text); }
-    .venue-sidecard {
-      background:rgba(255,255,255,.92); border:1px solid rgba(23,25,40,.1); border-radius:24px; padding:1.6rem;
-      box-shadow:0 24px 48px rgba(23,25,40,.08); backdrop-filter:blur(8px);
-    }
-    .venue-sidecard-label { font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-3); }
-    .venue-sidecard-text { margin-top:.65rem; color:var(--text); font-size:.98rem; line-height:1.75; }
-    .venue-practical-list { display:grid; gap:.55rem; margin-top:1rem; }
-    .venue-practical-item { padding:.85rem 1rem; border-radius:16px; background:rgba(23,25,40,.035); border:1px solid rgba(23,25,40,.06); }
-    .venue-practical-title { font-size:.98rem; font-weight:700; color:var(--text); line-height:1.25; }
-    .venue-content { padding:2.25rem 0 0; }
-    .venue-editorial {
-      margin-top:1.6rem; padding:1.3rem; border-radius:24px; background:rgba(255,255,255,.9);
-      border:1px solid rgba(23,25,40,.08); box-shadow:0 16px 32px rgba(23,25,40,.04);
-    }
-    .venue-editorial-title { font-size:1.2rem; margin-bottom:.45rem; }
-    .venue-editorial-copy { color:var(--text-2); line-height:1.8; max-width:60ch; }
-    .venue-section { margin-top:2.2rem; }
-    .venue-section-title { font-size:clamp(1.7rem,3vw,2.6rem); margin-top:.7rem; line-height:1.02; }
-    .venue-section-note { color:var(--text); max-width:38rem; font-size:.96rem; line-height:1.7; }
-    #venue-official { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; }
-    #venue-official a {
-      display:inline-flex; align-items:center; justify-content:center; min-height:2.75rem; padding:.65rem 1rem; border-radius:999px;
-      background:rgba(177,30,45,.08); border:1px solid rgba(177,30,45,.16); color:var(--accent); text-decoration:none; font-weight:700; font-size:.92rem;
-      box-shadow:0 8px 18px rgba(177,30,45,.08);
-    }
-    #venue-official a:hover { border-color:rgba(177,30,45,.28); color:var(--accent-hover); background:rgba(177,30,45,.12); }
-    #venue-list { background:rgba(255,255,255,.92); border:1px solid rgba(23,25,40,.08); border-radius:24px; box-shadow:0 16px 32px rgba(23,25,40,.05); overflow:hidden; }
-    #venue-list .spinner-wrap { padding:2rem; }
-    @media (min-width:900px) { .venue-hero-grid, .venue-section-head { grid-template-columns:minmax(0,1fr) 320px; } }
-    @media (max-width:639px) {
-      .venue-hero { padding:2.25rem 0 1.75rem; }
-      .venue-title { max-width:none; }
-      .venue-sidecard, .venue-editorial { border-radius:20px; padding:1.2rem; }
-      #venue-list { border-radius:20px; }
-    }
-  </style>
+ <style>
+   .venue-page { padding-bottom: 4rem; }
+   .venue-hero {
+     padding: 3rem 0 1.75rem;
+     background:
+       radial-gradient(circle at top left, rgba(177, 30, 45, 0.08), transparent 32%),
+       linear-gradient(180deg, #FCFCFE 0%, #F3F4FA 100%);
+     border-bottom: 1px solid rgba(23,25,40,0.08);
+   }
+   .venue-backlink { display:inline-flex; align-items:center; gap:.45rem; margin-bottom:1.15rem; color:var(--text-2); text-decoration:none; font-size:.92rem; }
+   .venue-backlink:hover { color:var(--accent); }
+   .venue-hero-grid, .venue-section-head { display:grid; gap:1.5rem; }
+   .venue-kicker, .venue-section-kicker { display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .7rem; border-radius:999px; background:rgba(177,30,45,.08); color:var(--accent); font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+   .venue-title { font-size:clamp(2.4rem,5vw,4.3rem); line-height:.98; margin-top:1rem; letter-spacing:-.04em; max-width:11ch; }
+   .venue-address { margin-top:.95rem; color:var(--text); font-size:1rem; line-height:1.8; max-width:42rem; }
+   .venue-summary { margin-top:1rem; color:var(--text-2); font-size:1rem; line-height:1.8; max-width:44rem; }
+   .venue-hero-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem; }
+   .venue-btn { display:inline-flex; align-items:center; justify-content:center; min-height:2.9rem; padding:.7rem 1.1rem; border-radius:999px; border:1px solid transparent; font-size:.95rem; font-weight:700; text-decoration:none; transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease; }
+   .venue-btn:hover { transform:translateY(-1px); }
+   .venue-btn-primary { background:var(--accent); color:#fffaf8; box-shadow:0 12px 30px rgba(177,30,45,.16); }
+   .venue-btn-primary:hover { background:var(--accent-hover); color:#fffaf8; }
+   .venue-btn-secondary { background:rgba(255,255,255,.85); border-color:rgba(23,25,40,.1); color:var(--text); }
+   .venue-sidecard {
+     background:rgba(255,255,255,.92); border:1px solid rgba(23,25,40,.1); border-radius:24px; padding:1.6rem;
+     box-shadow:0 24px 48px rgba(23,25,40,.08); backdrop-filter:blur(8px);
+   }
+   .venue-sidecard-label { font-size:.78rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-3); }
+   .venue-sidecard-text { margin-top:.65rem; color:var(--text); font-size:.98rem; line-height:1.75; }
+   .venue-practical-list { display:grid; gap:.55rem; margin-top:1rem; }
+   .venue-practical-item { padding:.85rem 1rem; border-radius:16px; background:rgba(23,25,40,.035); border:1px solid rgba(23,25,40,.06); }
+   .venue-practical-title { font-size:.98rem; font-weight:700; color:var(--text); line-height:1.25; }
+   .venue-content { padding:2.25rem 0 0; }
+   .venue-editorial {
+     margin-top:1.6rem; padding:1.3rem; border-radius:24px; background:rgba(255,255,255,.9);
+     border:1px solid rgba(23,25,40,.08); box-shadow:0 16px 32px rgba(23,25,40,.04);
+   }
+   .venue-editorial-title { font-size:1.2rem; margin-bottom:.45rem; }
+   .venue-editorial-copy { color:var(--text-2); line-height:1.8; max-width:60ch; }
+   .venue-section { margin-top:2.2rem; }
+   .venue-section-title { font-size:clamp(1.7rem,3vw,2.6rem); margin-top:.7rem; line-height:1.02; }
+   .venue-section-note { color:var(--text); max-width:38rem; font-size:.96rem; line-height:1.7; }
+   #venue-official { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; }
+   #venue-official a {
+     display:inline-flex; align-items:center; justify-content:center; min-height:2.75rem; padding:.65rem 1rem; border-radius:999px;
+     background:rgba(177,30,45,.08); border:1px solid rgba(177,30,45,.16); color:var(--accent); text-decoration:none; font-weight:700; font-size:.92rem;
+     box-shadow:0 8px 18px rgba(177,30,45,.08);
+   }
+   #venue-official a:hover { border-color:rgba(177,30,45,.28); color:var(--accent-hover); background:rgba(177,30,45,.12); }
+   #venue-list { background:rgba(255,255,255,.92); border:1px solid rgba(23,25,40,.08); border-radius:24px; box-shadow:0 16px 32px rgba(23,25,40,.05); overflow:hidden; }
+   #venue-list .spinner-wrap { padding:2rem; }
+   @media (min-width:900px) { .venue-hero-grid, .venue-section-head { grid-template-columns:minmax(0,1fr) 320px; } }
+   @media (max-width:639px) {
+     .venue-hero { padding:2.25rem 0 1.75rem; }
+     .venue-title { max-width:none; }
+     .venue-sidecard, .venue-editorial { border-radius:20px; padding:1.2rem; }
+     #venue-list { border-radius:20px; }
+   }
+ </style>
 </head>
 <body>
-  <nav class="top-bar"><div class="container"><div class="top-bar-inner"><a href="/" class="top-bar-logo">Au théâtre ce soir</a><ul class="top-bar-nav"><li><a href="/">Agenda</a></li><li><a href="/cette-semaine.html">Cette semaine</a></li><li><a href="/lieux.html" class="active">Lieux</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/a-propos.html">À propos</a></li></ul><button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button></div></div></nav>
-  <div id="mobile-menu" class="mobile-menu"><button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')" aria-label="Fermer">&times;</button><a href="/" onclick="document.getElementById('mobile-menu').classList.remove('open')">Agenda</a><a href="/cette-semaine.html">Cette semaine</a><a href="/lieux.html">Lieux</a><a href="/blog.html">Blog</a><a href="/a-propos.html">À propos</a></div>
+ <nav class="top-bar"><div class="container"><div class="top-bar-inner"><a href="/" class="top-bar-logo">Au théâtre ce soir</a><ul class="top-bar-nav"><li><a href="/">Agenda</a></li><li><a href="/cette-semaine.html">Cette semaine</a></li><li><a href="/lieux.html" class="active">Lieux</a></li><li><a href="/blog.html">Blog</a></li><li><a href="/a-propos.html">À propos</a></li></ul><button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button></div></div></nav>
+ <div id="mobile-menu" class="mobile-menu"><button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')" aria-label="Fermer">&times;</button><a href="/" onclick="document.getElementById('mobile-menu').classList.remove('open')">Agenda</a><a href="/cette-semaine.html">Cette semaine</a><a href="/lieux.html">Lieux</a><a href="/blog.html">Blog</a><a href="/a-propos.html">À propos</a></div>
 
-  <main class="venue-page">
-    <section class="venue-hero">
-      <div class="container">
-        <a href="/lieux.html" class="venue-backlink">← Retour aux lieux</a>
-        <div class="venue-hero-grid">
-          <div>
-            <span id="venue-kicker" class="venue-kicker">Saint-Josse — fiche lieu</span>
-            <h1 id="venue-title" class="venue-title">Théâtre de la Vie</h1>
-            <p id="venue-address" class="venue-address">Rue Traversière 45, 1210 Saint-Josse-ten-Noode</p>
-            <p id="venue-summary" class="venue-summary">À Saint-Josse, le Théâtre de la Vie est une adresse à garder en tête si l’on cherche des formes contemporaines, de la jeune création et des spectacles qui préfèrent le risque à la routine.</p>
-            <div class="venue-hero-actions">
-              <a id="venue-agenda-link" href="/" class="venue-btn venue-btn-primary">Voir les prochaines dates</a>
-              <a href="https://www.google.com/maps?q=Rue%20Traversi%C3%A8re%2045%2C%201210%20Saint-Josse-ten-Noode" target="_blank" rel="noopener noreferrer" class="venue-btn venue-btn-secondary">Voir sur la carte</a>
-            </div>
-          </div>
-          <aside class="venue-sidecard">
-            <p class="venue-sidecard-label">Repères pratiques</p>
-            <p id="venue-sidecopy" class="venue-sidecard-text">Le Théâtre de la Vie fonctionne comme un lieu de tremplin et de laboratoire : on y croise volontiers des écritures d’aujourd’hui, des tentatives formelles et une programmation proche du plateau.</p>
-            <div id="venue-official"></div>
-            <div class="venue-practical-list">
-              <div class="venue-practical-item"><div class="venue-practical-title">Jeune création</div></div>
-              <div class="venue-practical-item"><div class="venue-practical-title">Salle à taille humaine</div></div>
-              <div class="venue-practical-item"><div id="venue-stat-area" class="venue-practical-title">Saint-Josse</div></div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
+ <main class="venue-page">
+   <section class="venue-hero">
+     <div class="container">
+       <a href="/lieux.html" class="venue-backlink">← Retour aux lieux</a>
+       <div class="venue-hero-grid">
+         <div>
+           <span id="venue-kicker" class="venue-kicker">Saint-Josse — fiche lieu</span>
+           <h1 id="venue-title" class="venue-title">Théâtre de la Vie</h1>
+           <p id="venue-address" class="venue-address">Rue Traversière 45, 1210 Saint-Josse-ten-Noode</p>
+           <p id="venue-summary" class="venue-summary">À Saint-Josse, le Théâtre de la Vie est une adresse à garder en tête si l’on cherche des formes contemporaines, de la jeune création et des spectacles qui préfèrent le risque à la routine.</p>
+           <div class="venue-hero-actions">
+             <a id="venue-agenda-link" href="/" class="venue-btn venue-btn-primary">Voir les prochaines dates</a>
+             <a href="https://www.google.com/maps?q=Rue%20Traversi%C3%A8re%2045%2C%201210%20Saint-Josse-ten-Noode" target="_blank" rel="noopener noreferrer" class="venue-btn venue-btn-secondary">Voir sur la carte</a>
+           </div>
+         </div>
+         <aside class="venue-sidecard">
+           <p class="venue-sidecard-label">Repères pratiques</p>
+           <p id="venue-sidecopy" class="venue-sidecard-text">Le Théâtre de la Vie fonctionne comme un lieu de tremplin et de laboratoire : on y croise volontiers des écritures d’aujourd’hui, des tentatives formelles et une programmation proche du plateau.</p>
+           <div id="venue-official"></div>
+           <div class="venue-practical-list">
+             <div class="venue-practical-item"><div class="venue-practical-title">Jeune création</div></div>
+             <div class="venue-practical-item"><div class="venue-practical-title">Salle à taille humaine</div></div>
+             <div class="venue-practical-item"><div id="venue-stat-area" class="venue-practical-title">Saint-Josse</div></div>
+           </div>
+         </aside>
+       </div>
+     </div>
+   </section>
 
-    <section class="venue-content">
-      <div class="container">
-        <div class="venue-editorial">
-          <h2 class="venue-editorial-title">L’esprit du lieu</h2>
-          <p id="venue-editorial-copy" class="venue-editorial-copy">Fondé en 1971 et installé rue Traversière depuis 1988, le Théâtre de la Vie compte parmi les lieux bruxellois où l’on peut voir émerger des récits, des voix et des formats qu’on ne trouve pas toujours dans les circuits les plus visibles. La salle reste à taille humaine, ce qui donne souvent une vraie proximité avec le plateau.</p>
-        </div>
+   <section class="venue-content">
+     <div class="container">
+       <div class="venue-editorial">
+         <h2 class="venue-editorial-title">L’esprit du lieu</h2>
+         <p id="venue-editorial-copy" class="venue-editorial-copy">Fondé en 1971 et installé rue Traversière depuis 1988, le Théâtre de la Vie compte parmi les lieux bruxellois où l’on peut voir émerger des récits, des voix et des formats qu’on ne trouve pas toujours dans les circuits les plus visibles. La salle reste à taille humaine, ce qui donne souvent une vraie proximité avec le plateau.</p>
+       </div>
 
-        <section class="venue-section">
-          <div class="venue-section-head">
-            <div>
-              <p class="venue-section-kicker">À voir bientôt</p>
-              <h2 class="venue-section-title">Prochains spectacles</h2>
-            </div>
-            <p class="venue-section-note">Les prochaines représentations annoncées au Théâtre de la Vie. Si la liste est courte, ce n’est pas forcément le signe d’une saison vide : seulement de ce qui a déjà été remonté dans l’agenda.</p>
-          </div>
+       <section class="venue-section">
+         <div class="venue-section-head">
+           <div>
+             <p class="venue-section-kicker">À voir bientôt</p>
+             <h2 class="venue-section-title">Prochains spectacles</h2>
+           </div>
+           <p class="venue-section-note">Les prochaines représentations annoncées au Théâtre de la Vie. Si la liste est courte, ce n’est pas forcément le signe d’une saison vide : seulement de ce qui a déjà été remonté dans l’agenda.</p>
+         </div>
 
-          <div id="venue-list">
-            <div class="spinner-wrap"><div class="spinner"></div></div>
-          </div>
-        </section>
-      </div>
-    </section>
-  </main>
+         <div id="venue-list">
+           <div class="spinner-wrap"><div class="spinner"></div></div>
+         </div>
+       </section>
+     </div>
+   </section>
+ </main>
 
-  <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-section"><h4>Au théâtre ce soir</h4><p class="footer-tagline">Un agenda indépendant pour découvrir le théâtre à Bruxelles.</p></div><div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div><div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="/lieux.html">Lieux</a></li><li><a href="/a-propos.html">À propos</a></li><li><a href="/soumettre.html">Signaler un spectacle</a></li><li><a href="/mentions-legales.html">Mentions légales</a></li></ul></div></div><div class="footer-bottom"><p>Au théâtre ce soir — agenda indépendant du théâtre à Bruxelles.</p></div></div></footer>
-  <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="/cette-semaine.html" class="bottom-tab">Semaine</a><a href="/lieux.html" class="bottom-tab active">Lieux</a><a href="/blog.html" class="bottom-tab">Blog</a><a href="/a-propos.html" class="bottom-tab">Plus</a></nav>
+ <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-section"><h4>Au théâtre ce soir</h4><p class="footer-tagline">Un agenda indépendant pour découvrir le théâtre à Bruxelles.</p></div><div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form" onsubmit="event.preventDefault()"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div><div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="/lieux.html">Lieux</a></li><li><a href="/a-propos.html">À propos</a></li><li><a href="/soumettre.html">Signaler un spectacle</a></li><li><a href="/mentions-legales.html">Mentions légales</a></li></ul></div></div><div class="footer-bottom"><p>Au théâtre ce soir — agenda indépendant du théâtre à Bruxelles.</p></div></div></footer>
+ <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="/cette-semaine.html" class="bottom-tab">Semaine</a><a href="/lieux.html" class="bottom-tab active">Lieux</a><a href="/blog.html" class="bottom-tab">Blog</a><a href="/a-propos.html" class="bottom-tab">Plus</a></nav>
 
-  <script>
-    window.VENUE_SLUG = 'theatre-de-la-vie';
-    window.VENUE_PAGE_COPY = {
-      area: 'Saint-Josse',
-      kicker: 'Saint-Josse — fiche lieu',
-      summary: 'À Saint-Josse, le Théâtre de la Vie est une adresse à garder en tête si l’on cherche des formes contemporaines, de la jeune création et des spectacles qui préfèrent le risque à la routine.',
-      sideCopy: 'Le Théâtre de la Vie fonctionne comme un lieu de tremplin et de laboratoire : on y croise volontiers des écritures d’aujourd’hui, des tentatives formelles et une programmation proche du plateau.',
-      editorialCopy: 'Fondé en 1971 et installé rue Traversière depuis 1988, le Théâtre de la Vie compte parmi les lieux bruxellois où l’on peut voir émerger des récits, des voix et des formats qu’on ne trouve pas toujours dans les circuits les plus visibles. La salle reste à taille humaine, ce qui donne souvent une vraie proximité avec le plateau.',
-    };
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="/js/config.js?v=20260303-1"></script>
-  <script src="/js/utils.js?v=20260303-1"></script>
-  <script src="/js/theatres-info.js?v=20260303-1"></script>
-  <script src="/js/venue.js?v=20260303-1"></script>
+ <script>
+   window.VENUE_SLUG = 'theatre-de-la-vie';
+   window.VENUE_PAGE_COPY = {
+     area: 'Saint-Josse',
+     kicker: 'Saint-Josse — fiche lieu',
+     summary: 'À Saint-Josse, le Théâtre de la Vie est une adresse à garder en tête si l’on cherche des formes contemporaines, de la jeune création et des spectacles qui préfèrent le risque à la routine.',
+     sideCopy: 'Le Théâtre de la Vie fonctionne comme un lieu de tremplin et de laboratoire : on y croise volontiers des écritures d’aujourd’hui, des tentatives formelles et une programmation proche du plateau.',
+     editorialCopy: 'Fondé en 1971 et installé rue Traversière depuis 1988, le Théâtre de la Vie compte parmi les lieux bruxellois où l’on peut voir émerger des récits, des voix et des formats qu’on ne trouve pas toujours dans les circuits les plus visibles. La salle reste à taille humaine, ce qui donne souvent une vraie proximité avec le plateau.',
+   };
+ </script>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+ <script src="/js/config.js?v=20260303-1"></script>
+ <script src="/js/utils.js?v=20260303-1"></script>
+ <script src="/js/theatres-info.js?v=20260303-1"></script>
+ <script src="/js/venue.js?v=20260303-1"></script>
 </body>
 </html>
