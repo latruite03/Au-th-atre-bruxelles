@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Théâtre à Bruxelles ce soir : que voir aujourd’hui ? — Au théâtre ce soir</title>
+ <meta name="description" content="Tu cherches une pièce à voir ce soir à Bruxelles ? Retrouve les spectacles visibles aujourd’hui, des repères par lieu, et des liens utiles pour continuer par l’agenda ou les fiches salle.">
+ <meta property="og:title" content="Théâtre à Bruxelles ce soir : que voir aujourd’hui ?">
+ <meta property="og:description" content="Les spectacles visibles aujourd’hui à Bruxelles, avec accès rapide à l’agenda, aux lieux et aux fiches spectacle.">
+ <meta property="og:type" content="website">
+ <meta property="og:locale" content="fr_BE">
+ <meta property="og:site_name" content="Au théâtre ce soir">
+ <meta property="og:url" content="https://autheatre.brussels/theatre-bruxelles-ce-soir.html">
+ <link rel="manifest" href="manifest.json">
+ <meta name="theme-color" content="#B11E2D">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+ <link rel="icon" type="image/svg+xml" href="favicon.svg">
+ <link rel="alternate icon" href="favicon.svg">
+ <link rel="stylesheet" href="css/style.css">
+ <link rel="canonical" href="https://autheatre.brussels/theatre-bruxelles-ce-soir.html">
+ <style>
+  .tonight-page { padding-bottom: 4rem; }
+  .tonight-hero {
+    padding: 3.5rem 0 2.5rem;
+    background:
+      radial-gradient(circle at top left, rgba(177, 30, 45, 0.08), transparent 32%),
+      linear-gradient(180deg, #FCFCFE 0%, #F3F4FA 100%);
+    border-bottom: 1px solid rgba(23,25,40,0.08);
+  }
+  .tonight-hero-grid, .tonight-section-head { display: grid; gap: 1.5rem; }
+  .tonight-kicker, .tonight-section-kicker {
+    display: inline-flex; align-items: center; gap: .35rem; padding: .35rem .7rem; border-radius: 999px;
+    background: rgba(177,30,45,.08); color: var(--accent); font-size: .72rem; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .tonight-title { font-size: clamp(2.5rem, 5vw, 4.6rem); line-height: .97; margin-top: 1rem; letter-spacing: -.04em; max-width: 11ch; }
+  .tonight-lead { margin-top: 1rem; max-width: 43rem; color: var(--text); font-size: 1.02rem; line-height: 1.8; }
+  .tonight-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+  .tonight-btn {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 2.9rem; padding: .7rem 1.1rem;
+    border-radius: 999px; border: 1px solid transparent; font-size: .95rem; font-weight: 700; text-decoration: none;
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+  }
+  .tonight-btn:hover { transform: translateY(-1px); }
+  .tonight-btn-primary { background: var(--accent); color: #fffaf8; box-shadow: 0 12px 30px rgba(177,30,45,.16); }
+  .tonight-btn-primary:hover { background: var(--accent-hover); color: #fffaf8; }
+  .tonight-btn-secondary { background: rgba(255,255,255,.85); border-color: rgba(23,25,40,.1); color: var(--text); }
+  .tonight-intro-card {
+    background: rgba(255,255,255,.92); border: 1px solid rgba(23,25,40,.1); border-radius: 24px; padding: 1.6rem;
+    box-shadow: 0 24px 48px rgba(23,25,40,.08); backdrop-filter: blur(8px);
+  }
+  .tonight-intro-label { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+  .tonight-intro-text { margin-top: .65rem; color: var(--text); font-size: .98rem; line-height: 1.75; }
+  .tonight-intro-list { list-style: none; display: grid; gap: .55rem; margin-top: 1rem; }
+  .tonight-intro-list li { position: relative; padding-left: 1rem; color: var(--text); }
+  .tonight-intro-list li::before { content: ''; position: absolute; left: 0; top: .72rem; width: .35rem; height: .35rem; border-radius: 50%; background: var(--accent); }
+  .tonight-stats {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-top: 1.25rem; padding-top: 1rem;
+    border-top: 1px solid rgba(23,25,40,.08);
+  }
+  .tonight-stat { background: rgba(23,25,40,.03); border-radius: 16px; padding: .85rem .9rem; }
+  .tonight-stat-value { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+  .tonight-stat-label { color: var(--text-3); font-size: .78rem; margin-top: .15rem; }
+  .tonight-content { padding-top: 2.25rem; }
+  .tonight-section { margin-top: 2.4rem; }
+  .tonight-section-title { font-size: clamp(1.7rem, 3vw, 2.6rem); margin-top: .7rem; line-height: 1.03; }
+  .tonight-section-note { color: var(--text); max-width: 42rem; font-size: .96rem; line-height: 1.7; }
+  .tonight-grid { display: grid; gap: 1rem; margin-top: 1.4rem; }
+  .tonight-card-empty {
+    padding: 1.2rem 1.3rem; border-radius: 20px; border: 1px solid rgba(23,25,40,.08); background: rgba(255,255,255,.92);
+    color: var(--text-2); line-height: 1.7;
+  }
+  .tonight-card-empty a { color: var(--accent); font-weight: 700; text-decoration: none; }
+  .tonight-card-empty a:hover { color: var(--accent-hover); }
+  .tonight-venues-grid { display: grid; gap: 1rem; margin-top: 1.4rem; }
+  .tonight-venue-card {
+    display: grid; gap: .8rem; padding: 1rem; border-radius: 24px; background: rgba(255,255,255,.92);
+    border: 1px solid rgba(23,25,40,.08); text-decoration: none; color: inherit; box-shadow: 0 16px 32px rgba(23,25,40,.05);
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .tonight-venue-card:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(23,25,40,.08); border-color: rgba(177,30,45,.18); }
+  .tonight-venue-meta { display: flex; flex-wrap: wrap; gap: .55rem; }
+  .tonight-pill {
+    display: inline-flex; align-items: center; min-height: 2rem; padding: .25rem .65rem; border-radius: 999px; font-size: .78rem; font-weight: 700;
+  }
+  .tonight-pill-accent { background: rgba(177,30,45,.09); color: var(--accent); }
+  .tonight-pill-neutral { background: rgba(23,25,40,.05); color: var(--text-2); }
+  .tonight-venue-title { font-size: 1.2rem; line-height: 1.1; }
+  .tonight-venue-copy { color: var(--text-2); line-height: 1.7; }
+  .tonight-venue-link { color: var(--accent); font-size: .9rem; font-weight: 700; }
+  .tonight-paths { display: grid; gap: 1rem; margin-top: 1.4rem; }
+  .tonight-path-card {
+    padding: 1.2rem; border-radius: 24px; background: rgba(255,255,255,.92);
+    border: 1px solid rgba(23,25,40,.08); box-shadow: 0 16px 32px rgba(23,25,40,.05);
+  }
+  .tonight-path-card h3 { font-size: 1.1rem; margin-bottom: .4rem; }
+  .tonight-path-card p { color: var(--text-2); line-height: 1.7; }
+  .tonight-path-card a { color: var(--accent); text-decoration: none; font-weight: 700; }
+  .tonight-copy-block {
+    margin-top: 1.4rem; padding: 1.3rem; border-radius: 24px; background: rgba(255,255,255,.9);
+    border: 1px solid rgba(23,25,40,.08); color: var(--text); line-height: 1.8;
+  }
+  .tonight-faq { display: grid; gap: .9rem; margin-top: 1.4rem; }
+  .tonight-faq-item {
+    padding: 1rem 1.1rem; border-radius: 20px; background: rgba(255,255,255,.92);
+    border: 1px solid rgba(23,25,40,.08);
+  }
+  .tonight-faq-item h3 { font-size: 1rem; margin-bottom: .35rem; }
+  .tonight-faq-item p { color: var(--text-2); line-height: 1.7; }
+  .tonight-cta {
+    margin-top: 2rem; padding: 1.5rem; border-radius: 24px; background: linear-gradient(135deg, rgba(177,30,45,.07), rgba(23,25,40,.03));
+    border: 1px solid rgba(177,30,45,.12);
+  }
+  .tonight-cta h2 { font-size: 1.45rem; margin-bottom: .45rem; }
+  .tonight-cta p { color: var(--text-2); line-height: 1.7; }
+  .tonight-cta-links { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+  .tonight-cta-links a {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: .65rem 1rem; border-radius: 999px;
+    background: rgba(255,255,255,.92); border: 1px solid rgba(23,25,40,.08); color: var(--text); text-decoration: none; font-weight: 700;
+  }
+  .tonight-cta-links a:hover { color: var(--accent); border-color: rgba(177,30,45,.18); }
+  @media (min-width: 900px) {
+    .tonight-hero-grid, .tonight-section-head { grid-template-columns: minmax(0,1fr) 320px; }
+    .tonight-grid, .tonight-venues-grid, .tonight-paths { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  @media (max-width: 779px) {
+    .tonight-stats { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 639px) {
+    .tonight-hero { padding: 2.25rem 0 1.75rem; }
+    .tonight-title { max-width: none; }
+    .tonight-intro-card, .tonight-venue-card, .tonight-path-card, .tonight-copy-block, .tonight-cta { border-radius: 20px; }
+  }
+ </style>
+</head>
+<body>
+ <nav class="top-bar"><div class="container"><div class="top-bar-inner"><a href="/" class="top-bar-logo">Au théâtre ce soir</a><ul class="top-bar-nav"><li><a href="/">Agenda</a></li><li><a href="cette-semaine.html">Cette semaine</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="blog.html">Blog</a></li><li><a href="a-propos.html">À propos</a></li></ul><button class="hamburger" onclick="document.getElementById('mobile-menu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button></div></div></nav>
+ <div id="mobile-menu" class="mobile-menu"><button class="mobile-menu-close" onclick="document.getElementById('mobile-menu').classList.remove('open')">&times;</button><a href="/">Agenda</a><a href="cette-semaine.html">Cette semaine</a><a href="lieux.html">Lieux</a><a href="blog.html">Blog</a><a href="a-propos.html">À propos</a></div>
+
+ <main class="tonight-page">
+  <section class="tonight-hero">
+   <div class="container tonight-hero-grid">
+    <div>
+      <span class="tonight-kicker">Page d’entrée</span>
+      <h1 class="tonight-title">Théâtre à Bruxelles ce soir</h1>
+      <p class="tonight-lead">Tu cherches une pièce à voir aujourd’hui à Bruxelles ? Cette page rassemble les spectacles visibles ce soir dans l’agenda, avec un accès rapide aux lieux, aux horaires et aux autres portes d’entrée du site.</p>
+      <div class="tonight-actions">
+        <a id="tonight-agenda-link" href="/" class="tonight-btn tonight-btn-primary">Voir l’agenda complet d’aujourd’hui</a>
+        <a href="cette-semaine.html" class="tonight-btn tonight-btn-secondary">Voir cette semaine</a>
+      </div>
+    </div>
+    <aside class="tonight-intro-card">
+      <p class="tonight-intro-label">Ce que tu trouves ici</p>
+      <p id="tonight-subtitle" class="tonight-intro-text">Chargement des spectacles visibles aujourd’hui…</p>
+      <ul class="tonight-intro-list">
+        <li>une sélection lisible du jour</li>
+        <li>des lieux à suivre régulièrement</li>
+        <li>des liens pour continuer par l’agenda ou les fiches lieu</li>
+      </ul>
+      <div class="tonight-stats">
+        <div class="tonight-stat"><div id="tonight-stat-reps" class="tonight-stat-value">—</div><div class="tonight-stat-label">représentations visibles</div></div>
+        <div class="tonight-stat"><div id="tonight-stat-venues" class="tonight-stat-value">—</div><div class="tonight-stat-label">lieux repérés aujourd’hui</div></div>
+        <div class="tonight-stat"><div id="tonight-stat-date" class="tonight-stat-value">Ce soir</div><div class="tonight-stat-label">mise à jour en temps réel</div></div>
+      </div>
+    </aside>
+   </div>
+  </section>
+
+  <section class="tonight-content">
+   <div class="container">
+    <div class="tonight-section-head">
+      <div>
+        <p class="tonight-section-kicker">Sortir ce soir</p>
+        <h2 class="tonight-section-title">Que voir au théâtre à Bruxelles aujourd’hui ?</h2>
+      </div>
+      <p class="tonight-section-note">Une sélection courte pour choisir vite. Pour le panorama complet, tu peux ensuite revenir à l’agenda du jour.</p>
+    </div>
+    <div id="tonight-grid" class="tonight-grid">
+      <div class="spinner-wrap"><div class="spinner"></div></div>
+    </div>
+
+    <section class="tonight-section">
+      <div class="tonight-section-head">
+        <div>
+          <p class="tonight-section-kicker">Quelques repères</p>
+          <h2 class="tonight-section-title">Quelques lieux à regarder en priorité ce soir</h2>
+        </div>
+        <p class="tonight-section-note">Si tu préfères choisir par salle plutôt que par spectacle, ces lieux donnent déjà une bonne carte d’entrée dans le théâtre bruxellois.</p>
+      </div>
+      <div class="tonight-venues-grid">
+        <a class="tonight-venue-card" href="/lieu/les-tanneurs/"><div class="tonight-venue-meta"><span class="tonight-pill tonight-pill-accent">Bruxelles centre</span><span class="tonight-pill tonight-pill-neutral">Création contemporaine</span></div><h3 class="tonight-venue-title">Théâtre Les Tanneurs</h3><p class="tonight-venue-copy">Un lieu important pour suivre la création contemporaine à Bruxelles sans passer uniquement par les grandes maisons.</p><span class="tonight-venue-link">Voir la fiche lieu →</span></a>
+        <a class="tonight-venue-card" href="/lieu/theatre-de-poche/"><div class="tonight-venue-meta"><span class="tonight-pill tonight-pill-accent">Bois de la Cambre</span><span class="tonight-pill tonight-pill-neutral">Lieu emblématique</span></div><h3 class="tonight-venue-title">Théâtre de Poche</h3><p class="tonight-venue-copy">Une scène très identifiable, utile dès qu’on cherche un lieu avec une vraie personnalité dans le paysage bruxellois.</p><span class="tonight-venue-link">Voir la fiche lieu →</span></a>
+        <a class="tonight-venue-card" href="/lieu/theatre-de-la-vie/"><div class="tonight-venue-meta"><span class="tonight-pill tonight-pill-accent">Saint-Josse</span><span class="tonight-pill tonight-pill-neutral">Jeune création</span></div><h3 class="tonight-venue-title">Théâtre de la Vie</h3><p class="tonight-venue-copy">Un bon repère si tu veux regarder du côté des écritures d’aujourd’hui, des formes plus contemporaines et des petites salles.</p><span class="tonight-venue-link">Voir la fiche lieu →</span></a>
+        <a class="tonight-venue-card" href="/lieu/le-rideau/"><div class="tonight-venue-meta"><span class="tonight-pill tonight-pill-accent">Ixelles</span><span class="tonight-pill tonight-pill-neutral">Maison reconnue</span></div><h3 class="tonight-venue-title">Le Rideau</h3><p class="tonight-venue-copy">Un lieu très utile pour celles et ceux qui veulent passer d’une recherche “où sortir ce soir ?” à une salle déjà bien identifiée.</p><span class="tonight-venue-link">Voir la fiche lieu →</span></a>
+        <a class="tonight-venue-card" href="/lieu/studio-varia/"><div class="tonight-venue-meta"><span class="tonight-pill tonight-pill-accent">Ixelles</span><span class="tonight-pill tonight-pill-neutral">Programmation régulière</span></div><h3 class="tonight-venue-title">Studio Varia</h3><p class="tonight-venue-copy">Un repère simple à garder en tête si tu veux explorer Bruxelles par quartiers et pas seulement par institutions.</p><span class="tonight-venue-link">Voir la fiche lieu →</span></a>
+        <a class="tonight-venue-card" href="/lieu/theatre-ocean-nord/"><div class="tonight-venue-meta"><span class="tonight-pill tonight-pill-accent">Schaerbeek</span><span class="tonight-pill tonight-pill-neutral">Lieu de création</span></div><h3 class="tonight-venue-title">Théâtre Océan Nord</h3><p class="tonight-venue-copy">Une adresse utile si tu veux regarder Bruxelles comme une constellation de scènes, pas seulement comme un centre culturel unique.</p><span class="tonight-venue-link">Voir la fiche lieu →</span></a>
+      </div>
+    </section>
+
+    <section class="tonight-section">
+      <div class="tonight-section-head">
+        <div>
+          <p class="tonight-section-kicker">Continuer</p>
+          <h2 class="tonight-section-title">Et si tu cherches plus que ce soir ?</h2>
+        </div>
+        <p class="tonight-section-note">Tu peux élargir la recherche par semaine, par lieu ou revenir au flux complet de l’agenda.</p>
+      </div>
+      <div class="tonight-paths">
+        <article class="tonight-path-card"><h3>Préparer une sortie cette semaine</h3><p>Si tu veux comparer plusieurs soirs plutôt que choisir uniquement aujourd’hui, la sélection hebdomadaire reste la meilleure porte d’entrée.</p><a href="cette-semaine.html">Voir théâtre à Bruxelles cette semaine →</a></article>
+        <article class="tonight-path-card"><h3>Choisir par salle</h3><p>Si tu connais déjà un lieu ou un quartier, la page lieux te donne une cartographie beaucoup plus simple que la navigation au hasard.</p><a href="lieux.html">Explorer les lieux de théâtre →</a></article>
+      </div>
+    </section>
+
+    <section class="tonight-section">
+      <div class="tonight-section-head">
+        <div>
+          <p class="tonight-section-kicker">Un peu d’orientation</p>
+          <h2 class="tonight-section-title">Comment trouver une pièce ce soir à Bruxelles ?</h2>
+        </div>
+      </div>
+      <div class="tonight-copy-block">Le plus simple est de commencer par les spectacles visibles aujourd’hui, puis de regarder les lieux qui correspondent à ton envie : petites salles, scènes de création, maisons plus installées. Bruxelles a une offre théâtrale très dispersée d’un quartier à l’autre, donc cette page sert surtout à éviter de perdre du temps entre plusieurs sites, plusieurs billetteries et plusieurs salles difficiles à comparer au premier coup d’œil.</div>
+    </section>
+
+    <section class="tonight-section">
+      <div class="tonight-section-head">
+        <div>
+          <p class="tonight-section-kicker">Questions fréquentes</p>
+          <h2 class="tonight-section-title">Chercher du théâtre ce soir à Bruxelles, concrètement</h2>
+        </div>
+      </div>
+      <div class="tonight-faq">
+        <article class="tonight-faq-item"><h3>Où voir du théâtre ce soir à Bruxelles ?</h3><p>Cette page rassemble les spectacles visibles aujourd’hui dans l’agenda d’Au théâtre ce soir, avec un accès rapide aux lieux, aux horaires et aux fiches spectacle quand elles existent.</p></article>
+        <article class="tonight-faq-item"><h3>Comment trouver une pièce de théâtre aujourd’hui à Bruxelles ?</h3><p>Tu peux commencer par les représentations du jour, puis affiner par lieu si tu connais déjà une salle comme Les Tanneurs, Le Rideau, le Théâtre de Poche ou le Théâtre National.</p></article>
+        <article class="tonight-faq-item"><h3>Quels théâtres regarder ce soir à Bruxelles ?</h3><p>Cela dépend du quartier et du type de soirée que tu cherches, mais certaines salles reviennent souvent dans l’agenda : Les Tanneurs, le Théâtre de la Vie, Studio Varia, Le Rideau, le Théâtre de Poche ou encore le Théâtre National.</p></article>
+        <article class="tonight-faq-item"><h3>Y a-t-il du théâtre tous les soirs à Bruxelles ?</h3><p>L’offre varie selon les jours, les périodes et les lieux, mais Bruxelles propose très régulièrement des représentations dans plusieurs salles le même soir.</p></article>
+      </div>
+    </section>
+
+    <section class="tonight-cta">
+      <h2>Continuer l’exploration</h2>
+      <p>Tu peux revenir à l’agenda complet, préparer les prochains jours ou passer par les fiches lieu si tu préfères découvrir Bruxelles scène par scène.</p>
+      <div class="tonight-cta-links">
+        <a id="tonight-cta-agenda" href="/">Voir l’agenda complet</a>
+        <a href="cette-semaine.html">Voir cette semaine</a>
+        <a href="lieux.html">Explorer les lieux</a>
+      </div>
+    </section>
+   </div>
+  </section>
+ </main>
+
+ <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-section"><h4>Au théâtre ce soir</h4><p class="footer-tagline">Un agenda indépendant pour découvrir le théâtre à Bruxelles.</p></div><div class="footer-section"><h4>Newsletter</h4><p>Chaque lundi, les 10 spectacles à ne pas rater.</p><form class="newsletter-form"><input type="email" class="newsletter-input" placeholder="votre@email.be" required><button type="submit" class="newsletter-btn">OK</button></form></div><div class="footer-section"><h4>Navigation</h4><ul class="footer-nav"><li><a href="/">Agenda</a></li><li><a href="theatre-bruxelles-ce-soir.html">Ce soir</a></li><li><a href="cette-semaine.html">Cette semaine</a></li><li><a href="lieux.html">Lieux</a></li><li><a href="a-propos.html">À propos</a></li></ul></div></div><div class="footer-bottom"><p>Au théâtre ce soir — agenda indépendant du théâtre à Bruxelles.</p></div></div></footer>
+ <nav class="bottom-tabs"><a href="/" class="bottom-tab">Agenda</a><a href="theatre-bruxelles-ce-soir.html" class="bottom-tab active">Ce soir</a><a href="cette-semaine.html" class="bottom-tab">Semaine</a><a href="lieux.html" class="bottom-tab">Lieux</a><a href="a-propos.html" class="bottom-tab">Plus</a></nav>
+
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+ <script src="js/config.js?v=20260219-2"></script>
+ <script src="js/utils.js?v=20260219-2"></script>
+ <script src="js/theatre-tonight.js?v=20260418-1"></script>
+</body>
+</html>

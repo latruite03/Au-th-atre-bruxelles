@@ -16,6 +16,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://autheatre.brussels/theatre-bruxelles-ce-soir.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://autheatre.brussels/a-propos.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
