@@ -32,6 +32,11 @@ window.THEATRES_INFO = [
     official_url: 'https://varia.be',
   },
   {
+    theatre_nom: 'Théâtre Le Public',
+    slug: 'le-public',
+    official_url: 'https://www.theatrelepublic.be',
+  },
+  {
     theatre_nom: 'Théâtre Mercelis',
     slug: 'theatre-mercelis',
     official_url: 'https://culture.ixelles.be/fr/mercelis/',

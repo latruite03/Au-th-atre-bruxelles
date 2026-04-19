@@ -356,6 +356,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://autheatre.brussels/lieu/le-public/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://autheatre.brussels/lieu/theatre-mercelis/</loc>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

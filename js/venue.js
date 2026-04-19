@@ -82,14 +82,18 @@
   if (statAreaEl) statAreaEl.textContent = initialArea
 
   // SEO meta
-  setMetaTag('description', 'Prochains spectacles et informations pratiques pour ' + info.theatre_nom + ' 0 Bruxelles.')
-  setMetaProperty('og:title', info.theatre_nom + ' — Lieu — Au théâtre ce soir')
-  setMetaProperty('og:description', 'Prochains spectacles et informations pratiques pour ' + info.theatre_nom + ' 0 Bruxelles.')
+  var defaultMetaDescription = info.theatre_nom + ' à Bruxelles : prochaines dates, repères pratiques et spectacles à voir dans ce lieu du théâtre bruxellois.'
+  var metaDescription = pageCopy.metaDescription || defaultMetaDescription
+  var pageTitle = pageCopy.metaTitle || (info.theatre_nom + ' : programmation et spectacles à Bruxelles — Au théâtre ce soir')
+  var ogTitle = pageCopy.ogTitle || (info.theatre_nom + ' — Au théâtre ce soir')
+  setMetaTag('description', metaDescription)
+  setMetaProperty('og:title', ogTitle)
+  setMetaProperty('og:description', pageCopy.ogDescription || metaDescription)
   setMetaProperty('og:type', 'website')
   setMetaProperty('og:locale', 'fr_BE')
   setMetaProperty('og:site_name', 'Au théâtre ce soir')
   setMetaProperty('og:url', 'https://autheatre.brussels/lieu/' + info.slug + '/')
-  document.title = info.theatre_nom + ' — Lieu — Au théâtre ce soir'
+  document.title = pageTitle
   setCanonical('https://autheatre.brussels/lieu/' + info.slug + '/')
 
   if (info.official_url) {
